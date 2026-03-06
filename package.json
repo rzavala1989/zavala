@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "description": "Ricardo Zavala — Principal Engineer portfolio",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "npx serve .",
-    "build": "echo 'No build step required'"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.18.0"
   }
 }
