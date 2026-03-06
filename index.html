@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricardo Zavala — Principal Engineer</title>
+  <meta name="description" content="Ricardo Zavala — Principal Engineer. Portfolio coming soon.">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #faf9f7;
+      color: #1a1a1a;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .name {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #6b6560;
+      margin-top: 1.2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background-color: #c8c2bc;
+      margin: 2.4rem auto;
+      opacity: 0;
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    }
+
+    .link {
+      display: inline-block;
+      font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+      font-weight: 500;
+      color: #1a1a1a;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      padding: 0.4rem 0;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+      transition: color 0.3s ease;
+    }
+
+    .link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #1a1a1a;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .link:hover {
+      color: #8b7355;
+    }
+
+    .link:hover::after {
+      background-color: #8b7355;
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .soon {
+      font-size: clamp(0.75rem, 1.2vw, 0.8rem);
+      font-weight: 400;
+      color: #b0aaa4;
+      letter-spacing: 0.08em;
+      margin-top: 4rem;
+      opacity: 0;
+      animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .divider {
+        margin: 1.8rem auto;
+      }
+
+      .soon {
+        margin-top: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1 class="name">Ricardo Zavala</h1>
+    <p class="title">Principal Engineer</p>
+    <div class="divider"></div>
+    <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">github.com/rzavala1989</a>
+    <p class="soon">More coming soon.</p>
+  </main>
+</body>
+</html>
