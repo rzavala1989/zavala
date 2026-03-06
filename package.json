@@ -1,0 +1,10 @@
+{
+  "name": "zavala",
+  "version": "0.1.0",
+  "description": "Ricardo Zavala — Principal Engineer portfolio",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step required'"
+  }
+}
