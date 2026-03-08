@@ -4,7 +4,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Ricardo Zavala — Principal Engineer. Portfolio coming soon.' } = Astro.props;
+const { title, description = 'Ricardo Zavala — Senior Full Stack Engineer based in Henderson, NV.' } = Astro.props;
 ---
 
 <!doctype html>
@@ -26,6 +26,20 @@ const { title, description = 'Ricardo Zavala — Principal Engineer. Portfolio c
 </html>
 
 <style is:global>
+  :root {
+    --color-bg: #faf9f7;
+    --color-text: #1a1a1a;
+    --color-secondary: #6b6560;
+    --color-accent: #8b7355;
+    --color-divider: #c8c2bc;
+    --color-muted: #b0aaa4;
+    --font-heading: 'Instrument Serif', Georgia, serif;
+    --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --section-padding: clamp(4rem, 10vh, 8rem);
+    --content-max-width: 1100px;
+  }
+
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -33,20 +47,17 @@ const { title, description = 'Ricardo Zavala — Principal Engineer. Portfolio c
   }
 
   html {
-    height: 100%;
+    scroll-behavior: smooth;
   }
 
   body {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #faf9f7;
-    color: #1a1a1a;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
   }
 
   @keyframes fadeUp {
@@ -59,6 +70,17 @@ const { title, description = 'Ricardo Zavala — Principal Engineer. Portfolio c
   @keyframes fadeIn {
     to {
       opacity: 1;
+    }
+  }
+
+  @keyframes revealUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>

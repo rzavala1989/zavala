@@ -1,0 +1,201 @@
+---
+const jobs = [
+  {
+    company: 'Axon',
+    title: 'Senior Full Stack Engineer',
+    period: '2025',
+    summary: 'Built secure, multi-tenant law enforcement data platforms with AI-powered enrichment pipelines at the global leader in connected public safety.'
+  },
+  {
+    company: 'Accenture Federal Services',
+    title: 'Senior Full Stack Engineer',
+    period: '2022 - 2025',
+    summary: 'Delivered high-scale applications for USPS serving millions of daily users, from real-time GIS mapping to PCI-compliant payment systems.'
+  },
+  {
+    company: 'Cigna',
+    title: 'Full Stack Engineer',
+    period: '2022',
+    summary: 'Worked on healthcare platforms serving millions of members, building shared component libraries and observability tooling.'
+  },
+  {
+    company: 'Touch To',
+    title: 'Frontend Engineer',
+    period: '2021 - 2022',
+    summary: 'Architected micro-frontend systems and real-time dashboards for digital ordering in hospitality and defense sectors.'
+  },
+  {
+    company: 'Zappos',
+    title: 'Web and Mobile Developer',
+    period: '2018 - 2021',
+    summary: 'Built customer-facing e-commerce features at scale, including PWAs and payment systems handling 18M+ monthly transactions.'
+  },
+  {
+    company: 'Vegas.com',
+    title: 'Web Development Intern',
+    period: '2016 - 2017',
+    summary: 'Cut teeth on production web development at a major online travel platform. Built tooling, learned the ropes, broke some stuff.'
+  }
+];
+---
+
+<section class="timeline-section" id="experience">
+  <h2 class="section-heading">Experience</h2>
+  <div class="timeline">
+    {jobs.map((job, i) => (
+      <div class="timeline-item" style={`--delay: ${i * 0.1}s`}>
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <span class="timeline-period">{job.period}</span>
+          <h3 class="timeline-company">{job.company}</h3>
+          <p class="timeline-title">{job.title}</p>
+          <p class="timeline-summary">{job.summary}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  document.querySelectorAll('.timeline-item').forEach((item) => {
+    observer.observe(item);
+  });
+</script>
+
+<style>
+  .timeline-section {
+    padding: var(--section-padding) 1.5rem;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+  }
+
+  .section-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2.5rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background-color: var(--color-divider);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    transition-delay: var(--delay);
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -2.5rem;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    border: 3px solid var(--color-bg);
+    z-index: 1;
+  }
+
+  .timeline-content {
+    padding-left: 0.5rem;
+  }
+
+  .timeline-period {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-company {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .timeline-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    margin-top: 0.2rem;
+  }
+
+  .timeline-summary {
+    font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+    line-height: 1.6;
+    color: var(--color-secondary);
+    margin-top: 0.6rem;
+    max-width: 36rem;
+  }
+
+  @media (max-width: 768px) {
+    .timeline {
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      left: 3px;
+    }
+
+    .timeline-marker {
+      left: -2rem;
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .timeline-section {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .timeline-item {
+      padding-bottom: 2.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,405 @@
+---
+---
+
+<section class="sankey-section" id="skills">
+  <h2 class="section-heading">Skills Across My Career</h2>
+  <p class="section-subtitle">Hover over any node to trace the connections</p>
+  <div class="sankey-wrapper">
+    <div class="sankey-container" id="sankey-chart"></div>
+  </div>
+</section>
+
+<script>
+  import { sankey as d3Sankey, sankeyLinkHorizontal, sankeyJustify } from 'd3-sankey';
+  import { select, selectAll } from 'd3-selection';
+  import { scaleOrdinal } from 'd3-scale';
+
+  const nodes = [
+    { id: 'Languages' },
+    { id: 'Frontend' },
+    { id: 'Backend' },
+    { id: 'Cloud' },
+    { id: 'Data' },
+    { id: 'Testing' },
+
+    { id: 'JavaScript' },
+    { id: 'TypeScript' },
+    { id: 'Python' },
+    { id: 'Go' },
+    { id: 'Java' },
+    { id: 'C#' },
+    { id: 'SQL' },
+    { id: 'React' },
+    { id: 'Next.js' },
+    { id: 'Redux / Zustand' },
+    { id: 'Node.js' },
+    { id: 'Spring Boot' },
+    { id: '.NET Core' },
+    { id: 'FastAPI' },
+    { id: 'AWS' },
+    { id: 'Azure' },
+    { id: 'PostgreSQL' },
+    { id: 'MongoDB' },
+    { id: 'Redis' },
+    { id: 'Elasticsearch' },
+    { id: 'Jest' },
+    { id: 'Playwright' },
+
+    { id: 'Vegas.com' },
+    { id: 'Zappos' },
+    { id: 'Touch To' },
+    { id: 'Cigna' },
+    { id: 'Accenture' },
+    { id: 'Axon' },
+  ];
+
+  const links = [
+    // Category -> Tech
+    { source: 'Languages', target: 'JavaScript', value: 5 },
+    { source: 'Languages', target: 'TypeScript', value: 4 },
+    { source: 'Languages', target: 'Python', value: 2 },
+    { source: 'Languages', target: 'Go', value: 2 },
+    { source: 'Languages', target: 'Java', value: 2 },
+    { source: 'Languages', target: 'C#', value: 1 },
+    { source: 'Languages', target: 'SQL', value: 5 },
+
+    { source: 'Frontend', target: 'React', value: 6 },
+    { source: 'Frontend', target: 'Next.js', value: 3 },
+    { source: 'Frontend', target: 'Redux / Zustand', value: 4 },
+
+    { source: 'Backend', target: 'Node.js', value: 4 },
+    { source: 'Backend', target: 'Spring Boot', value: 2 },
+    { source: 'Backend', target: '.NET Core', value: 2 },
+    { source: 'Backend', target: 'FastAPI', value: 2 },
+
+    { source: 'Cloud', target: 'AWS', value: 5 },
+    { source: 'Cloud', target: 'Azure', value: 2 },
+
+    { source: 'Data', target: 'PostgreSQL', value: 5 },
+    { source: 'Data', target: 'MongoDB', value: 3 },
+    { source: 'Data', target: 'Redis', value: 3 },
+    { source: 'Data', target: 'Elasticsearch', value: 2 },
+
+    { source: 'Testing', target: 'Jest', value: 4 },
+    { source: 'Testing', target: 'Playwright', value: 2 },
+
+    // Tech -> Company
+    { source: 'JavaScript', target: 'Vegas.com', value: 1 },
+    { source: 'SQL', target: 'Vegas.com', value: 1 },
+    { source: 'React', target: 'Vegas.com', value: 1 },
+    { source: 'Node.js', target: 'Vegas.com', value: 1 },
+    { source: 'Jest', target: 'Vegas.com', value: 1 },
+
+    { source: 'JavaScript', target: 'Zappos', value: 1 },
+    { source: 'TypeScript', target: 'Zappos', value: 1 },
+    { source: 'SQL', target: 'Zappos', value: 1 },
+    { source: 'React', target: 'Zappos', value: 1 },
+    { source: 'Redux / Zustand', target: 'Zappos', value: 1 },
+    { source: 'Node.js', target: 'Zappos', value: 1 },
+    { source: 'AWS', target: 'Zappos', value: 1 },
+    { source: 'PostgreSQL', target: 'Zappos', value: 1 },
+    { source: 'MongoDB', target: 'Zappos', value: 1 },
+    { source: 'Redis', target: 'Zappos', value: 1 },
+    { source: 'Jest', target: 'Zappos', value: 1 },
+
+    { source: 'TypeScript', target: 'Touch To', value: 1 },
+    { source: 'React', target: 'Touch To', value: 1 },
+    { source: 'Next.js', target: 'Touch To', value: 1 },
+    { source: 'Node.js', target: 'Touch To', value: 1 },
+    { source: 'AWS', target: 'Touch To', value: 1 },
+    { source: 'PostgreSQL', target: 'Touch To', value: 1 },
+    { source: 'Jest', target: 'Touch To', value: 1 },
+    { source: 'Playwright', target: 'Touch To', value: 1 },
+
+    { source: 'TypeScript', target: 'Cigna', value: 1 },
+    { source: 'React', target: 'Cigna', value: 1 },
+    { source: 'Next.js', target: 'Cigna', value: 1 },
+    { source: 'Node.js', target: 'Cigna', value: 1 },
+    { source: 'AWS', target: 'Cigna', value: 1 },
+    { source: 'PostgreSQL', target: 'Cigna', value: 1 },
+    { source: 'Elasticsearch', target: 'Cigna', value: 1 },
+    { source: 'Playwright', target: 'Cigna', value: 1 },
+
+    { source: 'JavaScript', target: 'Accenture', value: 1 },
+    { source: 'TypeScript', target: 'Accenture', value: 1 },
+    { source: 'Python', target: 'Accenture', value: 1 },
+    { source: 'Go', target: 'Accenture', value: 1 },
+    { source: 'SQL', target: 'Accenture', value: 1 },
+    { source: 'React', target: 'Accenture', value: 1 },
+    { source: 'Next.js', target: 'Accenture', value: 1 },
+    { source: 'Redux / Zustand', target: 'Accenture', value: 1 },
+    { source: 'FastAPI', target: 'Accenture', value: 1 },
+    { source: 'AWS', target: 'Accenture', value: 1 },
+    { source: 'Azure', target: 'Accenture', value: 1 },
+    { source: 'PostgreSQL', target: 'Accenture', value: 1 },
+    { source: 'MongoDB', target: 'Accenture', value: 1 },
+    { source: 'Redis', target: 'Accenture', value: 1 },
+    { source: 'Elasticsearch', target: 'Accenture', value: 1 },
+    { source: 'Playwright', target: 'Accenture', value: 1 },
+
+    { source: 'JavaScript', target: 'Axon', value: 1 },
+    { source: 'TypeScript', target: 'Axon', value: 1 },
+    { source: 'Python', target: 'Axon', value: 1 },
+    { source: 'Go', target: 'Axon', value: 1 },
+    { source: 'Java', target: 'Axon', value: 1 },
+    { source: 'C#', target: 'Axon', value: 1 },
+    { source: 'SQL', target: 'Axon', value: 1 },
+    { source: 'React', target: 'Axon', value: 1 },
+    { source: 'Redux / Zustand', target: 'Axon', value: 1 },
+    { source: 'Spring Boot', target: 'Axon', value: 1 },
+    { source: '.NET Core', target: 'Axon', value: 1 },
+    { source: 'FastAPI', target: 'Axon', value: 1 },
+    { source: 'AWS', target: 'Axon', value: 1 },
+    { source: 'Azure', target: 'Axon', value: 1 },
+    { source: 'PostgreSQL', target: 'Axon', value: 1 },
+    { source: 'MongoDB', target: 'Axon', value: 1 },
+    { source: 'Redis', target: 'Axon', value: 1 },
+    { source: 'Jest', target: 'Axon', value: 1 },
+    { source: 'Playwright', target: 'Axon', value: 1 },
+  ];
+
+  const categoryColors: Record<string, string> = {
+    'Languages': '#8b7355',
+    'Frontend': '#a07850',
+    'Backend': '#6b6560',
+    'Cloud': '#9b8b7a',
+    'Data': '#7a6b5e',
+    'Testing': '#b0a090',
+  };
+
+  const categories = new Set(Object.keys(categoryColors));
+  const companies = new Set(['Vegas.com', 'Zappos', 'Touch To', 'Cigna', 'Accenture', 'Axon']);
+
+  function getNodeColor(id: string): string {
+    if (categoryColors[id]) return categoryColors[id];
+    if (companies.has(id)) return '#1a1a1a';
+    return '#6b6560';
+  }
+
+  function getLinkColor(source: any): string {
+    const sourceId = typeof source === 'object' ? source.id : source;
+    if (categoryColors[sourceId]) return categoryColors[sourceId];
+    return '#c8c2bc';
+  }
+
+  function clearContainer(el: HTMLElement) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+  }
+
+  function renderSankey() {
+    const container = document.getElementById('sankey-chart');
+    if (!container) return;
+
+    clearContainer(container);
+
+    const containerWidth = container.clientWidth;
+    const margin = { top: 16, right: 140, bottom: 16, left: 120 };
+    const width = Math.max(600, containerWidth) - margin.left - margin.right;
+    const height = Math.max(550, width * 0.55);
+
+    const svg = select(container)
+      .append('svg')
+      .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+      .attr('preserveAspectRatio', 'xMidYMid meet')
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const sankeyGenerator = d3Sankey()
+      .nodeId((d: any) => d.id)
+      .nodeAlign(sankeyJustify)
+      .nodeWidth(14)
+      .nodePadding(6)
+      .extent([[0, 0], [width, height]]);
+
+    const graph = sankeyGenerator({
+      nodes: nodes.map(d => ({ ...d })),
+      links: links.map(d => ({ ...d }))
+    });
+
+    const link = svg.append('g')
+      .attr('fill', 'none')
+      .selectAll('path')
+      .data(graph.links)
+      .join('path')
+      .attr('d', sankeyLinkHorizontal())
+      .attr('stroke', (d: any) => getLinkColor(d.source))
+      .attr('stroke-width', (d: any) => Math.max(1, d.width))
+      .attr('opacity', 0.25)
+      .attr('class', 'sankey-link');
+
+    const node = svg.append('g')
+      .selectAll('g')
+      .data(graph.nodes)
+      .join('g')
+      .attr('class', 'sankey-node');
+
+    node.append('rect')
+      .attr('x', (d: any) => d.x0)
+      .attr('y', (d: any) => d.y0)
+      .attr('height', (d: any) => Math.max(1, d.y1 - d.y0))
+      .attr('width', (d: any) => d.x1 - d.x0)
+      .attr('fill', (d: any) => getNodeColor(d.id))
+      .attr('rx', 2);
+
+    node.append('text')
+      .attr('x', (d: any) => {
+        if (categories.has(d.id)) return d.x0 - 8;
+        if (companies.has(d.id)) return d.x1 + 8;
+        return (d.x0 + d.x1) / 2;
+      })
+      .attr('y', (d: any) => (d.y0 + d.y1) / 2)
+      .attr('dy', '0.35em')
+      .attr('text-anchor', (d: any) => {
+        if (categories.has(d.id)) return 'end';
+        if (companies.has(d.id)) return 'start';
+        return 'middle';
+      })
+      .text((d: any) => d.id)
+      .attr('font-family', 'Satoshi, sans-serif')
+      .attr('font-size', (d: any) => {
+        if (categories.has(d.id) || companies.has(d.id)) return '12px';
+        return '10px';
+      })
+      .attr('font-weight', (d: any) => {
+        if (categories.has(d.id) || companies.has(d.id)) return '500';
+        return '400';
+      })
+      .attr('fill', '#1a1a1a')
+      .attr('opacity', (d: any) => {
+        if (!categories.has(d.id) && !companies.has(d.id)) return 0;
+        return 1;
+      });
+
+    // Hover: nodes
+    node.on('mouseenter', function(_event: any, d: any) {
+      const connectedLinks = new Set<any>();
+      const connectedNodes = new Set<string>();
+      connectedNodes.add(d.id);
+
+      graph.links.forEach((l: any) => {
+        const srcId = typeof l.source === 'object' ? l.source.id : l.source;
+        const tgtId = typeof l.target === 'object' ? l.target.id : l.target;
+        if (srcId === d.id || tgtId === d.id) {
+          connectedLinks.add(l);
+          connectedNodes.add(srcId);
+          connectedNodes.add(tgtId);
+        }
+      });
+
+      link
+        .attr('opacity', (l: any) => connectedLinks.has(l) ? 0.55 : 0.05)
+        .attr('stroke-width', (l: any) => connectedLinks.has(l) ? Math.max(2, l.width) : Math.max(1, l.width));
+
+      node.select('rect')
+        .attr('opacity', (n: any) => connectedNodes.has(n.id) ? 1 : 0.15);
+      node.select('text')
+        .attr('opacity', (n: any) => connectedNodes.has(n.id) ? 1 : 0.1);
+    });
+
+    node.on('mouseleave', function() {
+      link
+        .attr('opacity', 0.25)
+        .attr('stroke-width', (d: any) => Math.max(1, d.width));
+      node.select('rect').attr('opacity', 1);
+      node.select('text').attr('opacity', (d: any) => {
+        if (!categories.has(d.id) && !companies.has(d.id)) return 0;
+        return 1;
+      });
+    });
+
+    // Hover: links
+    link.on('mouseenter', function(_event: any, d: any) {
+      const srcId = typeof d.source === 'object' ? d.source.id : d.source;
+      const tgtId = typeof d.target === 'object' ? d.target.id : d.target;
+      const connected = new Set([srcId, tgtId]);
+
+      link.attr('opacity', (l: any) => l === d ? 0.6 : 0.05);
+      node.select('rect').attr('opacity', (n: any) => connected.has(n.id) ? 1 : 0.15);
+      node.select('text').attr('opacity', (n: any) => connected.has(n.id) ? 1 : 0.1);
+    });
+
+    link.on('mouseleave', function() {
+      link.attr('opacity', 0.25);
+      node.select('rect').attr('opacity', 1);
+      node.select('text').attr('opacity', (d: any) => {
+        if (!categories.has(d.id) && !companies.has(d.id)) return 0;
+        return 1;
+      });
+    });
+  }
+
+  renderSankey();
+
+  let resizeTimer: number;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(renderSankey, 250);
+  });
+</script>
+
+<style>
+  .sankey-section {
+    padding: var(--section-padding) 1.5rem;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+  }
+
+  .section-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    letter-spacing: 0.03em;
+    margin-bottom: 2.5rem;
+  }
+
+  .sankey-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sankey-container {
+    min-width: 700px;
+    width: 100%;
+  }
+
+  .sankey-container :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .sankey-container :global(.sankey-link) {
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  .sankey-container :global(.sankey-node rect) {
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  .sankey-container :global(.sankey-node text) {
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    user-select: none;
+  }
+
+  @media (max-width: 768px) {
+    .sankey-section {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+</style>

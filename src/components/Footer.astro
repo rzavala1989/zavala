@@ -1,0 +1,115 @@
+---
+---
+
+<footer class="footer" id="contact">
+  <div class="footer-content">
+    <div class="footer-text">
+      <h2 class="footer-heading">Let's connect</h2>
+      <p class="footer-bio">
+        Always interested in challenging problems, interesting teams, and the occasional bad pun.
+      </p>
+      <div class="footer-links">
+        <a class="footer-link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="footer-link" href="https://linkedin.com/in/rzavala1989" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="footer-link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Ricardo Zavala</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: #f5f3f0;
+    padding: var(--section-padding) 1.5rem 2rem;
+  }
+
+  .footer-content {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .footer-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .footer-bio {
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+    line-height: 1.6;
+    color: var(--color-secondary);
+    max-width: 28rem;
+    margin: 0 auto 2rem;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .footer-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    padding: 0.4rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-text);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .footer-link:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-link:hover::after {
+    background-color: var(--color-accent);
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .footer-bottom {
+    max-width: var(--content-max-width);
+    margin: 4rem auto 0;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 480px) {
+    .footer {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .footer-links {
+      gap: 1.5rem;
+    }
+  }
+</style>
