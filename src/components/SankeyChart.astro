@@ -22,7 +22,6 @@
     { id: 'Data' },
     { id: 'Testing' },
 
-    { id: 'JavaScript' },
     { id: 'TypeScript' },
     { id: 'Python' },
     { id: 'Go' },
@@ -30,10 +29,10 @@
     { id: 'C#' },
     { id: 'SQL' },
     { id: 'React' },
+    { id: 'Angular' },
     { id: 'Next.js' },
     { id: 'Redux / Zustand' },
     { id: 'Node.js' },
-    { id: 'Spring Boot' },
     { id: '.NET Core' },
     { id: 'FastAPI' },
     { id: 'AWS' },
@@ -51,12 +50,12 @@
     { id: 'Cigna' },
     { id: 'Accenture' },
     { id: 'Axon' },
+    { id: 'INL' },
   ];
 
   const links = [
     // Category -> Tech
-    { source: 'Languages', target: 'JavaScript', value: 5 },
-    { source: 'Languages', target: 'TypeScript', value: 4 },
+    { source: 'Languages', target: 'TypeScript', value: 5 },
     { source: 'Languages', target: 'Python', value: 2 },
     { source: 'Languages', target: 'Go', value: 2 },
     { source: 'Languages', target: 'Java', value: 2 },
@@ -64,11 +63,11 @@
     { source: 'Languages', target: 'SQL', value: 5 },
 
     { source: 'Frontend', target: 'React', value: 6 },
+    { source: 'Frontend', target: 'Angular', value: 2 },
     { source: 'Frontend', target: 'Next.js', value: 3 },
     { source: 'Frontend', target: 'Redux / Zustand', value: 4 },
 
     { source: 'Backend', target: 'Node.js', value: 4 },
-    { source: 'Backend', target: 'Spring Boot', value: 2 },
     { source: 'Backend', target: '.NET Core', value: 2 },
     { source: 'Backend', target: 'FastAPI', value: 2 },
 
@@ -84,16 +83,16 @@
     { source: 'Testing', target: 'Playwright', value: 2 },
 
     // Tech -> Company
-    { source: 'JavaScript', target: 'Vegas.com', value: 1 },
+    { source: 'TypeScript', target: 'Vegas.com', value: 1 },
     { source: 'SQL', target: 'Vegas.com', value: 1 },
     { source: 'React', target: 'Vegas.com', value: 1 },
     { source: 'Node.js', target: 'Vegas.com', value: 1 },
     { source: 'Jest', target: 'Vegas.com', value: 1 },
 
-    { source: 'JavaScript', target: 'Zappos', value: 1 },
     { source: 'TypeScript', target: 'Zappos', value: 1 },
     { source: 'SQL', target: 'Zappos', value: 1 },
     { source: 'React', target: 'Zappos', value: 1 },
+    { source: 'Angular', target: 'Zappos', value: 1 },
     { source: 'Redux / Zustand', target: 'Zappos', value: 1 },
     { source: 'Node.js', target: 'Zappos', value: 1 },
     { source: 'AWS', target: 'Zappos', value: 1 },
@@ -113,6 +112,7 @@
 
     { source: 'TypeScript', target: 'Cigna', value: 1 },
     { source: 'React', target: 'Cigna', value: 1 },
+    { source: 'Angular', target: 'Cigna', value: 1 },
     { source: 'Next.js', target: 'Cigna', value: 1 },
     { source: 'Node.js', target: 'Cigna', value: 1 },
     { source: 'AWS', target: 'Cigna', value: 1 },
@@ -120,8 +120,8 @@
     { source: 'Elasticsearch', target: 'Cigna', value: 1 },
     { source: 'Playwright', target: 'Cigna', value: 1 },
 
-    { source: 'JavaScript', target: 'Accenture', value: 1 },
     { source: 'TypeScript', target: 'Accenture', value: 1 },
+    { source: 'Java', target: 'Accenture', value: 1 },
     { source: 'Python', target: 'Accenture', value: 1 },
     { source: 'Go', target: 'Accenture', value: 1 },
     { source: 'SQL', target: 'Accenture', value: 1 },
@@ -137,7 +137,6 @@
     { source: 'Elasticsearch', target: 'Accenture', value: 1 },
     { source: 'Playwright', target: 'Accenture', value: 1 },
 
-    { source: 'JavaScript', target: 'Axon', value: 1 },
     { source: 'TypeScript', target: 'Axon', value: 1 },
     { source: 'Python', target: 'Axon', value: 1 },
     { source: 'Go', target: 'Axon', value: 1 },
@@ -146,7 +145,6 @@
     { source: 'SQL', target: 'Axon', value: 1 },
     { source: 'React', target: 'Axon', value: 1 },
     { source: 'Redux / Zustand', target: 'Axon', value: 1 },
-    { source: 'Spring Boot', target: 'Axon', value: 1 },
     { source: '.NET Core', target: 'Axon', value: 1 },
     { source: 'FastAPI', target: 'Axon', value: 1 },
     { source: 'AWS', target: 'Axon', value: 1 },
@@ -156,6 +154,13 @@
     { source: 'Redis', target: 'Axon', value: 1 },
     { source: 'Jest', target: 'Axon', value: 1 },
     { source: 'Playwright', target: 'Axon', value: 1 },
+
+    { source: 'TypeScript', target: 'INL', value: 1 },
+    { source: 'C#', target: 'INL', value: 1 },
+    { source: 'SQL', target: 'INL', value: 1 },
+    { source: 'React', target: 'INL', value: 1 },
+    { source: '.NET Core', target: 'INL', value: 1 },
+    { source: 'Azure', target: 'INL', value: 1 },
   ];
 
   const categoryColors: Record<string, string> = {
@@ -168,7 +173,7 @@
   };
 
   const categories = new Set(Object.keys(categoryColors));
-  const companies = new Set(['Vegas.com', 'Zappos', 'Touch To', 'Cigna', 'Accenture', 'Axon']);
+  const companies = new Set(['Vegas.com', 'Zappos', 'Touch To', 'Cigna', 'Accenture', 'Axon', 'INL']);
 
   function getNodeColor(id: string): string {
     if (categoryColors[id]) return categoryColors[id];
@@ -209,7 +214,7 @@
     const sankeyGenerator = d3Sankey()
       .nodeId((d: any) => d.id)
       .nodeAlign(sankeyJustify)
-      .nodeWidth(14)
+      .nodeWidth(85)
       .nodePadding(6)
       .extent([[0, 0], [width, height]]);
 
@@ -260,17 +265,14 @@
       .attr('font-family', 'Satoshi, sans-serif')
       .attr('font-size', (d: any) => {
         if (categories.has(d.id) || companies.has(d.id)) return '12px';
-        return '10px';
+        return '9px';
       })
-      .attr('font-weight', (d: any) => {
-        if (categories.has(d.id) || companies.has(d.id)) return '500';
-        return '400';
+      .attr('font-weight', '500')
+      .attr('fill', (d: any) => {
+        if (!categories.has(d.id) && !companies.has(d.id)) return '#ffffff';
+        return '#1a1a1a';
       })
-      .attr('fill', '#1a1a1a')
-      .attr('opacity', (d: any) => {
-        if (!categories.has(d.id) && !companies.has(d.id)) return 0;
-        return 1;
-      });
+      .attr('opacity', 1);
 
     // Hover: nodes
     node.on('mouseenter', function(_event: any, d: any) {
@@ -303,10 +305,7 @@
         .attr('opacity', 0.25)
         .attr('stroke-width', (d: any) => Math.max(1, d.width));
       node.select('rect').attr('opacity', 1);
-      node.select('text').attr('opacity', (d: any) => {
-        if (!categories.has(d.id) && !companies.has(d.id)) return 0;
-        return 1;
-      });
+      node.select('text').attr('opacity', 1);
     });
 
     // Hover: links
@@ -323,10 +322,7 @@
     link.on('mouseleave', function() {
       link.attr('opacity', 0.25);
       node.select('rect').attr('opacity', 1);
-      node.select('text').attr('opacity', (d: any) => {
-        if (!categories.has(d.id) && !companies.has(d.id)) return 0;
-        return 1;
-      });
+      node.select('text').attr('opacity', 1);
     });
   }
 
