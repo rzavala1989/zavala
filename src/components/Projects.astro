@@ -1,66 +1,74 @@
 ---
 const projects = [
   {
-    title: 'Project One',
-    description: 'TODO: Add project description.',
-    tags: ['TypeScript', 'React'],
-    github: 'https://github.com/rzavala1989/TODO',
-    live: 'https://TODO.vercel.app',
-    status: 'stub',
-  },
-  {
+    label: 'FULL-STACK PLATFORM',
     title: 'Nomadhood',
-    description: 'Neighborhood discovery and review platform for digital nomads. Data-backed neighborhood intel from people who actually lived there. Built with Next.js 15, tRPC, Prisma, and Auth.js on a PostgreSQL backend.',
-    tags: ['TypeScript', 'Next.js 15', 'React 19', 'tRPC', 'Prisma', 'PostgreSQL', 'Auth.js', 'Tailwind CSS', 'shadcn/ui'],
-    github: 'https://github.com/rzavala1989/nomadhood',
-    live: 'https://nomadhood.vercel.app',
-    status: 'live',
+    description: 'Neighborhood intelligence platform for digital nomads. Aggregates seven external APIs (WalkScore, Rentcast, FBI crime data, BLS economics, Eventbrite, newsdata.io, Unsplash) into a unified neighborhood profile. Features a cosine-similarity recommendation engine that learns from your review history across six lifestyle dimensions, a composite scoring algorithm that blends community ratings with objective data, and a news intelligence pipeline with signal classification and sentiment-based risk alerts. 19 Prisma models, 54 tRPC procedures, three access tiers.',
+    stack: 'Next.js 15 · React 19 · tRPC v11 · Prisma 6 · PostgreSQL · MapLibre GL · Zod · Bun',
+    liveLabel: 'Live App',
+    liveUrl: 'https://nomadhood.vercel.app',
+    sourceUrl: 'https://github.com/rzavala1989/nomadhood',
+    image: '/images/nomadhood-preview.png',
   },
   {
+    label: 'GAME ENGINE + 3D',
     title: 'Blaqjaq',
-    description: 'A film noir 3D blackjack game running entirely in the browser. Features a pure reducer game engine with a full phase state machine, a 6-deck shoe, and support for Hit, Stand, Double Down, Split, and Surrender. The 3D scene is built with Three.js and includes GLTF models, procedural card and chip geometry with canvas-textured faces, ACESFilmic tone mapping, contact shadows, and an animated GSAP camera intro arc. Film noir aesthetics: void-black backgrounds, blood-red accents, film grain overlay, and spring-animated result flashes. A built-in analytics engine tracks win rates, bust rates, optimal play rate, and upcard nemesis against Vegas Strip basic strategy lookup tables. Optimized to hold 55-60 FPS with 9-13ms per frame by eliminating bloom, backdrop-filter blur, and expensive shadow accumulation.',
-    tags: ['TypeScript', 'React 19', 'Three.js', 'React Three Fiber', 'Web Audio API', 'Vite', 'Vitest', 'GSAP', 'styled-components'],
-    github: 'https://github.com/rzavala1989/blaqjaq',
-    live: 'https://blaqjaq.vercel.app',
-    status: 'live',
+    description: ' 3D blackjack with a 1951 Flamingo-era film noir aesthetic. The game engine is a pure reducer with zero React dependencies: 782 lines, 14 action types, full insurance/surrender/split mechanics. A complete basic strategy engine evaluates every decision against optimal play, and session analytics track your tendencies across hard, soft, and pair hands with P&L charting. The 3D scene uses React Three Fiber with five GLTF models, ACES filmic tone mapping, and procedural Web Audio API sound effects.',
+    stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Vitest · Vite 6',
+    liveLabel: 'Play Live',
+    liveUrl: 'https://blaqjaq.vercel.app',
+    sourceUrl: 'https://github.com/rzavala1989/blaqjaq',
+    image: '/images/blaqjaq-preview.png',
   },
 ];
 ---
 
 <section class="projects-section" id="projects">
-  <h2 class="section-heading">Projects</h2>
-  <div class="projects-grid">
+  <h2 class="section-heading">Selected Work</h2>
+  <div class="projects-list">
     {projects.map((project, i) => (
-      <article class="project-card" style={`--delay: ${i * 0.1}s`}>
-        <div class="project-header">
-          <h3 class="project-title">{project.title}</h3>
-          <div class="project-links">
-            <a href={project.github} target="_blank" rel="noopener noreferrer" class="project-link" aria-label="GitHub">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-            {project.live && (
-              <a href={project.live} target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Live site">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-              </a>
-            )}
+      <article class={`project-card ${i % 2 === 1 ? 'project-card--reversed' : ''}`}>
+        <div class="project-preview">
+          <div class="project-placeholder" aria-label={`${project.title} preview`}>
+            <span class="placeholder-text">Preview</span>
           </div>
         </div>
-        <p class="project-description">{project.description}</p>
-        <div class="project-tags">
-          {project.tags.map(tag => (
-            <span class="project-tag">{tag}</span>
-          ))}
+        <div class="project-info">
+          <span class="project-label">{project.label}</span>
+          <h3 class="project-title">{project.title}</h3>
+          <p class="project-description">{project.description}</p>
+          <p class="project-stack">{project.stack}</p>
+          <div class="project-links">
+            <a class="project-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+              {project.liveLabel} <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="project-link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer">
+              Source <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
         </div>
       </article>
     ))}
   </div>
 </section>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  document.querySelectorAll('.project-card').forEach((card) => {
+    observer.observe(card);
+  });
+</script>
 
 <style>
   .projects-section {
@@ -78,87 +86,150 @@ const projects = [
     text-align: center;
   }
 
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
   }
 
   .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  }
+
+  .project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-card--reversed {
+    direction: rtl;
+  }
+
+  .project-card--reversed > * {
+    direction: ltr;
+  }
+
+  .project-preview {
+    aspect-ratio: 16 / 10;
     border: 1px solid var(--color-divider);
-    border-radius: 8px;
-    padding: 1.75rem;
+    overflow: hidden;
+  }
+
+  .project-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f0ede9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .placeholder-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .project-info {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    background: var(--color-bg);
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    gap: 0;
   }
 
-  .project-card:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
-  }
-
-  .project-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
+  .project-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.6rem;
   }
 
   .project-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
     font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .project-description {
+    font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+    line-height: 1.7;
+    color: var(--color-secondary);
+    margin-bottom: 1.2rem;
+  }
+
+  .project-stack {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-secondary);
+    margin-bottom: 1.5rem;
   }
 
   .project-links {
     display: flex;
-    gap: 0.5rem;
-    flex-shrink: 0;
+    gap: 1.5rem;
   }
 
   .project-link {
-    color: var(--color-muted);
-    transition: color 0.2s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    padding: 0.4rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .project-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-text);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-out);
   }
 
   .project-link:hover {
-    color: var(--color-text);
-  }
-
-  .project-description {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--color-secondary);
-    flex: 1;
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .project-tag {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
     color: var(--color-accent);
-    background: transparent;
-    border: 1px solid var(--color-divider);
-    border-radius: 4px;
-    padding: 0.2rem 0.5rem;
   }
 
-  @media (max-width: 900px) {
-    .projects-grid {
+  .project-link:hover::after {
+    background-color: var(--color-accent);
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  @media (max-width: 768px) {
+    .project-card,
+    .project-card--reversed {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
+      direction: ltr;
+    }
+
+    .project-preview {
+      order: -1;
     }
   }
 
@@ -166,6 +237,10 @@ const projects = [
     .projects-section {
       padding-left: 1rem;
       padding-right: 1rem;
+    }
+
+    .projects-list {
+      gap: 3.5rem;
     }
   }
 </style>
