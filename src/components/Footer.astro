@@ -1,4 +1,8 @@
 ---
+const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL;
+if (!calendlyUrl) {
+  throw new Error('PUBLIC_CALENDLY_URL is not set. Add it to .env.local locally or to Vercel env vars before deploying.');
+}
 ---
 
 <footer class="footer" id="contact">
@@ -8,7 +12,7 @@
     <p class="footer-bio">Always interested in challenging problems, interesting teams, and the occasional bad pun.</p>
     <div class="footer-links">
       <a class="footer-link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a class="footer-link" href="https://linkedin.com/in/rzavala1989" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="footer-link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">Book a Chat</a>
       <a class="footer-link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
     </div>
   </div>

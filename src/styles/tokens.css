@@ -157,3 +157,25 @@ hr, .rule {
   border-top: var(--border-hair);
   margin: var(--space-5) 0;
 }
+
+/* Shared section header pattern. Footer overrides size and alignment locally. */
+.section-mark {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+}
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.section-heading em {
+  font-style: italic;
+}
