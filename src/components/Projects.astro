@@ -3,6 +3,7 @@ const projects = [
   {
     label: 'FULL-STACK PLATFORM',
     title: 'Nomadhood',
+    plate: 'PLATE II',
     description: 'Neighborhood intelligence platform for digital nomads. Aggregates seven external APIs (WalkScore, Rentcast, FBI crime data, BLS economics, Eventbrite, newsdata.io, Unsplash) into a unified neighborhood profile. Features a cosine-similarity recommendation engine that learns from your review history across six lifestyle dimensions, a composite scoring algorithm that blends community ratings with objective data, and a news intelligence pipeline with signal classification and sentiment-based risk alerts. 19 Prisma models, 54 tRPC procedures, three access tiers.',
     stack: 'Next.js 15 · React 19 · tRPC v11 · Prisma 6 · PostgreSQL · MapLibre GL · Zod · Bun',
     liveLabel: 'Live App',
@@ -13,6 +14,7 @@ const projects = [
   {
     label: 'GAME ENGINE + 3D',
     title: 'Blaqjaq',
+    plate: 'PLATE III',
     description: ' 3D blackjack with a 1951 Flamingo-era film noir aesthetic. The game engine is a pure reducer with zero React dependencies: 782 lines, 14 action types, full insurance/surrender/split mechanics. A complete basic strategy engine evaluates every decision against optimal play, and session analytics track your tendencies across hard, soft, and pair hands with P&L charting. The 3D scene uses React Three Fiber with five GLTF models, ACES filmic tone mapping, and procedural Web Audio API sound effects.',
     stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Vitest · Vite 6',
     liveLabel: 'Play Live',
@@ -24,14 +26,22 @@ const projects = [
 ---
 
 <section class="projects-section" id="projects">
-  <h2 class="section-heading">Selected Work</h2>
+  <p class="section-mark">§ 02</p>
+  <h2 class="section-heading">Selected <em>Work.</em></h2>
   <div class="projects-list">
     {projects.map((project, i) => (
       <article class={`project-card ${i % 2 === 1 ? 'project-card--reversed' : ''}`}>
-        <div class="project-preview">
-          <img src={project.image} alt={`${project.title} preview`} width="560" height="350" loading="lazy" />
+        <div class="project-preview-wrap">
+          <div class="project-preview">
+            <img src={project.image} alt={`${project.title} preview`} width="560" height="350" loading="lazy" />
+          </div>
+          <div class="project-plate">
+            <span class="project-plate-label">{project.plate}</span>
+            <span class="project-plate-title">{project.title}, live capture</span>
+          </div>
         </div>
         <div class="project-info">
+          <span class="project-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
           <span class="project-label">{project.label}</span>
           <h3 class="project-title">{project.title}</h3>
           <p class="project-description">{project.description}</p>
@@ -75,13 +85,59 @@ const projects = [
     margin: 0 auto;
   }
 
+  .section-mark {
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    color: var(--color-muted);
+    margin-bottom: 1rem;
+  }
+
   .section-heading {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: var(--fs-h1);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: var(--tracking-display);
     margin-bottom: 3rem;
     text-align: center;
+  }
+  .section-heading em {
+    font-style: italic;
+  }
+
+  .project-preview-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .project-plate {
+    display: flex;
+    gap: 1rem;
+    font-size: var(--fs-eyebrow);
+    color: var(--color-muted);
+  }
+  .project-plate-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+  }
+  .project-plate-title {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+  }
+
+  .project-num {
+    display: block;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    color: var(--bronze);
+    margin-bottom: 1rem;
   }
 
   .projects-list {
@@ -92,7 +148,7 @@ const projects = [
 
   .project-card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: 3rem;
     align-items: center;
     opacity: 0;
@@ -106,16 +162,20 @@ const projects = [
   }
 
   .project-card--reversed {
-    direction: rtl;
+    grid-template-columns: 1.2fr 1fr;
   }
 
-  .project-card--reversed > * {
-    direction: ltr;
+  .project-card--reversed .project-preview {
+    order: 2;
+  }
+
+  .project-card--reversed .project-info {
+    order: 1;
   }
 
   .project-preview {
     aspect-ratio: 16 / 10;
-    border: 1px solid var(--color-divider);
+    border: var(--border-hair);
     overflow: hidden;
   }
 
@@ -134,7 +194,7 @@ const projects = [
 
   .project-label {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: var(--fs-eyebrow);
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -144,16 +204,16 @@ const projects = [
 
   .project-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-size: var(--fs-h2);
     font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
     margin-bottom: 1rem;
   }
 
   .project-description {
-    font-size: clamp(0.85rem, 1.3vw, 0.95rem);
-    line-height: 1.7;
+    font-size: var(--fs-body);
+    line-height: var(--leading-body);
     color: var(--color-secondary);
     margin-bottom: 1.2rem;
   }
@@ -175,7 +235,7 @@ const projects = [
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     font-weight: 500;
     color: var(--color-text);
     text-decoration: none;

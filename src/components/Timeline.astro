@@ -1,6 +1,7 @@
 ---
 const jobs = [
   {
+    era: 'Now',
     company: 'Arkra',
     title: 'Co-Founding Backend Engineer',
     period: '2025 - Present',
@@ -19,6 +20,7 @@ const jobs = [
     summary: 'Fixed-term contract at a U.S. Department of Energy national laboratory. Full stack .NET development using C#, .NET 8, MVC, Entity Framework, and SQL Server on internal research and infrastructure systems.'
   },
   {
+    era: 'Federal & Enterprise',
     company: 'Accenture Federal Services',
     title: 'Senior Full Stack Engineer',
     period: '2022 - 2025',
@@ -37,6 +39,7 @@ const jobs = [
     summary: 'Architected micro-frontend systems and real-time dashboards for digital ordering in hospitality and defense sectors.'
   },
   {
+    era: 'Early Career',
     company: 'Zappos',
     title: 'Web and Mobile Developer',
     period: '2018 - 2021',
@@ -52,19 +55,30 @@ const jobs = [
 ---
 
 <section class="timeline-section" id="experience">
-  <h2 class="section-heading">Experience</h2>
+  <div class="timeline-inner">
+  <p class="section-mark">§ 01</p>
+  <h2 class="section-heading">A career, <em>plotted.</em></h2>
   <div class="timeline">
     {jobs.map((job, i) => (
-      <div class="timeline-item" style={`--delay: ${i * 0.1}s`}>
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <span class="timeline-period">{job.period}</span>
-          <h3 class="timeline-company">{job.company}</h3>
-          <p class="timeline-title">{job.title}</p>
-          <p class="timeline-summary">{job.summary}</p>
+      <>
+        {job.era && (
+          <div class="timeline-era">
+            <span class="timeline-era-rule" aria-hidden="true"></span>
+            <span class="timeline-era-label">{job.era}</span>
+          </div>
+        )}
+        <div class="timeline-item" style={`--delay: ${i * 0.1}s`}>
+          <div class={`timeline-marker ${job.period.includes('Present') ? 'is-current' : ''}`}></div>
+          <div class="timeline-content">
+            <span class="timeline-period">{job.period}</span>
+            <h3 class="timeline-company">{job.company}</h3>
+            <p class="timeline-title">{job.title}</p>
+            <p class="timeline-summary">{job.summary}</p>
+          </div>
         </div>
-      </div>
+      </>
     ))}
+  </div>
   </div>
 </section>
 
@@ -88,18 +102,53 @@ const jobs = [
 
 <style>
   .timeline-section {
+    background-color: var(--paper-alt);
     padding: var(--section-padding) 1.5rem;
+  }
+
+  .timeline-inner {
     max-width: var(--content-max-width);
     margin: 0 auto;
   }
 
+  .section-mark {
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    color: var(--color-muted);
+    margin-bottom: 1rem;
+  }
+
   .section-heading {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: var(--fs-h1);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: var(--tracking-display);
     margin-bottom: 3rem;
     text-align: center;
+  }
+  .section-heading em {
+    font-style: italic;
+  }
+
+  .timeline-era {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 2.5rem 0 1.5rem;
+    padding-left: 0.5rem;
+  }
+  .timeline-era-rule {
+    width: 1.5rem;
+    height: 1px;
+    background: var(--bronze);
+  }
+  .timeline-era-label {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--color-text);
   }
 
   .timeline {
@@ -138,13 +187,18 @@ const jobs = [
   .timeline-marker {
     position: absolute;
     left: -2.5rem;
-    top: 6px;
-    width: 12px;
-    height: 12px;
+    top: 8px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background-color: var(--color-accent);
-    border: 3px solid var(--color-bg);
+    background-color: transparent;
+    box-shadow: 0 0 0 1px var(--bronze);
     z-index: 1;
+  }
+
+  .timeline-marker.is-current {
+    background-color: var(--bronze);
+    box-shadow: 0 0 0 3px var(--paper-alt);
   }
 
   .timeline-content {
@@ -153,9 +207,9 @@ const jobs = [
 
   .timeline-period {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: var(--fs-meta);
     font-weight: 500;
-    letter-spacing: 0.1em;
+    letter-spacing: var(--tracking-wider);
     text-transform: uppercase;
     color: var(--color-muted);
     margin-bottom: 0.3rem;
@@ -163,21 +217,21 @@ const jobs = [
 
   .timeline-company {
     font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-size: var(--fs-h3);
     font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
   }
 
   .timeline-title {
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     font-weight: 500;
     color: var(--color-secondary);
     margin-top: 0.2rem;
   }
 
   .timeline-summary {
-    font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+    font-size: var(--fs-body);
     line-height: 1.6;
     color: var(--color-secondary);
     margin-top: 0.6rem;
@@ -195,8 +249,6 @@ const jobs = [
 
     .timeline-marker {
       left: -2rem;
-      width: 10px;
-      height: 10px;
     }
   }
 

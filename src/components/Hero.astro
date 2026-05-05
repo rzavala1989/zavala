@@ -1,19 +1,32 @@
 ---
 ---
 
+<div class="masthead">
+  <span class="masthead-mark">RZ</span>
+  <span class="masthead-rule" aria-hidden="true"></span>
+  <span class="masthead-meta">VOL. IX · HENDERSON, NV · MMXXVI</span>
+  <span class="masthead-rule" aria-hidden="true"></span>
+  <span class="masthead-meta">PORTFOLIO, No. 01</span>
+</div>
+
 <section class="hero" id="hero">
   <div class="hero-content">
     <div class="hero-text">
-      <h1 class="hero-name">Ricardo Zavala</h1>
+      <p class="hero-tagline">
+        <span class="hero-tagline-num">01</span>
+        <span class="hero-tagline-rule" aria-hidden="true"></span>
+        The Engineer
+      </p>
+      <h1 class="hero-name">Ricardo<br/>Zavala</h1>
       <p class="hero-title">Staff Software Engineer</p>
       <p class="hero-location">Henderson, NV</p>
       <p class="hero-bio">
-        I build the systems behind the systems. Over nine years I've worked across the full
-        stack for Fortune 500 companies, federal agencies, and startups, shipping everything
-        from real-time GIS platforms and PCI-compliant payment gateways to AI-driven
-        underwriting pipelines. Right now I'm deep in early-stage fintech, architecting
-        backend infrastructure from first commit. I like hard problems, small teams, and
-        code that earns its complexity.
+        I build the systems behind the <em>systems.</em> Over nine years I've worked
+        across the full stack for Fortune 500 companies, federal agencies, and startups,
+        shipping everything from real-time GIS platforms and PCI-compliant payment
+        gateways to AI-driven underwriting pipelines. Right now I'm deep in early-stage
+        fintech, architecting backend infrastructure from first commit. I like hard
+        problems, small teams, and code that earns its complexity.
       </p>
       <div class="hero-links">
         <a class="hero-link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">
@@ -37,14 +50,74 @@
       </div>
     </div>
     <div class="hero-image">
+      <span class="hero-plate" aria-hidden="true">PLATE I</span>
       <img src="/images/headshot-hero.png" alt="Ricardo Zavala" width="380" height="460" loading="eager" />
     </div>
   </div>
 </section>
 
 <style>
+  .masthead {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .masthead-mark {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-text);
+  }
+  .masthead-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--color-divider);
+  }
+  .masthead-meta {
+    white-space: nowrap;
+  }
+
+  .hero-plate {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    color: var(--color-muted);
+    z-index: 2;
+  }
+
+  .hero-tagline-num {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1em;
+    color: var(--bronze);
+    margin-right: 0.6rem;
+  }
+  .hero-tagline-rule {
+    display: inline-block;
+    width: 2.5rem;
+    height: 1px;
+    background: var(--color-divider);
+    vertical-align: middle;
+    margin-right: 0.8rem;
+  }
+
   .hero {
-    min-height: 100vh;
+    min-height: calc(100vh - 4rem);
     display: flex;
     align-items: center;
     padding: 2rem 1.5rem;
@@ -54,7 +127,7 @@
     max-width: var(--content-max-width);
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     gap: 4rem;
     align-items: center;
     width: 100%;
@@ -64,48 +137,64 @@
     max-width: 520px;
   }
 
+  .hero-tagline {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--fs-eyebrow);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s var(--ease-out) 0.1s forwards;
+  }
+
   .hero-name {
     font-family: var(--font-heading);
     font-weight: 400;
-    font-size: clamp(2.8rem, 8vw, 5.5rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-size: var(--fs-display);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.2s forwards;
+    animation: fadeUp 0.8s var(--ease-out) 0.25s forwards;
   }
 
   .hero-title {
+    font-family: var(--font-body);
     font-weight: 500;
     font-size: clamp(0.85rem, 2vw, 1.1rem);
-    letter-spacing: 0.15em;
+    letter-spacing: var(--tracking-widest);
     text-transform: uppercase;
     color: var(--color-secondary);
     margin-top: 1.2rem;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.35s forwards;
+    animation: fadeUp 0.8s var(--ease-out) 0.4s forwards;
   }
 
   .hero-location {
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     color: var(--color-muted);
-    margin-top: 0.4rem;
-    letter-spacing: 0.05em;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.45s forwards;
-  }
-
-  .hero-bio {
-    font-size: clamp(0.9rem, 1.5vw, 1rem);
-    line-height: 1.7;
-    color: var(--color-secondary);
-    margin-top: 2rem;
-    max-width: 28rem;
+    margin-top: 1.6rem;
+    letter-spacing: var(--tracking-wide);
     opacity: 0;
     transform: translateY(20px);
     animation: fadeUp 0.8s var(--ease-out) 0.55s forwards;
+  }
+
+  .hero-bio {
+    font-size: var(--fs-lead);
+    line-height: var(--leading-body);
+    color: var(--color-secondary);
+    margin-top: 1.5rem;
+    max-width: 28rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s var(--ease-out) 0.7s forwards;
   }
 
   .hero-links {
@@ -114,14 +203,14 @@
     margin-top: 2.4rem;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.65s forwards;
+    animation: fadeUp 0.8s var(--ease-out) 0.85s forwards;
   }
 
   .hero-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     font-weight: 500;
     color: var(--color-text);
     text-decoration: none;
@@ -161,6 +250,11 @@
     position: relative;
     opacity: 0;
     animation: fadeIn 1s var(--ease-out) 0.4s forwards;
+  }
+
+  .hero-bio em {
+    font-style: italic;
+    color: var(--color-text);
   }
 
   .hero-image::before {

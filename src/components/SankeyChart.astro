@@ -51,16 +51,17 @@
     { id: 'Accenture' },
     { id: 'Axon' },
     { id: 'INL' },
+    { id: 'Arkra' },
   ];
 
   const links = [
     // Category -> Tech
     { source: 'Languages', target: 'TypeScript', value: 5 },
-    { source: 'Languages', target: 'Python', value: 2 },
+    { source: 'Languages', target: 'Python', value: 3 },
     { source: 'Languages', target: 'Go', value: 2 },
     { source: 'Languages', target: 'Java', value: 2 },
-    { source: 'Languages', target: 'C#', value: 1 },
-    { source: 'Languages', target: 'SQL', value: 5 },
+    { source: 'Languages', target: 'C#', value: 2 },
+    { source: 'Languages', target: 'SQL', value: 6 },
 
     { source: 'Frontend', target: 'React', value: 6 },
     { source: 'Frontend', target: 'Angular', value: 2 },
@@ -68,11 +69,11 @@
     { source: 'Frontend', target: 'Redux / Zustand', value: 4 },
 
     { source: 'Backend', target: 'Node.js', value: 4 },
-    { source: 'Backend', target: '.NET Core', value: 2 },
+    { source: 'Backend', target: '.NET Core', value: 3 },
     { source: 'Backend', target: 'FastAPI', value: 2 },
 
     { source: 'Cloud', target: 'AWS', value: 5 },
-    { source: 'Cloud', target: 'Azure', value: 2 },
+    { source: 'Cloud', target: 'Azure', value: 3 },
 
     { source: 'Data', target: 'PostgreSQL', value: 5 },
     { source: 'Data', target: 'MongoDB', value: 3 },
@@ -161,6 +162,12 @@
     { source: 'React', target: 'INL', value: 1 },
     { source: '.NET Core', target: 'INL', value: 1 },
     { source: 'Azure', target: 'INL', value: 1 },
+
+    { source: 'C#', target: 'Arkra', value: 1 },
+    { source: 'Python', target: 'Arkra', value: 1 },
+    { source: 'SQL', target: 'Arkra', value: 1 },
+    { source: '.NET Core', target: 'Arkra', value: 1 },
+    { source: 'Azure', target: 'Arkra', value: 1 },
   ];
 
   const categoryColors: Record<string, string> = {
@@ -173,7 +180,7 @@
   };
 
   const categories = new Set(Object.keys(categoryColors));
-  const companies = new Set(['Vegas.com', 'Zappos', 'Touch To', 'Cigna', 'Accenture', 'Axon', 'INL']);
+  const companies = new Set(['Vegas.com', 'Zappos', 'Touch To', 'Cigna', 'Accenture', 'Axon', 'INL', 'Arkra']);
 
   function getNodeColor(id: string): string {
     if (categoryColors[id]) return categoryColors[id];
@@ -344,9 +351,9 @@
 
   .section-heading {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: var(--fs-h1);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: var(--tracking-display);
     margin-bottom: 0.5rem;
     text-align: center;
   }

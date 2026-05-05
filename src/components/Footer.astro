@@ -3,27 +3,27 @@
 
 <footer class="footer" id="contact">
   <div class="footer-content">
-    <div class="footer-text">
-      <h2 class="footer-heading">Let's connect</h2>
-      <p class="footer-bio">
-        Always interested in challenging problems, interesting teams, and the occasional bad pun.
-      </p>
-      <div class="footer-links">
-        <a class="footer-link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="footer-link" href="https://linkedin.com/in/rzavala1989" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a class="footer-link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
-      </div>
+    <p class="section-mark">§ Coda</p>
+    <h2 class="footer-heading">Let's <em>connect.</em></h2>
+    <p class="footer-bio">Always interested in challenging problems, interesting teams, and the occasional bad pun.</p>
+    <div class="footer-links">
+      <a class="footer-link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="footer-link" href="https://linkedin.com/in/rzavala1989" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="footer-link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
     </div>
   </div>
+  <div class="footer-mark" aria-hidden="true"><span>Ricardo Zavala</span></div>
   <div class="footer-bottom">
-    <p>&copy; 2026 Ricardo Zavala</p>
+    <p class="colophon">Set in <em>Instrument Serif</em> &amp; Satoshi · Astro 5 + D3 · No JS frameworks · Henderson, NV</p>
+    <p class="copy">&copy; MMXXVI Ricardo Zavala · zavala.pro</p>
   </div>
 </footer>
 
 <style>
   .footer {
-    background-color: #f5f3f0;
+    background-color: var(--paper-deep);
     padding: var(--section-padding) 1.5rem 2rem;
+    border-top: var(--border-hair);
   }
 
   .footer-content {
@@ -32,12 +32,25 @@
     text-align: center;
   }
 
+  .section-mark {
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    color: var(--color-muted);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
   .footer-heading {
     font-family: var(--font-heading);
     font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: var(--tracking-display);
     margin-bottom: 1rem;
+  }
+  .footer-heading em {
+    font-style: italic;
   }
 
   .footer-bio {
@@ -55,14 +68,14 @@
   }
 
   .footer-link {
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     font-weight: 500;
     color: var(--color-text);
     text-decoration: none;
     letter-spacing: 0.03em;
     padding: 0.4rem 0;
     position: relative;
-    transition: color 0.3s ease;
+    transition: color var(--dur-med) ease;
   }
 
   .footer-link::after {
@@ -72,34 +85,63 @@
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: var(--color-text);
+    background: currentColor;
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.4s var(--ease-out);
   }
 
   .footer-link:hover {
-    color: var(--color-accent);
+    color: var(--bronze);
   }
-
   .footer-link:hover::after {
-    background-color: var(--color-accent);
     transform: scaleX(1);
     transform-origin: left;
   }
 
-  .footer-bottom {
+  .footer-mark {
     max-width: var(--content-max-width);
-    margin: 4rem auto 0;
+    margin: 5rem auto 0;
+    overflow: hidden;
+    user-select: none;
+  }
+  .footer-mark span {
+    display: block;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(4rem, 16vw, 12rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-divider);
     text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid var(--color-divider);
+    white-space: nowrap;
   }
 
-  .footer-bottom p {
-    font-size: 0.8rem;
+  .footer-bottom {
+    max-width: var(--content-max-width);
+    margin: 2rem auto 0;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: var(--border-hair);
+  }
+
+  .colophon {
+    font-size: var(--fs-meta);
     color: var(--color-muted);
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-wide);
+    margin-bottom: 0.4rem;
+  }
+  .colophon em {
+    font-family: var(--font-heading);
+    font-style: italic;
+  }
+
+  .copy {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    color: var(--color-muted);
+    letter-spacing: var(--tracking-wide);
   }
 
   @media (max-width: 480px) {
