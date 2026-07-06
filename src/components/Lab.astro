@@ -1,0 +1,249 @@
+---
+// Mini builds: hackathon-scope projects that earn a line, not a plate. Structured
+// as a list so future entries slot in without layout work.
+const experiments = [
+  {
+    label: 'Civic data · Hackathon build',
+    title: 'Emergency Lifeline Auditor',
+    question: 'When the next disaster hits, can this county hear the warning and move?',
+    description:
+      'Five federal datasets joined on county FIPS (CDC Social Vulnerability Index, FEMA National Risk Index, CDC PLACES, HHS emPOWER, OpenFEMA declarations) feed derived metrics for digital alert risk, daytime population surge, expected impact, and power-dependent residents. A zoomable choropleth, a severity-banded table, its map legend, and a per-county dossier all read one shared color scale, and every filter and selection serializes to the URL so an analyst can send a colleague the exact view.',
+    stats: [
+      { value: '3,144', label: 'Counties' },
+      { value: '5', label: 'Federal datasets' },
+      { value: '6', label: 'Sortable metrics' },
+      { value: '89', label: 'Unit tests' },
+    ],
+    stack: 'Next.js 16 · React 19 · TypeScript · TanStack Table · react-simple-maps · Vitest',
+    liveLabel: 'Live App',
+    liveUrl: 'https://ricardo-svi-tool.vercel.app',
+    sourceUrl: 'https://github.com/rzavala1989/ricardo-svi-tool',
+  },
+];
+---
+
+<section class="lab-section" id="lab">
+  <div class="lab-inner">
+    <p class="section-mark">§ 03</p>
+    <h2 class="section-heading">The <em>Lab.</em></h2>
+    <p class="lab-intro">Weekend-scope builds on public data. Smaller than the plates, held to the same bar.</p>
+    <div class="lab-list">
+      {experiments.map((exp) => (
+        <article class="lab-card">
+          <div class="lab-head">
+            <span class="lab-label">{exp.label}</span>
+            <h3 class="lab-title">{exp.title}</h3>
+            <p class="lab-question">{exp.question}</p>
+          </div>
+          <p class="lab-description">{exp.description}</p>
+          <dl class="lab-stats">
+            {exp.stats.map((stat) => (
+              <div class="lab-stat">
+                <dd class="lab-stat-value">{stat.value}</dd>
+                <dt class="lab-stat-label">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
+          <p class="lab-stack">{exp.stack}</p>
+          <div class="lab-links">
+            <a class="lab-link" href={exp.liveUrl} target="_blank" rel="noopener noreferrer">
+              {exp.liveLabel} <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="lab-link" href={exp.sourceUrl} target="_blank" rel="noopener noreferrer">
+              Source <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  document.querySelectorAll('.lab-card').forEach((card) => {
+    observer.observe(card);
+  });
+</script>
+
+<style>
+  .lab-section {
+    padding: var(--section-padding) 1.5rem;
+  }
+
+  .lab-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+  }
+
+  .lab-intro {
+    font-size: var(--fs-lead);
+    line-height: var(--leading-body);
+    color: var(--color-secondary);
+    text-align: center;
+    margin: -1.5rem auto 3rem;
+    max-width: 34rem;
+  }
+
+  .lab-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  .lab-card {
+    border: var(--border-hair);
+    background-color: var(--paper);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  }
+
+  .lab-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .lab-label {
+    display: inline-block;
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .lab-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    font-weight: 400;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: 0.4rem;
+  }
+
+  .lab-question {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--bronze-4);
+    margin-bottom: 1.2rem;
+  }
+
+  .lab-description {
+    font-size: var(--fs-body);
+    line-height: var(--leading-body);
+    color: var(--color-secondary);
+    margin-bottom: 1.8rem;
+  }
+
+  .lab-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    border-top: var(--border-hair);
+    border-bottom: var(--border-hair);
+    padding: 1.1rem 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .lab-stat {
+    text-align: center;
+  }
+
+  .lab-stat-value {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    line-height: 1.1;
+    color: var(--bronze);
+    margin: 0 0 0.25rem;
+  }
+
+  .lab-stat-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .lab-stack {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .lab-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .lab-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    padding: 0.4rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .lab-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-text);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .lab-link:hover {
+    color: var(--color-accent);
+  }
+
+  .lab-link:hover::after {
+    background-color: var(--color-accent);
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  @media (max-width: 640px) {
+    .lab-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .lab-section {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+</style>
