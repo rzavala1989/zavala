@@ -2,8 +2,9 @@
 ---
 
 <section class="sankey-section" id="skills">
-  <h2 class="section-heading">Skills Across My Career</h2>
-  <p class="section-subtitle">Hover over any node to trace the connections</p>
+  <p class="section-mark">§ 05</p>
+  <h2 class="section-heading">Skills, <em>traced.</em></h2>
+  <p class="section-subtitle">Hover a node to trace its path.</p>
   <div class="sankey-wrapper">
     <div class="sankey-container" id="sankey-chart"></div>
   </div>
@@ -170,13 +171,16 @@
     { source: 'Azure', target: 'Arkra', value: 1 },
   ];
 
+  const tokens = getComputedStyle(document.documentElement);
+  const token = (name: string) => tokens.getPropertyValue(name).trim();
+
   const categoryColors: Record<string, string> = {
-    'Languages': '#8b7355',
-    'Frontend': '#a07850',
-    'Backend': '#6b6560',
-    'Cloud': '#9b8b7a',
-    'Data': '#7a6b5e',
-    'Testing': '#b0a090',
+    'Languages': token('--bronze'),
+    'Frontend': token('--bronze-2'),
+    'Backend': token('--ink-2'),
+    'Cloud': token('--bronze-3'),
+    'Data': token('--bronze-4'),
+    'Testing': token('--ink-3'),
   };
 
   const categories = new Set(Object.keys(categoryColors));
@@ -184,14 +188,14 @@
 
   function getNodeColor(id: string): string {
     if (categoryColors[id]) return categoryColors[id];
-    if (companies.has(id)) return '#1a1a1a';
-    return '#6b6560';
+    if (companies.has(id)) return token('--ink');
+    return token('--ink-2');
   }
 
   function getLinkColor(source: any): string {
     const sourceId = typeof source === 'object' ? source.id : source;
     if (categoryColors[sourceId]) return categoryColors[sourceId];
-    return '#c8c2bc';
+    return token('--rule');
   }
 
   function clearContainer(el: HTMLElement) {
@@ -276,8 +280,8 @@
       })
       .attr('font-weight', '500')
       .attr('fill', (d: any) => {
-        if (!categories.has(d.id) && !companies.has(d.id)) return '#ffffff';
-        return '#1a1a1a';
+        if (!categories.has(d.id) && !companies.has(d.id)) return token('--paper');
+        return token('--ink');
       })
       .attr('opacity', 1);
 
@@ -350,12 +354,7 @@
   }
 
   .section-heading {
-    font-family: var(--font-heading);
-    font-size: var(--fs-h1);
-    font-weight: 400;
-    letter-spacing: var(--tracking-display);
     margin-bottom: 0.5rem;
-    text-align: center;
   }
 
   .section-subtitle {

@@ -11,9 +11,9 @@ if (!calendlyUrl) {
     <h2 class="footer-heading">Let's <em>connect.</em></h2>
     <p class="footer-bio">Always interested in challenging problems, interesting teams, and the occasional bad pun.</p>
     <div class="footer-links">
-      <a class="footer-link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a class="footer-link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">Book a Chat</a>
-      <a class="footer-link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
+      <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">Book a Chat</a>
+      <a class="link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
     </div>
   </div>
   <div class="footer-mark" aria-hidden="true"><span>Ricardo Zavala</span></div>
@@ -69,38 +69,6 @@ if (!calendlyUrl) {
     display: flex;
     justify-content: center;
     gap: 2rem;
-  }
-
-  .footer-link {
-    font-size: var(--fs-small);
-    font-weight: 500;
-    color: var(--color-text);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    padding: 0.4rem 0;
-    position: relative;
-    transition: color var(--dur-med) ease;
-  }
-
-  .footer-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s var(--ease-out);
-  }
-
-  .footer-link:hover {
-    color: var(--bronze);
-  }
-  .footer-link:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
   }
 
   .footer-mark {

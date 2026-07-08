@@ -47,10 +47,10 @@ const projects = [
           <p class="project-description">{project.description}</p>
           <p class="project-stack">{project.stack}</p>
           <div class="project-links">
-            <a class="project-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+            <a class="link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
               {project.liveLabel} <span aria-hidden="true">&rarr;</span>
             </a>
-            <a class="project-link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer">
+            <a class="link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer">
               Source <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -59,24 +59,6 @@ const projects = [
     ))}
   </div>
 </section>
-
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-  );
-
-  document.querySelectorAll('.project-card').forEach((card) => {
-    observer.observe(card);
-  });
-</script>
 
 <style>
   .projects-section {
@@ -130,14 +112,6 @@ const projects = [
     grid-template-columns: 1fr 1.2fr;
     gap: 3rem;
     align-items: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-  }
-
-  .project-card.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .project-card--reversed {
@@ -208,43 +182,6 @@ const projects = [
   .project-links {
     display: flex;
     gap: 1.5rem;
-  }
-
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: var(--fs-small);
-    font-weight: 500;
-    color: var(--color-text);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    padding: 0.4rem 0;
-    position: relative;
-    transition: color 0.3s ease;
-  }
-
-  .project-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color-text);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s var(--ease-out);
-  }
-
-  .project-link:hover {
-    color: var(--color-accent);
-  }
-
-  .project-link:hover::after {
-    background-color: var(--color-accent);
-    transform: scaleX(1);
-    transform-origin: left;
   }
 
   @media (max-width: 768px) {

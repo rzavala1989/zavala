@@ -1,6 +1,5 @@
 /* Zavala Design System tokens. Canonical source of truth.
-   Fonts loaded separately via /fonts/fonts.css.
-   Global :focus-visible rule intentionally omitted pending sign-off (see DS README). */
+   Fonts loaded separately via /fonts/fonts.css. */
 
 :root {
   --paper:        #faf9f7;
@@ -131,7 +130,11 @@ code, .mono {
 }
 
 a.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   color: var(--ink);
+  font-size: var(--fs-small);
   text-decoration: none;
   position: relative;
   font-weight: 500;
