@@ -29,23 +29,23 @@ if (!calendlyUrl) {
         across the full stack for Fortune 500 companies, federal agencies, and startups,
         shipping everything from real-time GIS platforms and PCI-compliant payment
         gateways to AI-driven underwriting pipelines. Right now I'm deep in early-stage
-        fintech, architecting backend infrastructure from first commit. I like hard
-        problems, small teams, and code that earns its complexity.
+        fintech, architecting backend infrastructure from first commit. I like small
+        teams working on hard problems.
       </p>
       <div class="hero-links">
-        <a class="hero-link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">
+        <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
           </svg>
           GitHub
         </a>
-        <a class="hero-link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">
+        <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
           </svg>
           Book a Chat
         </a>
-        <a class="hero-link" href="mailto:zavala.ricardo.m@gmail.com">
+        <a class="link" href="mailto:zavala.ricardo.m@gmail.com">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
           </svg>
@@ -54,8 +54,10 @@ if (!calendlyUrl) {
       </div>
     </div>
     <div class="hero-image">
-      <span class="hero-plate" aria-hidden="true">PLATE I</span>
-      <img src="/images/headshot-hero.png" alt="Ricardo Zavala" width="380" height="460" loading="eager" />
+      <figure class="hero-figure">
+        <img src="/images/headshot-hero.png" alt="Ricardo Zavala" width="380" height="460" loading="eager" />
+        <figcaption class="hero-plate" aria-hidden="true">PLATE I</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -92,16 +94,18 @@ if (!calendlyUrl) {
     white-space: nowrap;
   }
 
+  .hero-figure {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
   .hero-plate {
-    position: absolute;
-    bottom: 1rem;
-    left: 0;
     font-family: var(--font-body);
     font-size: var(--fs-eyebrow);
     font-weight: 500;
     letter-spacing: var(--tracking-widest);
     color: var(--color-muted);
-    z-index: 2;
+    margin-top: 0.5rem;
   }
 
   .hero-tagline-num {
@@ -137,6 +141,13 @@ if (!calendlyUrl) {
     width: 100%;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-content {
+      opacity: 0;
+      animation: fadeIn 0.8s var(--ease-out) 0.1s forwards;
+    }
+  }
+
   .hero-text {
     max-width: 520px;
   }
@@ -151,9 +162,6 @@ if (!calendlyUrl) {
     text-transform: uppercase;
     color: var(--color-muted);
     margin-bottom: 1.2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.1s forwards;
   }
 
   .hero-name {
@@ -162,9 +170,6 @@ if (!calendlyUrl) {
     font-size: var(--fs-display);
     line-height: var(--leading-display);
     letter-spacing: var(--tracking-display);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.25s forwards;
   }
 
   .hero-title {
@@ -175,9 +180,6 @@ if (!calendlyUrl) {
     text-transform: uppercase;
     color: var(--color-secondary);
     margin-top: 1.2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.4s forwards;
   }
 
   .hero-location {
@@ -185,9 +187,6 @@ if (!calendlyUrl) {
     color: var(--color-muted);
     margin-top: 1.6rem;
     letter-spacing: var(--tracking-wide);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.55s forwards;
   }
 
   .hero-bio {
@@ -196,55 +195,12 @@ if (!calendlyUrl) {
     color: var(--color-secondary);
     margin-top: 1.5rem;
     max-width: 28rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.7s forwards;
   }
 
   .hero-links {
     display: flex;
     gap: 1.5rem;
     margin-top: 2.4rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s var(--ease-out) 0.85s forwards;
-  }
-
-  .hero-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: var(--fs-small);
-    font-weight: 500;
-    color: var(--color-text);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    padding: 0.4rem 0;
-    position: relative;
-    transition: color 0.3s ease;
-  }
-
-  .hero-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color-text);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s var(--ease-out);
-  }
-
-  .hero-link:hover {
-    color: var(--color-accent);
-  }
-
-  .hero-link:hover::after {
-    background-color: var(--color-accent);
-    transform: scaleX(1);
-    transform-origin: left;
   }
 
   .hero-image {
@@ -252,8 +208,6 @@ if (!calendlyUrl) {
     justify-content: center;
     align-items: center;
     position: relative;
-    opacity: 0;
-    animation: fadeIn 1s var(--ease-out) 0.4s forwards;
   }
 
   .hero-bio em {
@@ -261,23 +215,13 @@ if (!calendlyUrl) {
     color: var(--color-text);
   }
 
-  .hero-image::before {
-    content: '';
-    position: absolute;
-    width: 340px;
-    height: 340px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(139, 115, 85, 0.1) 0%, transparent 70%);
-    z-index: 0;
-  }
-
   .hero-image img {
-    position: relative;
-    z-index: 1;
     max-width: 100%;
     height: auto;
     max-height: 520px;
     object-fit: contain;
+    border: var(--border-hair);
+    background: var(--paper-alt);
   }
 
   @media (max-width: 768px) {
@@ -298,11 +242,6 @@ if (!calendlyUrl) {
 
     .hero-image img {
       max-height: 320px;
-    }
-
-    .hero-image::before {
-      width: 240px;
-      height: 240px;
     }
 
     .hero-bio {

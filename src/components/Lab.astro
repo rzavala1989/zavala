@@ -8,12 +8,7 @@ const experiments = [
     question: 'When the next disaster hits, can this county hear the warning and move?',
     description:
       'Five federal datasets joined on county FIPS (CDC Social Vulnerability Index, FEMA National Risk Index, CDC PLACES, HHS emPOWER, OpenFEMA declarations) feed derived metrics for digital alert risk, daytime population surge, expected impact, and power-dependent residents. A zoomable choropleth, a severity-banded table, its map legend, and a per-county dossier all read one shared color scale, and every filter and selection serializes to the URL so an analyst can send a colleague the exact view.',
-    stats: [
-      { value: '3,144', label: 'Counties' },
-      { value: '5', label: 'Federal datasets' },
-      { value: '6', label: 'Sortable metrics' },
-      { value: '89', label: 'Unit tests' },
-    ],
+    meta: '3,144 counties · 5 federal datasets · 6 derived metrics',
     stack: 'Next.js 16 · React 19 · TypeScript · TanStack Table · react-simple-maps · Vitest',
     liveLabel: 'Live App',
     liveUrl: 'https://ricardo-svi-tool.vercel.app',
@@ -36,20 +31,13 @@ const experiments = [
             <p class="lab-question">{exp.question}</p>
           </div>
           <p class="lab-description">{exp.description}</p>
-          <dl class="lab-stats">
-            {exp.stats.map((stat) => (
-              <div class="lab-stat">
-                <dd class="lab-stat-value">{stat.value}</dd>
-                <dt class="lab-stat-label">{stat.label}</dt>
-              </div>
-            ))}
-          </dl>
+          <p class="lab-meta">{exp.meta}</p>
           <p class="lab-stack">{exp.stack}</p>
           <div class="lab-links">
-            <a class="lab-link" href={exp.liveUrl} target="_blank" rel="noopener noreferrer">
+            <a class="link" href={exp.liveUrl} target="_blank" rel="noopener noreferrer">
               {exp.liveLabel} <span aria-hidden="true">&rarr;</span>
             </a>
-            <a class="lab-link" href={exp.sourceUrl} target="_blank" rel="noopener noreferrer">
+            <a class="link" href={exp.sourceUrl} target="_blank" rel="noopener noreferrer">
               Source <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -58,24 +46,6 @@ const experiments = [
     </div>
   </div>
 </section>
-
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
-  );
-
-  document.querySelectorAll('.lab-card').forEach((card) => {
-    observer.observe(card);
-  });
-</script>
 
 <style>
   .lab-section {
@@ -108,14 +78,6 @@ const experiments = [
     border: var(--border-hair);
     background-color: var(--paper);
     padding: clamp(1.5rem, 4vw, 2.5rem);
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-  }
-
-  .lab-card.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .lab-label {
@@ -152,35 +114,14 @@ const experiments = [
     margin-bottom: 1.8rem;
   }
 
-  .lab-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+  .lab-meta {
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-muted);
     border-top: var(--border-hair);
     border-bottom: var(--border-hair);
-    padding: 1.1rem 0;
+    padding: 0.7rem 0;
     margin-bottom: 1.5rem;
-  }
-
-  .lab-stat {
-    text-align: center;
-  }
-
-  .lab-stat-value {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
-    line-height: 1.1;
-    color: var(--bronze);
-    margin: 0 0 0.25rem;
-  }
-
-  .lab-stat-label {
-    font-size: var(--fs-eyebrow);
-    font-weight: 500;
-    letter-spacing: var(--tracking-wider);
-    text-transform: uppercase;
-    color: var(--color-muted);
   }
 
   .lab-stack {
@@ -194,50 +135,6 @@ const experiments = [
   .lab-links {
     display: flex;
     gap: 1.5rem;
-  }
-
-  .lab-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: var(--fs-small);
-    font-weight: 500;
-    color: var(--color-text);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    padding: 0.4rem 0;
-    position: relative;
-    transition: color 0.3s ease;
-  }
-
-  .lab-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color-text);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s var(--ease-out);
-  }
-
-  .lab-link:hover {
-    color: var(--color-accent);
-  }
-
-  .lab-link:hover::after {
-    background-color: var(--color-accent);
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  @media (max-width: 640px) {
-    .lab-stats {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem 1rem;
-    }
   }
 
   @media (max-width: 480px) {

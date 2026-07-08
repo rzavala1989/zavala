@@ -2,7 +2,7 @@
 const items = [
   { label: 'BUILDING', value: 'Backend infrastructure for an early-stage fintech, from first commit.' },
   { label: 'READING', value: "Kleppmann's Designing Data-Intensive Applications." },
-  { label: 'INTERESTED IN', value: 'Hard problems, small teams, systems that scale.' },
+  { label: 'INTERESTED IN', value: 'Backend systems that hold up under real scale.' },
 ];
 ---
 
@@ -11,8 +11,8 @@ const items = [
     <p class="section-mark">§ 04</p>
     <h2 class="section-heading">Right <em>now.</em></h2>
     <dl class="currently-list">
-      {items.map((item, i) => (
-        <div class="currently-row" style={`--delay: ${i * 0.15}s`}>
+      {items.map((item) => (
+        <div class="currently-row">
           <dt class="currently-label">{item.label}</dt>
           <dd class="currently-value">{item.value}</dd>
         </div>
@@ -20,24 +20,6 @@ const items = [
     </dl>
   </div>
 </section>
-
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
-  );
-
-  document.querySelectorAll('.currently-row').forEach((row) => {
-    observer.observe(row);
-  });
-</script>
 
 <style>
   .currently-section {
@@ -62,15 +44,6 @@ const items = [
     grid-template-columns: 12rem 1fr;
     gap: 2rem;
     align-items: baseline;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-    transition-delay: var(--delay);
-  }
-
-  .currently-row.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .currently-label {

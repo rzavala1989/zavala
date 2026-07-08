@@ -49,7 +49,7 @@ const jobs = [
     company: 'Vegas.com',
     title: 'Web Development Intern',
     period: '2016 - 2017',
-    summary: 'Cut teeth on production web development at a major online travel platform. Built tooling, learned the ropes, broke some stuff.'
+    summary: 'Cut teeth on production web development at a major online travel platform. Built internal tooling and broke a few things along the way.'
   }
 ];
 ---
@@ -59,7 +59,7 @@ const jobs = [
   <p class="section-mark">§ 01</p>
   <h2 class="section-heading">A career, <em>plotted.</em></h2>
   <div class="timeline">
-    {jobs.map((job, i) => (
+    {jobs.map((job) => (
       <>
         {job.era && (
           <div class="timeline-era">
@@ -67,7 +67,7 @@ const jobs = [
             <span class="timeline-era-label">{job.era}</span>
           </div>
         )}
-        <div class="timeline-item" style={`--delay: ${i * 0.1}s`}>
+        <div class="timeline-item">
           <div class={`timeline-marker ${job.period.includes('Present') ? 'is-current' : ''}`}></div>
           <div class="timeline-content">
             <span class="timeline-period">{job.period}</span>
@@ -81,24 +81,6 @@ const jobs = [
   </div>
   </div>
 </section>
-
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
-  );
-
-  document.querySelectorAll('.timeline-item').forEach((item) => {
-    observer.observe(item);
-  });
-</script>
 
 <style>
   .timeline-section {
@@ -148,19 +130,10 @@ const jobs = [
   .timeline-item {
     position: relative;
     padding-bottom: 3rem;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-    transition-delay: var(--delay);
   }
 
   .timeline-item:last-child {
     padding-bottom: 0;
-  }
-
-  .timeline-item.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .timeline-marker {
