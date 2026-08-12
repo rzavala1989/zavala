@@ -1,6 +1,15 @@
 ---
 const projects = [
   {
+    label: 'DISTRIBUTED SYSTEM',
+    title: 'Enroll',
+    plate: 'PLATE I',
+    description: 'Course registration system engineered for registration-day concurrency and data integrity. Built as a pnpm monorepo with a NestJS API and Next.js web application. Features a robust transaction model using Postgres row-level locks to serialize capacity checks and prevent over-enrollment, a Redis-backed BullMQ waitlist promotion worker, and an audit outbox pattern delivering committed events to MongoDB. Tested using Grafana k6 for load profiles and Testcontainers for concurrency.',
+    stack: 'Next.js 16 · NestJS 11 · Prisma · PostgreSQL · Redis · MongoDB · BullMQ · Turborepo',
+    sourceUrl: 'https://github.com/rzavala1989/enroll',
+    image: '/images/enroll-preview.png',
+  },
+  {
     label: 'FULL-STACK PLATFORM',
     title: 'Nomadhood',
     plate: 'PLATE II',
@@ -47,9 +56,11 @@ const projects = [
           <p class="project-description">{project.description}</p>
           <p class="project-stack">{project.stack}</p>
           <div class="project-links">
-            <a class="link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              {project.liveLabel} <span aria-hidden="true">&rarr;</span>
-            </a>
+            {project.liveUrl && (
+              <a class="link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                {project.liveLabel} <span aria-hidden="true">&rarr;</span>
+              </a>
+            )}
             <a class="link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer">
               Source <span aria-hidden="true">&rarr;</span>
             </a>
