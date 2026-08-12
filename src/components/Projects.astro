@@ -1,39 +1,6 @@
 ---
 import SectionDivider from './SectionDivider.astro';
-
-const projects = [
-  {
-    label: 'DISTRIBUTED SYSTEM',
-    title: 'Enroll',
-    plate: 'PLATE I',
-    description: 'Course registration system engineered for registration-day concurrency and data integrity. Built as a pnpm monorepo with a NestJS API and Next.js web application. Features a robust transaction model using Postgres row-level locks to serialize capacity checks and prevent over-enrollment, a Redis-backed BullMQ waitlist promotion worker, and an audit outbox pattern delivering committed events to MongoDB. Tested using Grafana k6 for load profiles and Testcontainers for concurrency.',
-    stack: 'Next.js 16 · NestJS 11 · Prisma · PostgreSQL · Redis · MongoDB · BullMQ · Turborepo',
-    sourceUrl: 'https://github.com/rzavala1989/enroll',
-    image: '/images/enroll-preview.png',
-  },
-  {
-    label: 'FULL-STACK PLATFORM',
-    title: 'Nomadhood',
-    plate: 'PLATE II',
-    description: 'Neighborhood intelligence platform for digital nomads. Aggregates seven external APIs (WalkScore, Rentcast, FBI crime data, BLS economics, Eventbrite, newsdata.io, Unsplash) into a unified neighborhood profile. Features a cosine-similarity recommendation engine that learns from your review history across six lifestyle dimensions, a composite scoring algorithm that blends community ratings with objective data, and a news intelligence pipeline with signal classification and sentiment-based risk alerts. 19 Prisma models, 54 tRPC procedures, three access tiers.',
-    stack: 'Next.js 15 · React 19 · tRPC v11 · Prisma 6 · PostgreSQL · MapLibre GL · Zod · Bun',
-    liveLabel: 'Live App',
-    liveUrl: 'https://nomadhood.vercel.app',
-    sourceUrl: 'https://github.com/rzavala1989/nomadhood',
-    image: '/images/nomadhood-preview.png',
-  },
-  {
-    label: 'GAME ENGINE + 3D',
-    title: 'Blaqjaq',
-    plate: 'PLATE III',
-    description: ' 3D blackjack with a 1951 Flamingo-era film noir aesthetic. The game engine is a pure reducer with zero React dependencies: 782 lines, 14 action types, full insurance/surrender/split mechanics. A complete basic strategy engine evaluates every decision against optimal play, and session analytics track your tendencies across hard, soft, and pair hands with P&L charting. The 3D scene uses React Three Fiber with five GLTF models, ACES filmic tone mapping, and procedural Web Audio API sound effects.',
-    stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Vitest · Vite 6',
-    liveLabel: 'Play Live',
-    liveUrl: 'https://blaqjaq.vercel.app',
-    sourceUrl: 'https://github.com/rzavala1989/blaqjaq',
-    image: '/images/blaqjaq-preview.png',
-  },
-];
+import { projects } from '../data/portfolio';
 ---
 
 <SectionDivider num="02" title="Selected Work." />
@@ -43,9 +10,9 @@ const projects = [
     {projects.map((project, i) => (
       <article class={`project-card ${i % 2 === 1 ? 'project-card--reversed' : ''}`}>
         <div class="project-preview-wrap">
-          <div class="project-preview">
-            <img src={project.image} alt={`${project.title} preview`} width="560" height="350" loading="lazy" />
-          </div>
+          <a class="project-preview" href={`/work/${project.slug}/`} aria-label={`Read about ${project.title}`}>
+            {project.image && <img src={project.image} alt={`${project.title} preview`} width="560" height="350" loading="lazy" />}
+          </a>
           <div class="project-plate">
             <span class="project-plate-label">{project.plate}</span>
             <span class="project-plate-title">{project.title}, live capture</span>
@@ -54,10 +21,11 @@ const projects = [
         <div class="project-info">
           <span class="project-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
           <span class="project-label">{project.label}</span>
-          <h3 class="project-title">{project.title}</h3>
+          <h3 class="project-title"><a href={`/work/${project.slug}/`}>{project.title}</a></h3>
           <p class="project-description">{project.description}</p>
           <p class="project-stack">{project.stack}</p>
           <div class="project-links">
+            <a class="link" href={`/work/${project.slug}/`}>Project notes <span aria-hidden="true">&rarr;</span></a>
             {project.liveUrl && (
               <a class="link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                 {project.liveLabel} <span aria-hidden="true">&rarr;</span>
@@ -149,6 +117,7 @@ const projects = [
     aspect-ratio: 16 / 10;
     border: var(--border-hair);
     overflow: hidden;
+    display: block;
   }
 
   .project-preview img {
@@ -156,6 +125,12 @@ const projects = [
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 180ms ease;
+  }
+
+  .project-preview:hover img,
+  .project-preview:focus-visible img {
+    transform: scale(1.015);
   }
 
   .project-info {
@@ -183,6 +158,18 @@ const projects = [
     margin-bottom: 1rem;
   }
 
+  .project-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .project-title a:hover,
+  .project-title a:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
   .project-description {
     font-size: var(--fs-body);
     line-height: var(--leading-body);
@@ -200,6 +187,7 @@ const projects = [
 
   .project-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
   }
 

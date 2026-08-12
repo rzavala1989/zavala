@@ -5,12 +5,16 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  ogType?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title,
   description = 'Ricardo Zavala is a Staff Software Engineer in Henderson, Nevada building full-stack, distributed, and AI-assisted systems with React, TypeScript, Node.js, Python, PostgreSQL, and AWS.',
   image = '/images/headshot-hero.png',
+  ogType = 'profile',
+  structuredData,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://zavala.pro');
@@ -22,7 +26,7 @@ const personSchema = {
   '@type': 'Person',
   name: 'Ricardo Zavala',
   url: site.toString(),
-  image: imageUrl.toString(),
+  image: new URL('/images/headshot-hero.png', site).toString(),
   jobTitle: 'Staff Software Engineer',
   address: {
     '@type': 'PostalAddress',
@@ -43,6 +47,10 @@ const personSchema = {
     'AI systems',
   ],
 };
+
+const schemas = structuredData
+  ? [personSchema, ...(Array.isArray(structuredData) ? structuredData : [structuredData])]
+  : [personSchema];
 ---
 
 <!doctype html>
@@ -59,9 +67,9 @@ const personSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageUrl} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:type" content="profile" />
-    <meta property="profile:first_name" content="Ricardo" />
-    <meta property="profile:last_name" content="Zavala" />
+    <meta property="og:type" content={ogType} />
+    {ogType === 'profile' && <meta property="profile:first_name" content="Ricardo" />}
+    {ogType === 'profile' && <meta property="profile:last_name" content="Zavala" />}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -73,7 +81,7 @@ const personSchema = {
     <link rel="preload" href="/fonts/satoshi/satoshi-700.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/instrument-serif/instrument-serif-regular-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/fonts/fonts.css" />
-    <script type="application/ld+json" set:html={JSON.stringify(personSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(schemas)}></script>
     <title>{title}</title>
   </head>
   <body>

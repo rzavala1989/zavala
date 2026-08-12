@@ -1,0 +1,108 @@
+---
+import Base from '../../layouts/Base.astro';
+import { portfolioItems, type PortfolioItem } from '../../data/portfolio';
+
+export function getStaticPaths() {
+  return portfolioItems.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+interface Props { item: PortfolioItem; }
+const { item } = Astro.props;
+const description = `${item.title} by Ricardo Zavala. ${item.description}`;
+const projectSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareSourceCode',
+  name: item.title,
+  description: item.description,
+  codeRepository: item.sourceUrl,
+  url: new URL(`/work/${item.slug}/`, Astro.site ?? 'https://zavala.pro').toString(),
+  author: { '@type': 'Person', name: 'Ricardo Zavala', url: 'https://zavala.pro/' },
+  programmingLanguage: item.stack,
+  ...(item.liveUrl ? { targetProduct: { '@type': 'SoftwareApplication', name: item.title, url: item.liveUrl } } : {}),
+};
+---
+
+<Base
+  title={`${item.title} | Ricardo Zavala`}
+  description={description}
+  image={item.image}
+  ogType="article"
+  structuredData={projectSchema}
+>
+  <main class="project-page">
+    <nav class="back-nav" aria-label="Breadcrumb"><a href="/">Ricardo Zavala</a> / <a href="/work/">Work</a> / {item.title}</nav>
+
+    <header class="project-header">
+      <p class="eyebrow">{item.label}</p>
+      <h1>{item.title}</h1>
+      {item.question && <p class="question">{item.question}</p>}
+      <p class="lede">{item.description}</p>
+      <div class="links">
+        {item.liveUrl && <a href={item.liveUrl} target="_blank" rel="noopener noreferrer">{item.liveLabel} <span aria-hidden="true">↗</span></a>}
+        <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    {item.image && (
+      <figure class="preview">
+        <img src={item.image} alt={`${item.title} application preview`} width="1120" height="700" />
+        <figcaption>{item.plate ?? item.title} · portfolio capture</figcaption>
+      </figure>
+    )}
+
+    <section class="details" aria-labelledby="engineering-notes">
+      <div class="detail-block">
+        <p class="detail-label">Stack</p>
+        <p>{item.stack}</p>
+      </div>
+      {item.meta && <div class="detail-block"><p class="detail-label">Scope</p><p>{item.meta}</p></div>}
+      <div class="detail-block wide">
+        <h2 id="engineering-notes">Engineering notes</h2>
+        {item.slug === 'enroll' && <>
+          <p>Seat capacity is a concurrency problem, so the database owns the invariant. Enrollment checks take a PostgreSQL row lock before capacity changes. That keeps two simultaneous requests from both seeing the same final seat.</p>
+          <p>Committed audit data leaves PostgreSQL through a transactional outbox. MongoDB can disappear without invalidating the enrollment transaction, and a worker can replay the event later.</p>
+          <p>The load test is built around the failure that matters: zero seat overcommit during a registration rush. k6 ramps to 1,000 virtual users while Testcontainers exercises the transaction path against real services.</p>
+        </>}
+        {item.slug === 'nomadhood' && <>
+          <p>The recommendation path combines subjective reviews with external neighborhood data. A pgvector cosine-similarity model finds places that resemble a user’s prior preferences without hiding the underlying factors.</p>
+          <p>The API surface stays type-safe from database to browser through Prisma, tRPC, and Zod. External feeds are normalized before the product layer sees them, which keeps provider-specific assumptions out of UI code.</p>
+        </>}
+        {item.slug === 'blaqjaq' && <>
+          <p>The blackjack rules live in a pure reducer with no React dependency. That gives the game engine one deterministic state transition path and makes strategy tests cheap to run.</p>
+          <p>Rendering sits on top of the rules engine. React Three Fiber handles the table, cards, models, and camera while the game state remains testable without a browser or WebGL context.</p>
+        </>}
+        {item.slug === 'emergency-lifeline-auditor' && <>
+          <p>County FIPS is the join key across five federal datasets. Derived risk metrics are calculated once and reused by the map, table, legend, and county dossier so the views cannot disagree about severity.</p>
+          <p>Filters and selections serialize into the URL. An analyst can send the exact county, risk band, and filtered state to another person without exporting a screenshot or rebuilding the view by hand.</p>
+        </>}
+      </div>
+    </section>
+
+    <footer class="project-footer"><a href="/work/">← All work</a><a href="/resume/">Resume →</a></footer>
+  </main>
+</Base>
+
+<style>
+  .project-page { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+  .back-nav { font-size: var(--fs-meta); color: var(--color-muted); margin-bottom: 5rem; }
+  .back-nav a { color: inherit; }
+  .project-header { max-width: 800px; }
+  .eyebrow, .detail-label { font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-muted); }
+  h1 { font-family: var(--font-heading); font-weight: 400; font-size: clamp(4rem, 10vw, 8rem); line-height: .9; letter-spacing: var(--tracking-display); margin: .8rem 0 1.5rem; }
+  .question { font-family: var(--font-heading); font-style: italic; font-size: clamp(1.3rem, 3vw, 1.8rem); color: var(--bronze-4); margin-bottom: 1.5rem; }
+  .lede { color: var(--color-secondary); font-size: var(--fs-lead); line-height: var(--leading-body); max-width: 48rem; }
+  .links { display: flex; gap: 1.5rem; margin-top: 2rem; }
+  .links a, .project-footer a { color: var(--color-text); font-weight: 500; }
+  .preview { margin: 5rem 0; }
+  .preview img { display: block; width: 100%; height: auto; border: var(--border-hair); }
+  .preview figcaption { margin-top: .65rem; color: var(--color-muted); font-size: var(--fs-meta); letter-spacing: var(--tracking-wide); }
+  .details { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: var(--border-hair); }
+  .detail-block { padding: 2rem 0; border-bottom: var(--border-hair); }
+  .detail-block:nth-child(2) { padding-left: 2rem; border-left: var(--border-hair); }
+  .detail-block > p:last-child { margin-top: .65rem; color: var(--color-secondary); line-height: var(--leading-body); }
+  .detail-block.wide { grid-column: 1 / -1; padding: 3rem 0; }
+  h2 { font-family: var(--font-heading); font-size: var(--fs-h2); font-weight: 400; margin-bottom: 1.5rem; }
+  .wide p { max-width: 48rem; margin-bottom: 1.25rem; color: var(--color-secondary); line-height: var(--leading-body); }
+  .project-footer { display: flex; justify-content: space-between; margin-top: 4rem; padding-top: 2rem; border-top: var(--border-hair); }
+  @media (max-width: 650px) { .details { grid-template-columns: 1fr; } .detail-block:nth-child(2) { padding-left: 0; border-left: 0; } }
+</style>
