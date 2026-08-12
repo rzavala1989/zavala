@@ -13,6 +13,7 @@ if (!calendlyUrl) {
   <div class="footer-content">
     <p class="footer-bio">Always interested in challenging problems, interesting teams, and the occasional bad pun.</p>
     <div class="footer-links">
+      <a class="link" href="/resume/">Resume</a>
       <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">Book a Chat</a>
       <a class="link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
@@ -37,8 +38,6 @@ if (!calendlyUrl) {
     text-align: center;
   }
 
-
-
   .footer-bio {
     font-size: clamp(0.9rem, 1.3vw, 1rem);
     line-height: 1.6;
@@ -49,6 +48,7 @@ if (!calendlyUrl) {
 
   .footer-links {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
   }
