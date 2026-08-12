@@ -1,9 +1,10 @@
 ---
+import SectionDivider from './SectionDivider.astro';
 ---
 
+<SectionDivider num="05" title="Skills, traced." />
+
 <section class="sankey-section" id="skills">
-  <p class="section-mark">§ 05</p>
-  <h2 class="section-heading">Skills, <em>traced.</em></h2>
   <p class="section-subtitle">Hover a node to trace its path.</p>
   <div class="sankey-wrapper">
     <div class="sankey-container" id="sankey-chart"></div>
@@ -348,14 +349,12 @@
 
 <style>
   .sankey-section {
-    padding: var(--section-padding) 1.5rem;
+    padding: 0 1.5rem var(--section-padding);
     max-width: var(--content-max-width);
     margin: 0 auto;
   }
 
-  .section-heading {
-    margin-bottom: 0.5rem;
-  }
+
 
   .section-subtitle {
     text-align: center;

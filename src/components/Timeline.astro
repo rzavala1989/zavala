@@ -1,4 +1,6 @@
 ---
+import SectionDivider from './SectionDivider.astro';
+
 const jobs = [
   {
     era: 'Now',
@@ -54,10 +56,10 @@ const jobs = [
 ];
 ---
 
+<SectionDivider num="01" title="A career, plotted." />
+
 <section class="timeline-section" id="experience">
   <div class="timeline-inner">
-  <p class="section-mark">§ 01</p>
-  <h2 class="section-heading">A career, <em>plotted.</em></h2>
   <div class="timeline">
     {jobs.map((job) => (
       <>
@@ -85,7 +87,7 @@ const jobs = [
 <style>
   .timeline-section {
     background-color: var(--paper-alt);
-    padding: var(--section-padding) 1.5rem;
+    padding: 0 1.5rem var(--section-padding);
   }
 
   .timeline-inner {

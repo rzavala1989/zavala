@@ -1,4 +1,6 @@
 ---
+import SectionDivider from './SectionDivider.astro';
+
 const projects = [
   {
     label: 'DISTRIBUTED SYSTEM',
@@ -34,9 +36,9 @@ const projects = [
 ];
 ---
 
+<SectionDivider num="02" title="Selected Work." />
+
 <section class="projects-section" id="projects">
-  <p class="section-mark">§ 02</p>
-  <h2 class="section-heading">Selected <em>Work.</em></h2>
   <div class="projects-list">
     {projects.map((project, i) => (
       <article class={`project-card ${i % 2 === 1 ? 'project-card--reversed' : ''}`}>
@@ -73,7 +75,7 @@ const projects = [
 
 <style>
   .projects-section {
-    padding: var(--section-padding) 1.5rem;
+    padding: 0 1.5rem var(--section-padding);
     max-width: var(--content-max-width);
     margin: 0 auto;
   }
@@ -120,20 +122,26 @@ const projects = [
 
   .project-card {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: repeat(12, 1fr);
     gap: 3rem;
     align-items: center;
   }
 
-  .project-card--reversed {
-    grid-template-columns: 1.2fr 1fr;
+  .project-preview-wrap {
+    grid-column: 1 / 7;
   }
 
-  .project-card--reversed .project-preview {
+  .project-info {
+    grid-column: 8 / 13;
+  }
+
+  .project-card--reversed .project-preview-wrap {
+    grid-column: 7 / 13;
     order: 2;
   }
 
   .project-card--reversed .project-info {
+    grid-column: 1 / 6;
     order: 1;
   }
 
@@ -196,15 +204,20 @@ const projects = [
   }
 
   @media (max-width: 768px) {
-    .project-card,
-    .project-card--reversed {
+    .project-card {
       grid-template-columns: 1fr;
       gap: 1.5rem;
       direction: ltr;
     }
 
-    .project-preview {
-      order: -1;
+    .project-preview-wrap, .project-card--reversed .project-preview-wrap {
+      grid-column: 1 / -1;
+      order: 1;
+    }
+
+    .project-info, .project-card--reversed .project-info {
+      grid-column: 1 / -1;
+      order: 2;
     }
   }
 

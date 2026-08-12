@@ -1,4 +1,6 @@
 ---
+import SectionDivider from './SectionDivider.astro';
+
 const items = [
   { label: 'BUILDING', value: 'Backend infrastructure for an early-stage fintech, from first commit.' },
   { label: 'READING', value: "Kleppmann's Designing Data-Intensive Applications." },
@@ -6,10 +8,10 @@ const items = [
 ];
 ---
 
+<SectionDivider num="04" title="Right now." />
+
 <section class="currently-section" id="currently">
   <div class="currently-inner">
-    <p class="section-mark">§ 04</p>
-    <h2 class="section-heading">Right <em>now.</em></h2>
     <dl class="currently-list">
       {items.map((item) => (
         <div class="currently-row">
@@ -23,7 +25,8 @@ const items = [
 
 <style>
   .currently-section {
-    padding: var(--section-padding) 1.5rem;
+    padding: 0 1.5rem var(--section-padding);
+    background-color: var(--paper-deep);
   }
 
   .currently-inner {

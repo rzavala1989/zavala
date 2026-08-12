@@ -1,14 +1,16 @@
 ---
+import SectionDivider from './SectionDivider.astro';
+
 const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL;
 if (!calendlyUrl) {
   throw new Error('PUBLIC_CALENDLY_URL is not set. Add it to .env.local locally or to Vercel env vars before deploying.');
 }
 ---
 
+<SectionDivider num="Coda" title="Let's connect." />
+
 <footer class="footer" id="contact">
   <div class="footer-content">
-    <p class="section-mark">§ Coda</p>
-    <h2 class="footer-heading">Let's <em>connect.</em></h2>
     <p class="footer-bio">Always interested in challenging problems, interesting teams, and the occasional bad pun.</p>
     <div class="footer-links">
       <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -26,8 +28,7 @@ if (!calendlyUrl) {
 <style>
   .footer {
     background-color: var(--paper-deep);
-    padding: var(--section-padding) 1.5rem 2rem;
-    border-top: var(--border-hair);
+    padding: 0 1.5rem 2rem;
   }
 
   .footer-content {
@@ -36,26 +37,7 @@ if (!calendlyUrl) {
     text-align: center;
   }
 
-  .section-mark {
-    font-family: var(--font-body);
-    font-size: var(--fs-eyebrow);
-    font-weight: 500;
-    letter-spacing: var(--tracking-widest);
-    color: var(--color-muted);
-    margin-bottom: 1rem;
-    text-align: center;
-  }
 
-  .footer-heading {
-    font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 400;
-    letter-spacing: var(--tracking-display);
-    margin-bottom: 1rem;
-  }
-  .footer-heading em {
-    font-style: italic;
-  }
 
   .footer-bio {
     font-size: clamp(0.9rem, 1.3vw, 1rem);
