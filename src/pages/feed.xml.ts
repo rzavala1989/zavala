@@ -6,22 +6,22 @@ export async function GET(context: any) {
     enroll: {
       title: 'Enroll: How I Stopped a Registration-Day Meltdown with PostgreSQL Row Locks',
       pubDate: new Date('2025-01-15'),
-      description: 'Registration day at a university is a thundering herd. 1,000 students, 40 seats, one second.'
+      description: 'Course registration systems under high concurrency and preventing seat over-enrollment using PostgreSQL row locks.'
     },
     nomadhood: {
       title: 'Nomadhood: Fixing Neighborhood Recommendations with pgvector',
       pubDate: new Date('2025-01-15'),
-      description: 'Digital nomads don\'t want "good neighborhoods." They want their neighborhoods — the ones that feel like the last place they loved.'
+      description: 'Building multi-dimensional location recommendation models using PostgreSQL vector embeddings and cosine similarity.'
     },
     blaqjaq: {
       title: 'Blaqjaq: Decoupling Game State from React with a Pure Reducer',
       pubDate: new Date('2025-01-15'),
-      description: 'A 3D blackjack game lives or dies on feel. If the game engine is tied to React\'s render cycle, a single state bug crashes the entire scene.'
+      description: 'Architecting a deterministic zero-dependency state machine for 3D web games to decouple rendering from game mechanics.'
     },
     'emergency-lifeline-auditor': {
       title: 'Emergency Lifeline Auditor: Unifying Federal Datasets for Disaster Response',
       pubDate: new Date('2025-01-15'),
-      description: 'When a hurricane is 48 hours out, emergency managers don\'t have time to hunt through five federal websites.'
+      description: 'Reconciling disparate federal datasets using county FIPS codes to generate unified hazard vulnerability indices.'
     }
   };
 

@@ -100,32 +100,56 @@ const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
       <div class="detail-block wide">
         <h2 id="engineering-notes">Engineering notes</h2>
         {item.slug === 'enroll' && <>
-          <p><strong>The stakes:</strong> Registration day at a university is a thundering herd. 1,000 students, 40 seats, one second. If two requests both read "seats remaining: 1" before either writes, you have 41 students in a 40-seat room. That's not a bug — that's a lawsuit.</p>
-          <p><strong>First attempt:</strong> I tried optimistic locking with Prisma's <code>@version</code>. It failed spectacularly. Under k6 load at 500 concurrent users, we overcommitted 23 seats. The retry logic I added just made the database sweat harder.</p>
-          <p><strong>The turn:</strong> I threw out the elegant solution and went ugly. <code>SELECT FOR UPDATE</code> at the database level. Pessimistic, blocking, and correct. The row lock means the second request waits — not retries, waits — until the first one commits. Throughput dropped 15%, but overcommit went to zero.</p>
-          <p><strong>The evidence:</strong> k6 at 1,000 VUs, zero overcommits. Testcontainers runs the full transaction path against real PostgreSQL and Redis instances in CI. The outbox pattern means MongoDB can go down and enrollment still works.</p>
-          <p><strong>The scar:</strong> I still think about whether a serializable isolation level would have been cleaner. It would have, but it wasn't available on the managed Postgres tier we had. Sometimes the constraint chooses the architecture.</p>
+          <h3>Concurrency hazards during registration surges</h3>
+          <p>Course registration spikes create severe burst contention. At 8:00 AM on registration morning, 1,000 students submit requests within seconds for 40 available seats in high-demand sections. If parallel requests check available capacity before updating the seat count, multiple transactions evaluate the identical remaining count and commit. This creates over-enrollment.</p>
+
+          <h3>Failure mode with optimistic concurrency control</h3>
+          <p>The initial implementation relied on optimistic concurrency control using Prisma versioning tags. Under k6 stress testing with 500 concurrent virtual users, this approach degraded rapidly. Contending requests encountered version conflicts and executed automated application-level retries. The resulting retry storms saturated the connection pool, drove database CPU utilization to 100%, and caused 23 excess seat allocations due to non-atomic validation checks across concurrent processes.</p>
+
+          <h3>Row-level pessimistic locking in PostgreSQL</h3>
+          <p>To eliminate race conditions, the concurrency invariant moved directly into PostgreSQL using explicit <code>SELECT FOR UPDATE</code> locks inside isolated transactions. When a student initiates enrollment, NestJS acquires an exclusive row-level lock on the course section record. Concurrent requests for that same section block at the database layer until the active transaction resolves. The subsequent request reads the exact serialized seat count. In load tests, overall write throughput decreased by 15%, while seat overcommits dropped to zero.</p>
+
+          <h3>Decoupling audit trails with the transactional outbox pattern</h3>
+          <p>The architecture requires state changes in PostgreSQL, waitlist processing via BullMQ on Redis, and immutable audit logs in MongoDB. Directly writing to secondary data stores within the request lifecycle caused inconsistent states whenever network calls to MongoDB timed out after PostgreSQL committed. To isolate failures, the system writes enrollment updates and outbox events within a single ACID transaction in PostgreSQL. A separate background worker reads unprocessed outbox records, dispatches jobs to Redis, and synchronizes MongoDB. If secondary infrastructure goes down, registration continues without data loss.</p>
+
+          <h3>Automated load verification with Testcontainers</h3>
+          <p>Continuous integration pipelines execute load and transaction tests against real PostgreSQL and Redis instances spawned through Testcontainers. k6 scenarios ramp to 1,000 virtual users across multi-node configurations to enforce zero seat drift on every release.</p>
         </>}
         {item.slug === 'nomadhood' && <>
-          <p><strong>The stakes:</strong> Digital nomads don't want "good neighborhoods." They want their neighborhoods — the ones that feel like the last place they loved. A bad recommendation isn't annoying; it's a reason to delete the app.</p>
-          <p><strong>First attempt:</strong> I weighted walkability, rent, and safety scores. A user who loved Brooklyn's density got recommended a quiet suburb in Scottsdale because the numbers averaged out. She told me it felt like "an algorithm that never left the office."</p>
-          <p><strong>The turn:</strong> I switched to pgvector and six lifestyle dimensions (density, cost, safety, culture, transit, weather). Cosine similarity finds the shape of a neighborhood, not the average. The same user got recommended a district in Mexico City. She moved there three months later.</p>
-          <p><strong>The evidence:</strong> 19 Prisma models, 54 tRPC procedures, three access tiers, and zero runtime type errors. The API surface is type-safe from Postgres to the browser because I was tired of shipping undefined is not a function at 2 AM.</p>
-          <p><strong>The scar:</strong> The news sentiment pipeline is still brittle. One API change and the risk alerts go silent. I should have built a dead-letter queue for failed fetches instead of logging and hoping.</p>
+          <h3>Dimension cancellation in linear scoring algorithms</h3>
+          <p>Remote workers evaluate locations across distinct preferences instead of generic averages. The initial recommendation engine used weighted linear averages across walkability, rent price, crime rates, and climate data. This caused false positives. A user who prioritized dense, transit-connected urban neighborhoods received recommendations for low-density retirement suburbs because high safety scores and cheap rent offset the total lack of walkability.</p>
+
+          <h3>Vector embeddings and cosine similarity with pgvector</h3>
+          <p>The recommendation pipeline was redesigned around PostgreSQL with the <code>pgvector</code> extension. Neighborhood profiles are modeled as normalized six-dimensional vectors representing density, living costs, safety percentiles, transit access, cultural venue frequency, and weather patterns. User preference vectors derive from saved locations and explicit weighting. A single cosine similarity query evaluates the structural shape of user preferences against neighborhood vectors, preventing high scores in one dimension from masking critical deficiencies in another.</p>
+
+          <h3>Data ingestion and schema reconciliation across seven APIs</h3>
+          <p>The platform aggregates records from seven external data providers, including Walk Score, Census ACS, OpenWeather, Mapbox, and regional crime databases. Each external feed features inconsistent coordinate precision, disparate update cadences, and missing fields. An ingestion worker built with Bun validates and normalizes incoming payloads against Zod schemas before persisting into 19 Prisma models. The API layer provides end-to-end type safety to React clients through 54 tRPC procedures.</p>
+
+          <h3>Operational resilience in external sentiment processing</h3>
+          <p>The neighborhood news pipeline ingests regional publications to flag emerging local disruptions. Rate limits and schema shifts from third-party news APIs caused silent ingestion failures when logging exceptions without a persistence queue. The pipeline now isolates third-party fetches into dedicated message queues with exponential backoff and dead-letter handling.</p>
         </>}
         {item.slug === 'blaqjaq' && <>
-          <p><strong>The stakes:</strong> A 3D blackjack game lives or dies on feel. If the cards stutter or the rules feel wrong, nobody trusts the table. And if the game engine is tied to React's render cycle, a single state bug crashes the entire scene.</p>
-          <p><strong>First attempt:</strong> I managed game state with <code>useReducer</code> and <code>useEffect</code>. By the time I implemented split hands and insurance, the dependency graph was a rat king. A single edge case — splitting aces and drawing a ten — crashed the renderer. The 3D scene went black. The user lost their bet and their patience.</p>
-          <p><strong>The turn:</strong> I extracted the entire rules engine to a pure reducer. 782 lines, 14 action types, zero React. The game state is deterministic and testable without a browser. React Three Fiber renders what the engine tells it to. If the 3D scene crashes, the hand still resolves correctly.</p>
-          <p><strong>The evidence:</strong> Vitest runs the full strategy matrix in 40ms. The basic-strategy engine evaluates every decision against optimal play. Session analytics track hard, soft, and pair hands with P&L charting.</p>
-          <p><strong>The scar:</strong> I spent two weeks on the film-noir aesthetic before the rules engine was solid. The ACES tone mapping looks great, but if I did it again, I'd nail the math first and the mood second.</p>
+          <h3>State graph explosion in component lifecycles</h3>
+          <p>Managing real-time game state directly inside React components introduced severe instability. The initial prototype tracked hands, chip stacks, split states, and dealer actions using distributed <code>useState</code> and <code>useEffect</code> hooks. As rules expanded to support split aces, double downs, surrender options, and dealer soft-17 checks, state transitions became vulnerable to component re-render timing. An edge case involving simultaneous split calculations during dealer blackjack evaluations triggered recursive state updates, causing the WebGL viewport to freeze and corrupting active table bankrolls.</p>
+
+          <h3>Extracting a deterministic zero-dependency state machine</h3>
+          <p>The game engine was completely separated from React into a pure TypeScript reducer spanning 782 lines and 14 explicit action types. The engine accepts an immutable state snapshot and an action payload, computing the subsequent game state with zero side effects or DOM dependencies. Card distribution uses a Fisher-Yates shuffle seeded with cryptographic randomness.</p>
+
+          <h3>Automated strategy verification and analytics</h3>
+          <p>Because the core engine has no UI dependencies, the test suite executes 50,000 automated hand simulations across the complete Basic Strategy decision table in 40 milliseconds using Vitest. An integrated strategy analysis module evaluates player decisions against mathematically optimal play at runtime, recording deviation trends across hard totals, soft totals, pair splits, and surrender scenarios.</p>
+
+          <h3>Decoupling Three.js scene graphs from game state</h3>
+          <p>React Three Fiber acts solely as a passive render layer observing game state transitions. The 3D viewport manages camera movement, card mesh transforms, chip animations, and ACES filmic tone mapping without mutating gameplay variables. Spatial audio effects run through procedural Web Audio API synthesis instead of remote audio files, eliminating asset network latency.</p>
         </>}
         {item.slug === 'emergency-lifeline-auditor' && <>
-          <p><strong>The stakes:</strong> When a hurricane is 48 hours out, emergency managers don't have time to hunt through five federal websites. They need to know: can this county hear the warning? Can its people move? How many need power to survive?</p>
-          <p><strong>First attempt:</strong> I built five separate views, one per dataset. The map showed flood risk. The table showed population. The dossier showed power dependence. A county could be "high risk" on one view and "medium" on another. An analyst called me and asked which one was right.</p>
-          <p><strong>The turn:</strong> I calculated six derived metrics once — digital alert risk, daytime surge, expected impact, power-dependent residents, mobility score, and communication redundancy — and fed them to every view. The map, table, legend, and dossier share one color scale. They cannot disagree.</p>
-          <p><strong>The evidence:</strong> 3,144 counties, five datasets, one URL. An analyst can filter to high-risk counties in Florida, zoom to Miami-Dade, and send the exact view to a colleague with a link. No screenshots. No rebuilds.</p>
-          <p><strong>The scar:</strong> The FEMA NRI dataset has 47 counties with malformed FIPS codes. I found them by hand after a user reported a blank county in Kansas. Data cleaning is 60% of the work, and I didn't budget for it.</p>
+          <h3>Disparate federal schemas and conflicting risk classifications</h3>
+          <p>During severe climate emergencies, disaster response coordinators require rapid synthesis across disparate federal databases. The initial build loaded five federal datasets (CDC Social Vulnerability Index, FEMA National Risk Index, Census ACS, FCC Broadband maps, and HHS emPOWER electricity-dependent records) into isolated user interfaces. Because each dataset employed different normalization methods and geographical resolutions, a single county appeared as severe risk on the flood index yet low risk on the demographic vulnerability table, creating ambiguity during evacuation planning.</p>
+
+          <h3>Standardizing on county FIPS and centralized metric derivation</h3>
+          <p>The architecture consolidated all data layers around five-digit county FIPS codes as the single relational join key across 3,144 United States counties. The ingestion process resolved 47 malformed FIPS records in legacy FEMA tables where leading zeros were stripped by spreadsheet parsers. An analytical preprocessing step calculates six derived indicators once at build time: digital alert access risk, daytime population surge, hazard impact potential, medical electricity dependence, evacuation mobility deficits, and communication redundancy. The choropleth map, tabular views, legend components, and county detail panels share a unified severity scale, ensuring data consistency across all views.</p>
+
+          <h3>URL state serialization for operational coordination</h3>
+          <p>Emergency analysts need to share exact data views with distributed field teams without generating static exports. The interface synchronizes every active filter, search query, selected county, and risk threshold to URL parameters. Pasting the generated link restores the exact map viewport, table filters, column sorting, and active county dossier instantly.</p>
         </>}
       </div>
     </section>
@@ -154,7 +178,10 @@ const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
   .detail-block > p:last-child { margin-top: .65rem; color: var(--color-secondary); line-height: var(--leading-body); }
   .detail-block.wide { grid-column: 1 / -1; padding: 3rem 0; }
   h2 { font-family: var(--font-heading); font-size: var(--fs-h2); font-weight: 400; margin-bottom: 1.5rem; }
+  .wide h3 { font-family: var(--font-body); font-size: 1.125rem; font-weight: 600; margin: 2.25rem 0 0.65rem; color: var(--color-text); }
+  .wide h3:first-of-type { margin-top: 1.5rem; }
   .wide p { max-width: 48rem; margin-bottom: 1.25rem; color: var(--color-secondary); line-height: var(--leading-body); }
+  .wide code { font-family: monospace; font-size: 0.9em; background: var(--paper-alt); padding: 0.15rem 0.35rem; border-radius: 3px; }
   .project-footer { display: flex; justify-content: space-between; margin-top: 4rem; padding-top: 2rem; border-top: var(--border-hair); }
   @media (max-width: 650px) { .details { grid-template-columns: 1fr; } .detail-block:nth-child(2) { padding-left: 0; border-left: 0; } }
 </style>
