@@ -1,16 +1,14 @@
 ---
-import SectionDivider from './SectionDivider.astro';
-
 const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL;
 if (!calendlyUrl) {
   throw new Error('PUBLIC_CALENDLY_URL is not set. Add it to .env.local locally or to Vercel env vars before deploying.');
 }
+const currentYear = new Date().getFullYear();
 ---
-
-<SectionDivider num="Coda" title="Let's connect." />
 
 <footer class="footer" id="contact">
   <div class="footer-content">
+    <h2 class="section-heading">Let's <em>connect.</em></h2>
     <p class="footer-bio">Always interested in challenging problems, interesting teams, and the occasional bad pun.</p>
     <div class="footer-links">
       <a class="link" href="/work/">Work</a>

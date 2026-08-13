@@ -1,11 +1,9 @@
 ---
-import SectionDivider from './SectionDivider.astro';
 import { projects } from '../data/portfolio';
 ---
 
-<SectionDivider num="02" title="Selected Work." />
-
 <section class="projects-section" id="projects">
+  <h2 class="section-heading">Selected <em>Work.</em></h2>
   <div class="projects-list">
     {projects.map((project, i) => (
       <article class={`project-card ${i % 2 === 1 ? 'project-card--reversed' : ''}`}>
