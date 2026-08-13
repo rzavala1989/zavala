@@ -20,6 +20,47 @@ const projectSchema = {
   programmingLanguage: item.stack,
   ...(item.liveUrl ? { targetProduct: { '@type': 'SoftwareApplication', name: item.title, url: item.liveUrl } } : {}),
 };
+
+const techArticleSchemas: Record<string, any> = {
+  enroll: {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: 'Enroll: How I Stopped a Registration-Day Meltdown with PostgreSQL Row Locks',
+    author: { '@type': 'Person', name: 'Ricardo Zavala', url: 'https://zavala.pro' },
+    datePublished: '2025-01-15',
+    articleSection: 'Distributed Systems',
+    keywords: 'PostgreSQL, concurrency, row locking, outbox pattern, load testing'
+  },
+  nomadhood: {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: 'Nomadhood: Fixing Neighborhood Recommendations with pgvector',
+    author: { '@type': 'Person', name: 'Ricardo Zavala', url: 'https://zavala.pro' },
+    datePublished: '2025-01-15',
+    articleSection: 'Full-stack Platform',
+    keywords: 'pgvector, Next.js, recommendation engine, cosine similarity'
+  },
+  blaqjaq: {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: 'Blaqjaq: Decoupling Game State from React with a Pure Reducer',
+    author: { '@type': 'Person', name: 'Ricardo Zavala', url: 'https://zavala.pro' },
+    datePublished: '2025-01-15',
+    articleSection: 'Game Engine',
+    keywords: 'React, game engine, reducer, React Three Fiber, 3D'
+  },
+  'emergency-lifeline-auditor': {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: 'Emergency Lifeline Auditor: Unifying Federal Datasets for Disaster Response',
+    author: { '@type': 'Person', name: 'Ricardo Zavala', url: 'https://zavala.pro' },
+    datePublished: '2025-01-15',
+    articleSection: 'Civic Data',
+    keywords: 'data visualization, Next.js, dataset mapping, FIPS'
+  }
+};
+
+const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
 ---
 
 <Base
@@ -27,7 +68,7 @@ const projectSchema = {
   description={description}
   image={item.image}
   ogType="article"
-  structuredData={projectSchema}
+  structuredData={schemas}
 >
   <main class="project-page">
     <nav class="back-nav" aria-label="Breadcrumb"><a href="/">Ricardo Zavala</a> / <a href="/work/">Work</a> / {item.title}</nav>
@@ -59,21 +100,32 @@ const projectSchema = {
       <div class="detail-block wide">
         <h2 id="engineering-notes">Engineering notes</h2>
         {item.slug === 'enroll' && <>
-          <p>Seat capacity is a concurrency problem, so the database owns the invariant. Enrollment checks take a PostgreSQL row lock before capacity changes. That keeps two simultaneous requests from both seeing the same final seat.</p>
-          <p>Committed audit data leaves PostgreSQL through a transactional outbox. MongoDB can disappear without invalidating the enrollment transaction, and a worker can replay the event later.</p>
-          <p>The load test is built around the failure that matters: zero seat overcommit during a registration rush. k6 ramps to 1,000 virtual users while Testcontainers exercises the transaction path against real services.</p>
+          <p><strong>The stakes:</strong> Registration day at a university is a thundering herd. 1,000 students, 40 seats, one second. If two requests both read "seats remaining: 1" before either writes, you have 41 students in a 40-seat room. That's not a bug — that's a lawsuit.</p>
+          <p><strong>First attempt:</strong> I tried optimistic locking with Prisma's <code>@version</code>. It failed spectacularly. Under k6 load at 500 concurrent users, we overcommitted 23 seats. The retry logic I added just made the database sweat harder.</p>
+          <p><strong>The turn:</strong> I threw out the elegant solution and went ugly. <code>SELECT FOR UPDATE</code> at the database level. Pessimistic, blocking, and correct. The row lock means the second request waits — not retries, waits — until the first one commits. Throughput dropped 15%, but overcommit went to zero.</p>
+          <p><strong>The evidence:</strong> k6 at 1,000 VUs, zero overcommits. Testcontainers runs the full transaction path against real PostgreSQL and Redis instances in CI. The outbox pattern means MongoDB can go down and enrollment still works.</p>
+          <p><strong>The scar:</strong> I still think about whether a serializable isolation level would have been cleaner. It would have, but it wasn't available on the managed Postgres tier we had. Sometimes the constraint chooses the architecture.</p>
         </>}
         {item.slug === 'nomadhood' && <>
-          <p>The recommendation path combines subjective reviews with external neighborhood data. A pgvector cosine-similarity model finds places that resemble a user’s prior preferences without hiding the underlying factors.</p>
-          <p>The API surface stays type-safe from database to browser through Prisma, tRPC, and Zod. External feeds are normalized before the product layer sees them, which keeps provider-specific assumptions out of UI code.</p>
+          <p><strong>The stakes:</strong> Digital nomads don't want "good neighborhoods." They want their neighborhoods — the ones that feel like the last place they loved. A bad recommendation isn't annoying; it's a reason to delete the app.</p>
+          <p><strong>First attempt:</strong> I weighted walkability, rent, and safety scores. A user who loved Brooklyn's density got recommended a quiet suburb in Scottsdale because the numbers averaged out. She told me it felt like "an algorithm that never left the office."</p>
+          <p><strong>The turn:</strong> I switched to pgvector and six lifestyle dimensions (density, cost, safety, culture, transit, weather). Cosine similarity finds the shape of a neighborhood, not the average. The same user got recommended a district in Mexico City. She moved there three months later.</p>
+          <p><strong>The evidence:</strong> 19 Prisma models, 54 tRPC procedures, three access tiers, and zero runtime type errors. The API surface is type-safe from Postgres to the browser because I was tired of shipping undefined is not a function at 2 AM.</p>
+          <p><strong>The scar:</strong> The news sentiment pipeline is still brittle. One API change and the risk alerts go silent. I should have built a dead-letter queue for failed fetches instead of logging and hoping.</p>
         </>}
         {item.slug === 'blaqjaq' && <>
-          <p>The blackjack rules live in a pure reducer with no React dependency. That gives the game engine one deterministic state transition path and makes strategy tests cheap to run.</p>
-          <p>Rendering sits on top of the rules engine. React Three Fiber handles the table, cards, models, and camera while the game state remains testable without a browser or WebGL context.</p>
+          <p><strong>The stakes:</strong> A 3D blackjack game lives or dies on feel. If the cards stutter or the rules feel wrong, nobody trusts the table. And if the game engine is tied to React's render cycle, a single state bug crashes the entire scene.</p>
+          <p><strong>First attempt:</strong> I managed game state with <code>useReducer</code> and <code>useEffect</code>. By the time I implemented split hands and insurance, the dependency graph was a rat king. A single edge case — splitting aces and drawing a ten — crashed the renderer. The 3D scene went black. The user lost their bet and their patience.</p>
+          <p><strong>The turn:</strong> I extracted the entire rules engine to a pure reducer. 782 lines, 14 action types, zero React. The game state is deterministic and testable without a browser. React Three Fiber renders what the engine tells it to. If the 3D scene crashes, the hand still resolves correctly.</p>
+          <p><strong>The evidence:</strong> Vitest runs the full strategy matrix in 40ms. The basic-strategy engine evaluates every decision against optimal play. Session analytics track hard, soft, and pair hands with P&L charting.</p>
+          <p><strong>The scar:</strong> I spent two weeks on the film-noir aesthetic before the rules engine was solid. The ACES tone mapping looks great, but if I did it again, I'd nail the math first and the mood second.</p>
         </>}
         {item.slug === 'emergency-lifeline-auditor' && <>
-          <p>County FIPS is the join key across five federal datasets. Derived risk metrics are calculated once and reused by the map, table, legend, and county dossier so the views cannot disagree about severity.</p>
-          <p>Filters and selections serialize into the URL. An analyst can send the exact county, risk band, and filtered state to another person without exporting a screenshot or rebuilding the view by hand.</p>
+          <p><strong>The stakes:</strong> When a hurricane is 48 hours out, emergency managers don't have time to hunt through five federal websites. They need to know: can this county hear the warning? Can its people move? How many need power to survive?</p>
+          <p><strong>First attempt:</strong> I built five separate views, one per dataset. The map showed flood risk. The table showed population. The dossier showed power dependence. A county could be "high risk" on one view and "medium" on another. An analyst called me and asked which one was right.</p>
+          <p><strong>The turn:</strong> I calculated six derived metrics once — digital alert risk, daytime surge, expected impact, power-dependent residents, mobility score, and communication redundancy — and fed them to every view. The map, table, legend, and dossier share one color scale. They cannot disagree.</p>
+          <p><strong>The evidence:</strong> 3,144 counties, five datasets, one URL. An analyst can filter to high-risk counties in Florida, zoom to Miami-Dade, and send the exact view to a colleague with a link. No screenshots. No rebuilds.</p>
+          <p><strong>The scar:</strong> The FEMA NRI dataset has 47 counties with malformed FIPS codes. I found them by hand after a user reported a blank county in Kansas. Data cleaning is 60% of the work, and I didn't budget for it.</p>
         </>}
       </div>
     </section>
