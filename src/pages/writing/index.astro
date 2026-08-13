@@ -73,17 +73,17 @@ const description = "Technical writing and engineering notes by Ricardo Zavala o
   h1 { font-family: var(--font-heading); font-weight: 400; font-size: clamp(4rem, 10vw, 8rem); line-height: .9; letter-spacing: var(--tracking-display); margin: .8rem 0 1.5rem; }
   .lede { color: var(--color-secondary); font-size: var(--fs-lead); line-height: var(--leading-body); max-width: 48rem; }
   
-  .notes-list { display: flex; flex-direction: column; gap: 3rem; }
-  .note-card { display: flex; flex-direction: column; gap: 0.5rem; padding-bottom: 3rem; border-bottom: var(--border-hair); }
-  .note-card:last-child { border-bottom: none; }
-  .note-card time { font-size: var(--fs-meta); color: var(--color-muted); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
-  .note-card h2 { font-family: var(--font-heading); font-size: var(--fs-h2); font-weight: 400; line-height: 1.1; }
-  .note-card h2 a { color: var(--color-text); text-decoration: none; }
-  .note-card h2 a:hover { color: var(--bronze-4); text-decoration: underline; }
+  .notes-list { display: flex; flex-direction: column; gap: 3.5rem; }
+  .note-card { display: flex; flex-direction: column; gap: 0.6rem; }
+  .note-card time { font-size: var(--fs-meta); color: var(--color-muted); letter-spacing: var(--tracking-wider); text-transform: uppercase; font-weight: 500; }
+  .note-card h2 { font-family: var(--font-heading); font-size: var(--fs-h2); font-weight: 400; line-height: 1.15; letter-spacing: var(--tracking-display); }
+  .note-card h2 a { color: var(--color-text); text-decoration: none; transition: color var(--dur-fast) ease; }
+  .note-card h2 a:hover { color: var(--bronze); }
   
-  .tags { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
-  .tag { font-size: var(--fs-meta); color: var(--color-secondary); background: var(--paper-alt); padding: 0.25rem 0.75rem; border-radius: 999px; }
+  .tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
+  .tag { font-size: var(--fs-meta); color: var(--color-secondary); background: var(--paper-alt); padding: 0.3rem 0.8rem; border-radius: var(--radius-sm); }
   
-  .page-footer { margin-top: 4rem; padding-top: 2rem; border-top: var(--border-hair); }
-  .page-footer a { color: var(--color-text); font-weight: 500; }
+  .page-footer { margin-top: 5rem; padding-top: 2rem; }
+  .page-footer a { color: var(--color-text); font-weight: 500; text-decoration: none; }
+  .page-footer a:hover { color: var(--bronze); }
 </style>
