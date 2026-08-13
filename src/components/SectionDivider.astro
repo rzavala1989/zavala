@@ -1,16 +1,18 @@
 ---
 interface Props {
-  num: string;
+  num?: string;
   title: string;
+  class?: string;
 }
 
-const { num, title } = Astro.props;
+const { num, title, class: className = '' } = Astro.props;
 ---
 
-<div class="section-divider">
+<div class={`section-divider ${className}`}>
   <div class="parallax-bg" aria-hidden="true"></div>
   <div class="divider-content">
     <h2 class="divider-title">{title}</h2>
+    <slot />
   </div>
 </div>
 
@@ -26,6 +28,11 @@ const { num, title } = Astro.props;
     border-top: 1px solid var(--ink);
     border-bottom: 1px solid var(--ink);
     margin: 4rem 0;
+  }
+  
+  .section-divider.no-margin-bottom {
+    margin-bottom: 0;
+    border-bottom: none;
   }
 
   .parallax-bg {

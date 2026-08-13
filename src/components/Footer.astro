@@ -7,10 +7,8 @@ if (!calendlyUrl) {
 }
 ---
 
-<SectionDivider num="Coda" title="Let's connect." />
-
-<footer class="footer" id="contact">
-  <div class="footer-content">
+<SectionDivider title="Let's connect." class="no-margin-bottom">
+  <div class="footer-cta">
     <p class="footer-bio">Always interested in challenging problems, interesting teams, and the occasional bad pun.</p>
     <div class="footer-links">
       <a class="link" href="/work/">Work</a>
@@ -20,6 +18,9 @@ if (!calendlyUrl) {
       <a class="link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
     </div>
   </div>
+</SectionDivider>
+
+<footer class="footer" id="contact">
   <div class="footer-mark" aria-hidden="true"><span>Ricardo Zavala</span></div>
   <div class="footer-bottom">
     <p class="colophon">Set in <em>Instrument Serif</em> &amp; Satoshi · Astro 5 + D3 · No JS frameworks · Henderson, NV</p>
@@ -29,20 +30,19 @@ if (!calendlyUrl) {
 
 <style>
   .footer {
-    background-color: var(--paper-deep);
-    padding: 0 1.5rem 2rem;
+    padding: 2rem 1.5rem 2rem;
   }
 
-  .footer-content {
-    max-width: var(--content-max-width);
-    margin: 0 auto;
+  .footer-cta {
+    margin-top: 1.5rem;
     text-align: center;
+    color: var(--paper);
   }
 
   .footer-bio {
     font-size: clamp(0.9rem, 1.3vw, 1rem);
     line-height: 1.6;
-    color: var(--color-secondary);
+    color: var(--paper);
     max-width: 28rem;
     margin: 0 auto 2rem;
   }
@@ -52,6 +52,17 @@ if (!calendlyUrl) {
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
+  }
+  
+  .footer-links .link {
+    color: var(--paper);
+    text-decoration-color: rgba(246, 244, 240, 0.4);
+  }
+  
+  .footer-links .link:hover,
+  .footer-links .link:focus-visible {
+    color: var(--paper);
+    text-decoration-color: var(--paper);
   }
 
   .footer-mark {
@@ -78,7 +89,6 @@ if (!calendlyUrl) {
     margin: 2rem auto 0;
     text-align: center;
     padding-top: 2rem;
-    border-top: var(--border-hair);
   }
 
   .colophon {
