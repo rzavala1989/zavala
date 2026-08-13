@@ -7,6 +7,15 @@ import SectionDivider from './SectionDivider.astro';
 <section class="sankey-section" id="skills">
   <p class="section-subtitle">Hover a node to trace its path.</p>
   <div class="sankey-wrapper">
+    <div class="skills-fallback" aria-label="Primary technologies" id="skills-fallback">
+      <span class="tech-tag">TypeScript</span>
+      <span class="tech-tag">Node.js</span>
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">Go</span>
+      <span class="tech-tag">PostgreSQL</span>
+      <span class="tech-tag">AWS</span>
+      <span class="tech-tag">.NET 8</span>
+    </div>
     <div class="sankey-container" id="sankey-chart"></div>
   </div>
 </section>
@@ -207,7 +216,13 @@ import SectionDivider from './SectionDivider.astro';
 
   function renderSankey() {
     const container = document.getElementById('sankey-chart');
+    const fallback = document.getElementById('skills-fallback');
+    
     if (!container) return;
+
+    if (fallback) {
+      fallback.style.display = 'none';
+    }
 
     clearContainer(container);
 
@@ -368,6 +383,24 @@ import SectionDivider from './SectionDivider.astro';
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .skills-fallback {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+  }
+
+  .tech-tag {
+    font-size: var(--fs-small);
+    font-family: var(--font-mono);
+    color: var(--color-secondary);
+    background: var(--paper-deep);
+    border: var(--border-hair);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
   }
 
   .sankey-container {

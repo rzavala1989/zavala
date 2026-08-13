@@ -13,7 +13,7 @@ import { projects } from '../data/portfolio';
           <a class="project-preview" href={`/work/${project.slug}/`} aria-label={`Read about ${project.title}`}>
             {project.image && <img src={project.image} alt={`${project.title} preview`} width="560" height="350" loading="lazy" />}
           </a>
-          <div class="project-plate">
+          <div class="project-plate" aria-hidden="true">
             <span class="project-plate-label">{project.plate}</span>
             <span class="project-plate-title">{project.title}, live capture</span>
           </div>
@@ -27,11 +27,11 @@ import { projects } from '../data/portfolio';
           <div class="project-links">
             <a class="link" href={`/work/${project.slug}/`}>Project notes <span aria-hidden="true">&rarr;</span></a>
             {project.liveUrl && (
-              <a class="link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+              <a class="link" href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} live`}>
                 {project.liveLabel} <span aria-hidden="true">&rarr;</span>
               </a>
             )}
-            <a class="link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer">
+            <a class="link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code`}>
               Source <span aria-hidden="true">&rarr;</span>
             </a>
           </div>

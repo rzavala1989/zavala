@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title,
-  description = 'Ricardo Zavala is a Staff Software Engineer in Henderson, Nevada building full-stack, distributed, and AI-assisted systems with React, TypeScript, Node.js, Python, PostgreSQL, and AWS.',
+  description = 'Ricardo Zavala, Staff Software Engineer in Henderson, NV. I architect backend systems for fintech, federal, and health platforms. 10 years full-stack.',
   image = '/images/headshot-hero.png',
   ogType = 'profile',
   structuredData,
@@ -33,6 +33,10 @@ const personSchema = {
     addressLocality: 'Henderson',
     addressRegion: 'NV',
     addressCountry: 'US',
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Arkra'
   },
   sameAs: ['https://github.com/rzavala1989'],
   knowsAbout: [
@@ -62,7 +66,8 @@ const schemas = structuredData
     <meta name="author" content="Ricardo Zavala" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
-
+    <link rel="preconnect" href="https://calendly.com" />
+    <link rel="dns-prefetch" href="https://github.com" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageUrl} />
@@ -85,6 +90,7 @@ const schemas = structuredData
     <title>{title}</title>
   </head>
   <body>
+    <a href="#hero" class="skip-link">Skip to content</a>
     <slot />
   </body>
 </html>
@@ -114,5 +120,31 @@ const schemas = structuredData
     to {
       opacity: 1;
     }
+  }
+
+  .skip-link { 
+    position: absolute; 
+    top: -40px; 
+    left: 0; 
+    background: var(--ink); 
+    color: var(--paper); 
+    padding: 8px; 
+    z-index: 100; 
+    transition: top 0.2s;
+  }
+  .skip-link:focus { 
+    top: 0; 
+  }
+  
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>

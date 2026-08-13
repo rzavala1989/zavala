@@ -7,51 +7,76 @@ const jobs = [
     company: 'Arkra',
     title: 'Co-Founding Backend Engineer',
     period: '2025 - Present',
-    summary: 'Architecting backend services for an AI-powered equipment finance platform. Building RESTful APIs with .NET 8 and Entity Framework Core, AI-driven underwriting pipelines in Python, and CI/CD with Azure DevOps.'
+    bullets: [
+      'Architecting backend services for an AI-powered equipment finance platform.',
+      'Building RESTful APIs with .NET 8 and Entity Framework Core.',
+      'Developing AI-driven underwriting pipelines in Python.'
+    ]
   },
   {
     company: 'Axon',
     title: 'Senior Full Stack Engineer',
     period: '2025',
-    summary: 'Built secure, multi-tenant law enforcement data platforms with AI-powered enrichment pipelines at the global leader in connected public safety.'
+    bullets: [
+      'Built secure, multi-tenant law enforcement data platforms.',
+      'Implemented AI-powered enrichment pipelines for global connected public safety.'
+    ]
   },
   {
     company: 'Idaho National Laboratory',
     title: 'Software Engineer (Contract)',
     period: 'Jun - Oct 2025',
-    summary: 'Fixed-term contract at a U.S. Department of Energy national laboratory. Full stack .NET development using C#, .NET 8, MVC, Entity Framework, and SQL Server on internal research and infrastructure systems.'
+    bullets: [
+      'Fixed-term contract at a U.S. Department of Energy national laboratory.',
+      'Full stack .NET development for internal research and infrastructure systems.'
+    ]
   },
   {
     era: 'Federal & Enterprise',
     company: 'Accenture Federal Services',
     title: 'Senior Full Stack Engineer',
     period: '2022 - 2025',
-    summary: 'Delivered high-scale applications for USPS serving millions of daily users, from real-time GIS mapping to PCI-compliant payment systems.'
+    bullets: [
+      'USPS real-time GIS platform — 3M+ daily active users, p99 <200ms.',
+      'Delivered high-scale applications from GIS mapping to PCI-compliant payment systems.'
+    ]
   },
   {
     company: 'Cigna',
     title: 'Full Stack Engineer',
     period: '2022',
-    summary: 'Worked on healthcare platforms serving millions of members, building shared component libraries and observability tooling.'
+    bullets: [
+      'Worked on healthcare platforms serving millions of members.',
+      'Built shared component libraries and comprehensive observability tooling.'
+    ]
   },
   {
     company: 'Touch To',
     title: 'Frontend Engineer',
     period: '2021 - 2022',
-    summary: 'Architected micro-frontend systems and real-time dashboards for digital ordering in hospitality and defense sectors.'
+    bullets: [
+      'Architected micro-frontend systems for digital ordering in hospitality/defense sectors.',
+      'Built real-time dashboards improving order fulfillment efficiency.'
+    ]
   },
   {
     era: 'Early Career',
     company: 'Zappos',
     title: 'Web and Mobile Developer',
     period: '2018 - 2021',
-    summary: 'Built customer-facing e-commerce features at scale, including PWAs and payment systems handling 18M+ monthly transactions.'
+    bullets: [
+      'Built customer-facing e-commerce PWAs at scale.',
+      'Maintained payment systems handling 18M+ monthly transactions.'
+    ]
   },
   {
     company: 'Vegas.com',
     title: 'Web Development Intern',
     period: '2016 - 2017',
-    summary: 'Cut teeth on production web development at a major online travel platform. Built internal tooling and broke a few things along the way.'
+    bullets: [
+      'Shipped production web features for a major online travel platform.',
+      'Built internal tooling to streamline content operations.'
+    ]
   }
 ];
 ---
@@ -70,12 +95,14 @@ const jobs = [
           </div>
         )}
         <div class="timeline-item">
-          <div class={`timeline-marker ${job.period.includes('Present') ? 'is-current' : ''}`}></div>
+          <div class={`timeline-marker ${job.period.includes('Present') ? 'is-current' : ''}`} aria-hidden="true"></div>
           <div class="timeline-content">
             <span class="timeline-period">{job.period}</span>
             <h3 class="timeline-company">{job.company}</h3>
             <p class="timeline-title">{job.title}</p>
-            <p class="timeline-summary">{job.summary}</p>
+            <ul class="timeline-bullets">
+              {job.bullets.map(bullet => <li>{bullet}</li>)}
+            </ul>
           </div>
         </div>
       </>
@@ -184,12 +211,21 @@ const jobs = [
     margin-top: 0.2rem;
   }
 
-  .timeline-summary {
+  .timeline-bullets {
     font-size: var(--fs-body);
     line-height: 1.6;
     color: var(--color-secondary);
-    margin-top: 0.6rem;
+    margin-top: 0.8rem;
     max-width: 36rem;
+    padding-left: 1.2rem;
+  }
+  
+  .timeline-bullets li {
+    margin-bottom: 0.4rem;
+  }
+  
+  .timeline-bullets li:last-child {
+    margin-bottom: 0;
   }
 
   @media (max-width: 768px) {

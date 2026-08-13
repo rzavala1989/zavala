@@ -10,7 +10,7 @@ const { num, title } = Astro.props;
 <div class="section-divider">
   <div class="parallax-bg" aria-hidden="true"></div>
   <div class="divider-content">
-    <span class="divider-num">§ {num}</span>
+    <span class="divider-num"><span class="visually-hidden">Section </span>§ {num}</span>
     <h2 class="divider-title">{title}</h2>
   </div>
 </div>
@@ -33,12 +33,13 @@ const { num, title } = Astro.props;
     position: absolute;
     inset: 0;
     background-image: url('/images/parallax-texture.jpg');
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 0;
     filter: contrast(1.1) brightness(0.9);
+    will-change: transform;
   }
 
   .parallax-bg::after {
@@ -80,9 +81,5 @@ const { num, title } = Astro.props;
     text-shadow: 0 4px 24px rgba(0,0,0,0.4);
   }
 
-  @media (max-width: 768px) {
-    .section-divider {
-      background-attachment: scroll; /* Disable parallax on mobile for performance/ux */
-    }
-  }
+
 </style>

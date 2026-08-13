@@ -1,6 +1,8 @@
 ---
 import SectionDivider from './SectionDivider.astro';
 
+const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL;
+
 const items = [
   { label: 'BUILDING', value: 'Backend infrastructure for an early-stage fintech, from first commit.' },
   { label: 'READING', value: "Kleppmann's Designing Data-Intensive Applications." },
@@ -19,6 +21,16 @@ const items = [
           <dd class="currently-value">{item.value}</dd>
         </div>
       ))}
+      {calendlyUrl && (
+        <div class="currently-row currently-cta">
+          <dt class="currently-label" aria-hidden="true"></dt>
+          <dd class="currently-value">
+            <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">
+              Book a Chat <span aria-hidden="true">&rarr;</span>
+            </a>
+          </dd>
+        </div>
+      )}
     </dl>
   </div>
 </section>
@@ -47,6 +59,10 @@ const items = [
     grid-template-columns: 12rem 1fr;
     gap: 2rem;
     align-items: baseline;
+  }
+  
+  .currently-cta {
+    margin-top: 1rem;
   }
 
   .currently-label {

@@ -56,12 +56,36 @@ if (!calendlyUrl) {
     </div>
     <div class="hero-image">
       <figure class="hero-figure">
-        <img src="/images/headshot-hero.png" alt="Ricardo Zavala" width="380" height="460" loading="eager" />
-        <figcaption class="hero-plate" aria-hidden="true">PLATE I</figcaption>
+        <img 
+          src="/images/headshot-hero.png" 
+          alt="Portrait of Ricardo Zavala, Staff Software Engineer" 
+          width="600" 
+          height="750" 
+          fetchpriority="high"
+          decoding="async"
+        />
+        <figcaption class="hero-plate" aria-hidden="true">
+          <span class="visually-hidden">Section 1</span>PLATE I
+        </figcaption>
       </figure>
     </div>
   </div>
 </section>
+
+<dl class="impact-bar">
+  <div class="impact-metric">
+    <dt>Years Shipping</dt>
+    <dd>10+</dd>
+  </div>
+  <div class="impact-metric">
+    <dt>Daily Users Supported</dt>
+    <dd>Millions</dd>
+  </div>
+  <div class="impact-metric">
+    <dt>Domains</dt>
+    <dd>Fintech · Gov · Health · GIS</dd>
+  </div>
+</dl>
 
 <style>
   .masthead {
@@ -168,7 +192,7 @@ if (!calendlyUrl) {
   .hero-name {
     font-family: var(--font-heading);
     font-weight: 400;
-    font-size: var(--fs-display);
+    font-size: clamp(2rem, 12vw, 5.5rem);
     line-height: var(--leading-display);
     letter-spacing: var(--tracking-display);
   }
@@ -263,5 +287,36 @@ if (!calendlyUrl) {
     .hero-image img {
       max-height: 260px;
     }
+    
+    .masthead-meta { 
+      font-size: 0.55rem; 
+      letter-spacing: 0.08em; 
+    }
+  }
+
+  .impact-bar {
+    max-width: var(--content-max-width);
+    margin: 4rem auto 0;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    border-top: var(--border-hair);
+  }
+
+  .impact-metric dt {
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    color: var(--color-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .impact-metric dd {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: var(--color-text);
   }
 </style>
