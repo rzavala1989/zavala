@@ -1,0 +1,25 @@
+flowchart TD
+    subgraph INGESTION ["Data Ingestion & Normalization"]
+        A1[Walk Score API] --> N[Bun Ingestion Worker + Zod Validation]
+        A2[Census ACS] --> N
+        A3[OpenWeather API] --> N
+        A4[Mapbox Vector Tiles] --> N
+        A5[Regional Crime Feeds] --> N
+    end
+
+    subgraph STORAGE ["Relational & Vector Store"]
+        N --> P[(PostgreSQL + pgvector)]
+        P --> V[Neighborhood Vector: 6 Dimensions<br/>Density, Cost, Safety, Transit, Culture, Weather]
+    end
+
+    subgraph QUERY ["Recommendation Query"]
+        U[User Preferences & Reviews] --> UV[Generate Normalized User Vector]
+        UV --> HNSW[pgvector HNSW Index Cosine Match]
+        V --> HNSW
+        HNSW --> RES[Ordered Neighborhood Candidates]
+    end
+
+    subgraph APP ["Client Layer"]
+        RES --> TRPC[tRPC v11 Server]
+        TRPC --> MAP[MapLibre GL + React Client]
+    end

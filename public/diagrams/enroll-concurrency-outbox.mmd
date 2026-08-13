@@ -1,0 +1,34 @@
+sequenceDiagram
+    autonumber
+    actor Client as HTTP Client (Student)
+    participant Nest as NestJS API
+    participant PG as PostgreSQL (Primary)
+    participant Redis as Redis (BullMQ)
+    participant Mongo as MongoDB (Audit Log)
+
+    Note over Client,PG: 1. Concurrency Invariant Check
+    Client->>Nest: POST /courses/:id/enroll
+    Nest->>PG: BEGIN TRANSACTION
+    Nest->>PG: SELECT * FROM course_sections WHERE id = :id FOR UPDATE
+    Note over PG: Exclusive row lock acquired.<br/>Concurrent requests for this row block here.
+    PG-->>Nest: Section record (available_seats: 1)
+    
+    alt Seats Available
+        Nest->>PG: UPDATE course_sections SET available_seats = available_seats - 1
+        Nest->>PG: INSERT INTO enrollments (user_id, section_id)
+        Nest->>PG: INSERT INTO outbox_events (event_type, payload, status) VALUES ('ENROLLED', ..., 'PENDING')
+        Nest->>PG: COMMIT
+        Note over PG: Lock released. Next queued request proceeds.
+        Nest-->>Client: 201 Created (Enrolled)
+    else Section Full
+        Nest->>PG: ROLLBACK
+        Nest-->>Client: 409 Conflict (Section Full)
+    end
+
+    Note over PG,Mongo: 2. Asynchronous Event Propagation
+    loop Outbox Poller Worker
+        Nest->>PG: SELECT * FROM outbox_events WHERE status = 'PENDING' LIMIT 50 FOR UPDATE SKIP LOCKED
+        Nest->>Redis: BullMQ.add('waitlist-promotion', payload)
+        Nest->>Mongo: db.audit_logs.insertOne(payload)
+        Nest->>PG: UPDATE outbox_events SET status = 'PROCESSED'
+    end

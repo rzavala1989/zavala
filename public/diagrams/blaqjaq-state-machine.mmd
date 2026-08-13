@@ -1,0 +1,20 @@
+flowchart LR
+    subgraph ENGINE ["Pure TypeScript Reducer (782 LOC)"]
+        direction TB
+        ACT[Action Payload<br/>HIT, STAND, SPLIT, DOUBLE, SURRENDER] --> REDUCER[Pure Reducer: State Machine]
+        STATE[Current Table State] --> REDUCER
+        RAND[Fisher-Yates RNG] --> REDUCER
+        REDUCER --> NEW_STATE[New Deterministic State Snapshot]
+    end
+
+    subgraph TEST ["Headless Vitest Suite"]
+        NEW_STATE --> EVAL[Basic Strategy Matrix Evaluator]
+        EVAL --> BENCH[40ms / 50k Hand Test Pass]
+    end
+
+    subgraph VIEW ["Presentation Layer (Zero Game Logic)"]
+        NEW_STATE --> R3F[React Three Fiber Canvas]
+        R3F --> MESH[Card & Chip GLTF Transforms]
+        R3F --> ACES[ACES Filmic Tone Mapping]
+        NEW_STATE --> AUDIO[Web Audio API Oscillators]
+    end

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f1115; }
+      .box { fill: #181b22; stroke: #2d3342; stroke-width: 1.5; rx: 6; }
+      .box-highlight { fill: #1e2430; stroke: #c88a4b; stroke-width: 1.5; rx: 6; }
+      .box-source { fill: #151921; stroke: #262c3b; stroke-width: 1.2; rx: 4; }
+      .text-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 600; fill: #f0f3f8; }
+      .text-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #9da7b8; }
+      .text-code { font-family: "SF Mono", Menlo, Monaco, monospace; font-size: 11px; fill: #c88a4b; }
+      .text-tag { font-family: "SF Mono", Menlo, Monaco, monospace; font-size: 10px; fill: #79a8ff; }
+      .arrow { stroke: #79a8ff; stroke-width: 1.5; fill: none; marker-end: url(#arrow-head); }
+      .arrow-accent { stroke: #c88a4b; stroke-width: 1.5; fill: none; marker-end: url(#arrow-head-accent); }
+      .section-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; fill: #657084; }
+    </style>
+    <marker id="arrow-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#79a8ff" />
+    </marker>
+    <marker id="arrow-head-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c88a4b" />
+    </marker>
+  </defs>
+
+  <rect width="960" height="520" class="bg" rx="10" />
+
+  <!-- Section 1: Disparate Federal Data Sources -->
+  <text x="40" y="40" class="section-label">1. Fragmented Federal Datasets</text>
+
+  <rect x="40" y="65" width="160" height="42" class="box-source" />
+  <text x="55" y="86" class="text-title">CDC SVI</text>
+  <text x="55" y="100" class="text-tag">social vulnerability CSV</text>
+
+  <rect x="40" y="117" width="160" height="42" class="box-source" />
+  <text x="55" y="138" class="text-title">FEMA NRI</text>
+  <text x="55" y="152" class="text-tag">hazard risk shapefiles</text>
+
+  <rect x="40" y="169" width="160" height="42" class="box-source" />
+  <text x="55" y="190" class="text-title">Census ACS</text>
+  <text x="55" y="204" class="text-tag">demographics / transit</text>
+
+  <rect x="40" y="221" width="160" height="42" class="box-source" />
+  <text x="55" y="242" class="text-title">FCC Broadband</text>
+  <text x="55" y="256" class="text-tag">coverage maps GeoJSON</text>
+
+  <rect x="40" y="273" width="160" height="42" class="box-source" />
+  <text x="55" y="294" class="text-title">HHS emPOWER</text>
+  <text x="55" y="308" class="text-tag">medical power dependence</text>
+
+  <!-- Connectors to ETL -->
+  <path d="M 200 86 L 260 180" class="arrow" />
+  <path d="M 200 138 L 260 185" class="arrow" />
+  <path d="M 200 190 L 260 190" class="arrow" />
+  <path d="M 200 242 L 260 195" class="arrow" />
+  <path d="M 200 294 L 260 200" class="arrow" />
+
+  <!-- Reconciliation Engine -->
+  <rect x="270" y="115" width="220" height="150" class="box-highlight" />
+  <text x="285" y="140" class="text-title">FIPS Normalization Engine</text>
+  <text x="285" y="165" class="text-code">Sanitize 47 Malformed FIPS</text>
+  <text x="285" y="185" class="text-body">Restores leading zeros</text>
+  <text x="285" y="205" class="text-code">5-Digit County FIPS Key</text>
+  <text x="285" y="225" class="text-body">Relational join across 3,144 counties</text>
+  <text x="285" y="248" class="text-tag">Deterministic dataset sync</text>
+
+  <!-- Arrow to Derived Metrics -->
+  <path d="M 490 190 L 550 190" class="arrow-accent" />
+
+  <!-- Derived Indicators -->
+  <rect x="560" y="65" width="360" height="200" class="box" />
+  <text x="580" y="95" class="text-title">6 Precomputed Derived Indicators</text>
+  <line x1="580" y1="108" x2="900" y2="108" stroke="#232834" stroke-width="1" />
+  <text x="580" y="130" class="text-code">1. Digital Alert Access Risk</text>
+  <text x="580" y="150" class="text-code">2. Daytime Population Surge</text>
+  <text x="580" y="170" class="text-code">3. Expected Hazard Impact</text>
+  <text x="580" y="190" class="text-code">4. Medical Electricity Dependence</text>
+  <text x="580" y="210" class="text-code">5. Evacuation Mobility Deficit</text>
+  <text x="580" y="230" class="text-code">6. Communication Redundancy</text>
+  <text x="580" y="252" class="text-tag">Single shared severity scale</text>
+
+  <!-- Section 3: State Sync and URL Serialization -->
+  <line x1="40" y1="340" x2="920" y2="340" stroke="#232834" stroke-width="1" />
+  <text x="40" y="370" class="section-label">2. Synchronized Presentation &amp; URL Query State Serialization</text>
+
+  <!-- URL State -->
+  <rect x="40" y="395" width="260" height="95" class="box-highlight" />
+  <text x="55" y="420" class="text-title">URL Search Params State</text>
+  <text x="55" y="442" class="text-code">?fips=12086&amp;risk=high&amp;surge=gt20</text>
+  <text x="55" y="462" class="text-body">Serializes active filters &amp; selections</text>
+  <text x="55" y="478" class="text-tag">Shareable direct deep-links</text>
+
+  <!-- Bidirectional arrow to synced views -->
+  <path d="M 300 442 L 380 442" class="arrow-accent" />
+
+  <!-- Synchronized UI Views -->
+  <rect x="390" y="395" width="530" height="95" class="box" />
+  <text x="405" y="420" class="text-title">Synchronized Application Views (Zero View Contradictions)</text>
+  <text x="405" y="445" class="text-body">Choropleth Map (react-simple-maps)  ·  TanStack Table  ·  County Detail Dossier</text>
+  <text x="405" y="465" class="text-body">Updating filters or clicking any county updates all views and the URL synchronously</text>
+  <text x="405" y="478" class="text-tag">No screenshots required for field team communication</text>
+</svg>

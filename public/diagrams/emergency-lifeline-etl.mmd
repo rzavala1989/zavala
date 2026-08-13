@@ -1,0 +1,23 @@
+flowchart TD
+    subgraph RAW ["Heterogeneous Federal Sources"]
+        D1[CDC SVI - CSV]
+        D2[FEMA NRI - Shapefiles]
+        D3[Census ACS - API]
+        D4[FCC Broadband - GeoJSON]
+        D5[HHS emPOWER - Tables]
+    end
+
+    subgraph ETL ["Data Reconciliation"]
+        D1 & D2 & D3 & D4 & D5 --> CLEAN[FIPS Sanitizer<br/>Fix 47 leading-zero truncations]
+        CLEAN --> JOIN[Join Key: 5-Digit County FIPS]
+        JOIN --> METRICS[Derive 6 Vulnerability Indices]
+    end
+
+    subgraph CLIENT ["Synchronized Application State"]
+        METRICS --> DATASTORE[(Static Dataset: 3,144 Counties)]
+        URL[URL Search Params Query State] <--> SYNC[State Synchronizer]
+        DATASTORE --> SYNC
+        SYNC --> MAP[Choropleth Map View]
+        SYNC --> TABLE[TanStack Table View]
+        SYNC --> DOSSIER[County Detail Panel]
+    end
