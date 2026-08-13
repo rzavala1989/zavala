@@ -1,10 +1,12 @@
 ---
+import SectionDivider from './SectionDivider.astro';
 import { experiments } from '../data/portfolio';
 ---
 
+<SectionDivider num="03" title="The Lab." />
+
 <section class="lab-section" id="lab">
   <div class="lab-inner">
-    <h2 class="section-heading">The <em>Lab.</em></h2>
     <p class="lab-intro">Weekend-scope builds on public data. Smaller than the plates, held to the same bar.</p>
     <div class="lab-list">
       {experiments.map((exp) => (

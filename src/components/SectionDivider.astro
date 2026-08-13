@@ -1,0 +1,79 @@
+---
+interface Props {
+  num: string;
+  title: string;
+}
+
+const { num, title } = Astro.props;
+---
+
+<div class="section-divider">
+  <div class="parallax-bg" aria-hidden="true"></div>
+  <div class="divider-content">
+    <h2 class="divider-title">{title}</h2>
+  </div>
+</div>
+
+<style>
+  .section-divider {
+    position: relative;
+    width: 100%;
+    min-height: clamp(10rem, 15vh, 14rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    margin: 4rem 0;
+  }
+
+  .parallax-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/parallax-texture.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 0;
+    filter: contrast(1.1) brightness(0.9);
+  }
+
+  .parallax-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(26, 26, 26, 0.4), rgba(26, 26, 26, 0.8));
+    mix-blend-mode: multiply;
+  }
+
+  .divider-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--paper); /* Inverted text for dark parallax */
+    padding: 0 2rem;
+  }
+
+
+
+  .divider-title {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+    font-style: italic;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  @media (max-width: 768px) {
+    .section-divider {
+      background-attachment: scroll; /* Disable parallax on mobile for performance/ux */
+    }
+  }
+</style>
