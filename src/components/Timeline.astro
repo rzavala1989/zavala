@@ -1,255 +1,135 @@
 ---
 import SectionDivider from './SectionDivider.astro';
 
-const jobs = [
+const experience = [
   {
-    era: 'Now',
     company: 'Arkra',
-    title: 'Co-Founding Backend Engineer',
+    role: 'Co-Founding Backend Engineer',
     period: '2025 - Present',
-    bullets: [
-      'Architecting backend services for an AI-powered equipment finance platform.',
-      'Building RESTful APIs with .NET 8 and Entity Framework Core.',
-      'Developing AI-driven underwriting pipelines in Python.'
-    ]
+    summary: 'Backend architecture and AI-assisted finance workflows.'
   },
   {
-    company: 'Axon',
-    title: 'Senior Full Stack Engineer',
+    company: 'Axon / Idaho National Laboratory',
+    role: 'Senior and contract engineering',
     period: '2025',
-    bullets: [
-      'Built secure, multi-tenant law enforcement data platforms.',
-      'Implemented AI-powered enrichment pipelines for global connected public safety.'
-    ]
+    summary: 'Regulated data platforms and internal research systems.'
   },
   {
-    company: 'Idaho National Laboratory',
-    title: 'Software Engineer (Contract)',
-    period: 'Jun - Oct 2025',
-    bullets: [
-      'Fixed-term contract at a U.S. Department of Energy national laboratory.',
-      'Full stack .NET development for internal research and infrastructure systems.'
-    ]
-  },
-  {
-    era: 'Federal & Enterprise',
     company: 'Accenture Federal Services',
-    title: 'Senior Full Stack Engineer',
+    role: 'Senior Full Stack Engineer',
     period: '2022 - 2025',
-    bullets: [
-      'USPS real-time GIS platform with 3 million daily active users, p99 <200ms.',
-      'Delivered high-scale applications from GIS mapping to PCI-compliant payment systems.'
-    ]
+    summary: 'Large-scale federal GIS, API, and payment systems.'
   },
   {
-    company: 'Cigna',
-    title: 'Full Stack Engineer',
-    period: '2022',
-    bullets: [
-      'Worked on healthcare platforms serving millions of members.',
-      'Built shared component libraries and comprehensive observability tooling.'
-    ]
-  },
-  {
-    company: 'Touch To',
-    title: 'Frontend Engineer',
-    period: '2021 - 2022',
-    bullets: [
-      'Architected micro-frontend systems for digital ordering in hospitality/defense sectors.',
-      'Built real-time dashboards improving order fulfillment efficiency.'
-    ]
-  },
-  {
-    era: 'Early Career',
-    company: 'Zappos',
-    title: 'Web and Mobile Developer',
-    period: '2018 - 2021',
-    bullets: [
-      'Built customer-facing e-commerce PWAs at scale.',
-      'Maintained payment systems handling 18M+ monthly transactions.'
-    ]
-  },
-  {
-    company: 'Vegas.com',
-    title: 'Web Development Intern',
-    period: '2016 - 2017',
-    bullets: [
-      'Shipped production web features for a major online travel platform.',
-      'Built internal tooling to streamline content operations.'
-    ]
+    company: 'Cigna · Touch To · Zappos · Vegas.com',
+    role: 'Product and platform engineering',
+    period: '2016 - 2022',
+    summary: 'Healthcare, commerce, real-time ordering, and customer-facing applications.'
   }
 ];
 ---
 
-<SectionDivider num="01" title="A career, plotted." />
+<SectionDivider title="Experience." />
 
-<section class="timeline-section" id="experience">
-  <div class="timeline-inner">
-  <div class="timeline">
-    {jobs.map((job) => (
-      <>
-        {job.era && (
-          <div class="timeline-era">
-            <span class="timeline-era-rule" aria-hidden="true"></span>
-            <span class="timeline-era-label">{job.era}</span>
-          </div>
-        )}
-        <div class="timeline-item">
-          <div class={`timeline-marker ${job.period.includes('Present') ? 'is-current' : ''}`} aria-hidden="true"></div>
-          <div class="timeline-content">
-            <span class="timeline-period">{job.period}</span>
-            <h3 class="timeline-company">{job.company}</h3>
-            <p class="timeline-title">{job.title}</p>
-            <ul class="timeline-bullets">
-              {job.bullets.map(bullet => <li>{bullet}</li>)}
-            </ul>
-          </div>
-        </div>
-      </>
-    ))}
-  </div>
+<section class="experience-section" id="experience">
+  <div class="experience-inner">
+    <p class="experience-intro">
+      Selected roles across regulated, high-scale, and early-stage products.
+    </p>
+
+    <div class="experience-grid">
+      {experience.map((item) => (
+        <article class="experience-card">
+          <p class="experience-period">{item.period}</p>
+          <h3>{item.company}</h3>
+          <p class="experience-role">{item.role}</p>
+          <p class="experience-summary">{item.summary}</p>
+        </article>
+      ))}
+    </div>
+
+    <a class="link resume-link" href="/resume/">Full experience <span aria-hidden="true">→</span></a>
   </div>
 </section>
 
 <style>
-  .timeline-section {
+  .experience-section {
     background-color: var(--paper-alt);
     padding: 0 1.5rem var(--section-padding);
   }
 
-  .timeline-inner {
+  .experience-inner {
     max-width: var(--content-max-width);
     margin: 0 auto;
   }
 
-  .timeline-era {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin: 2.5rem 0 1.5rem;
-    padding-left: 0.5rem;
-  }
-  .timeline-era-rule {
-    width: 1.5rem;
-    height: 1px;
-    background: var(--bronze);
-  }
-  .timeline-era-label {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--color-text);
+  .experience-intro {
+    max-width: 40rem;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+    color: var(--color-secondary);
+    font-size: var(--fs-lead);
+    line-height: var(--leading-body);
   }
 
-  .timeline {
-    position: relative;
-    padding-left: 2.5rem;
+  .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 2.5rem;
+    border-top: var(--border-hair);
   }
 
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
-    background-color: var(--color-divider);
+  .experience-card {
+    padding: 1.6rem 0 1.8rem;
+    border-bottom: var(--border-hair);
   }
 
-  .timeline-item {
-    position: relative;
-    padding-bottom: 3rem;
-  }
-
-  .timeline-item:last-child {
-    padding-bottom: 0;
-  }
-
-  .timeline-marker {
-    position: absolute;
-    left: -2.5rem;
-    top: 8px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: transparent;
-    box-shadow: 0 0 0 1px var(--bronze);
-    z-index: 1;
-  }
-
-  .timeline-marker.is-current {
-    background-color: var(--bronze);
-    box-shadow: 0 0 0 3px var(--paper-alt);
-  }
-
-  .timeline-content {
-    padding-left: 0.5rem;
-  }
-
-  .timeline-period {
-    display: inline-block;
+  .experience-period {
+    margin-bottom: 0.55rem;
     font-size: var(--fs-meta);
     font-weight: 500;
     letter-spacing: var(--tracking-wider);
     text-transform: uppercase;
     color: var(--color-muted);
-    margin-bottom: 0.3rem;
   }
 
-  .timeline-company {
+  .experience-card h3 {
     font-family: var(--font-heading);
     font-size: var(--fs-h3);
     font-weight: 400;
-    letter-spacing: var(--tracking-tight);
     line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
   }
 
-  .timeline-title {
+  .experience-role {
+    margin-top: 0.3rem;
     font-size: var(--fs-small);
     font-weight: 500;
     color: var(--color-secondary);
-    margin-top: 0.2rem;
   }
 
-  .timeline-bullets {
+  .experience-summary {
+    margin-top: 0.8rem;
+    max-width: 28rem;
+    color: var(--color-secondary);
     font-size: var(--fs-body);
     line-height: 1.6;
-    color: var(--color-secondary);
-    margin-top: 0.8rem;
-    max-width: 36rem;
-    padding-left: 1.2rem;
   }
 
-  .timeline-bullets li {
-    margin-bottom: 0.4rem;
+  .resume-link {
+    margin-top: 2rem;
   }
 
-  .timeline-bullets li:last-child {
-    margin-bottom: 0;
-  }
-
-  @media (max-width: 768px) {
-    .timeline {
-      padding-left: 2rem;
-    }
-
-    .timeline::before {
-      left: 3px;
-    }
-
-    .timeline-marker {
-      left: -2rem;
+  @media (max-width: 720px) {
+    .experience-grid {
+      grid-template-columns: 1fr;
     }
   }
 
   @media (max-width: 480px) {
-    .timeline-section {
+    .experience-section {
       padding-left: 1rem;
       padding-right: 1rem;
-    }
-
-    .timeline-item {
-      padding-bottom: 2.5rem;
     }
   }
 </style>
