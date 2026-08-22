@@ -1,17 +1,14 @@
 ---
 import SectionDivider from './SectionDivider.astro';
 
-const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL;
-
 const items = [
-  { label: 'LOOKING FOR', value: 'Staff or Senior Engineering roles on small, high-ownership teams.' },
-  { label: 'STRONGEST IN', value: 'Distributed systems, API design, and data-intensive backends at scale.' },
-  { label: 'READING', value: "Kleppmann's Designing Data-Intensive Applications." },
-  { label: 'AVAILABILITY', value: 'Immediately available \u00b7 Remote US \u00b7 Full-time or contract.' },
+  { label: 'CURRENT FOCUS', value: 'Distributed systems, data-intensive products, and complex frontend architecture.' },
+  { label: 'BUILDING WITH', value: '.NET, Python, TypeScript, PostgreSQL, cloud infrastructure, and AI-assisted product workflows.' },
+  { label: 'OPERATING STYLE', value: 'Small, high-ownership teams where architecture, product judgment, and execution stay close together.' },
 ];
 ---
 
-<SectionDivider num="04" title="What I'm looking for." />
+<SectionDivider num="04" title="Current focus." />
 
 <section class="currently-section" id="currently">
   <div class="currently-inner">
@@ -22,16 +19,6 @@ const items = [
           <dd class="currently-value">{item.value}</dd>
         </div>
       ))}
-      {calendlyUrl && (
-        <div class="currently-row currently-cta">
-          <dt class="currently-label" aria-hidden="true"></dt>
-          <dd class="currently-value">
-            <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">
-              Book a Chat <span aria-hidden="true">&rarr;</span>
-            </a>
-          </dd>
-        </div>
-      )}
     </dl>
   </div>
 </section>
@@ -59,10 +46,6 @@ const items = [
     grid-template-columns: 12rem 1fr;
     gap: 2rem;
     align-items: baseline;
-  }
-  
-  .currently-cta {
-    margin-top: 1rem;
   }
 
   .currently-label {
