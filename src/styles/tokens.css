@@ -7,7 +7,7 @@
   --paper-deep:   #f5f3f0;
   --ink:          #1a1a1a;
   --ink-2:        #6b6560;
-  --ink-3:        #b0aaa4;
+  --ink-3:        #76706b;
   --rule:         #c8c2bc;
   --bronze:       #6b5a40;
   --bronze-2:     #8b7355;
@@ -84,7 +84,7 @@
   --focus-radius: 1px;
 }
 
-/* Keyboard-only focus ring. Bronze on paper passes WCAG AA (3.4:1). */
+/* Keyboard-only focus ring. */
 :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
   outline: var(--focus-width) solid var(--focus-color);
   outline-offset: var(--focus-offset);
