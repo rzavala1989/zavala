@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Footer from '../../components/Footer.astro';
 import { portfolioItems } from '../../data/portfolio';
 
 const description = 'Selected engineering work by Ricardo Zavala across distributed systems, full-stack product engineering, data platforms, and frontend architecture.';
@@ -8,10 +9,14 @@ const description = 'Selected engineering work by Ricardo Zavala across distribu
 <Base title="Engineering Work | Ricardo Zavala" description={description} ogType="website">
   <main class="work-index">
     <nav class="back-nav" aria-label="Breadcrumb"><a href="/">Ricardo Zavala</a> / Work</nav>
+
     <header class="work-header">
       <p class="eyebrow">Selected engineering work</p>
-      <h1>Systems I can talk about in public.</h1>
-      <p class="intro">Each page covers the problem, the engineering choices, and the parts worth discussing in an interview. Source and live links are included where available.</p>
+      <h1>Engineering under constraints.</h1>
+      <p class="intro">
+        A few systems where the interesting part is the decision, not the framework list.
+        Each case study covers the constraint, the tradeoff, and the architecture that followed.
+      </p>
     </header>
 
     <div class="work-list">
@@ -22,34 +27,36 @@ const description = 'Selected engineering work by Ricardo Zavala across distribu
             <p class="label">{item.label}</p>
             <h2><a href={`/work/${item.slug}/`}>{item.title}</a></h2>
             {item.question && <p class="question">{item.question}</p>}
-            <p>{item.description}</p>
+            <p class="summary">{item.description}</p>
             <p class="stack">{item.stack}</p>
-            <a class="read" href={`/work/${item.slug}/`}>Read project notes <span aria-hidden="true">→</span></a>
+            <a class="read" href={`/work/${item.slug}/`}>Read case study <span aria-hidden="true">→</span></a>
           </div>
         </article>
       ))}
     </div>
   </main>
+  <Footer />
 </Base>
 
 <style>
   .work-index { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
-  .back-nav { font-size: var(--fs-meta); color: var(--color-muted); margin-bottom: 5rem; }
+  .back-nav { font-size: var(--fs-meta); color: var(--color-muted); margin-bottom: clamp(3rem, 8vw, 5rem); }
   .back-nav a { color: inherit; }
-  .work-header { max-width: 760px; margin-bottom: 5rem; }
+  .work-header { max-width: 760px; margin-bottom: clamp(3.5rem, 8vw, 5rem); }
   .eyebrow, .label { font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-muted); }
   h1 { font-family: var(--font-heading); font-size: clamp(3rem, 8vw, 6rem); font-weight: 400; line-height: .95; letter-spacing: var(--tracking-display); margin: .9rem 0 1.5rem; }
   .intro { max-width: 42rem; font-size: var(--fs-lead); line-height: var(--leading-body); color: var(--color-secondary); }
   .work-list { display: flex; flex-direction: column; gap: 3.5rem; }
-  .work-card { display: grid; grid-template-columns: 72px 1fr; gap: 1.5rem; }
+  .work-card { display: grid; grid-template-columns: 72px 1fr; gap: 1.5rem; padding-bottom: 3.5rem; border-bottom: var(--border-hair); }
+  .work-card:last-child { padding-bottom: 0; border-bottom: 0; }
   .number { font-family: var(--font-heading); font-style: italic; font-size: 2rem; color: var(--bronze); line-height: 1; }
   h2 { font-family: var(--font-heading); font-weight: 400; font-size: var(--fs-h2); margin: .35rem 0 .8rem; }
   h2 a { color: inherit; text-decoration: none; transition: color var(--dur-fast) ease; }
   h2 a:hover, h2 a:focus-visible { color: var(--bronze); }
   .question { font-family: var(--font-heading); font-style: italic; color: var(--bronze-4); margin-bottom: 1rem; }
-  .work-card p:not(.label):not(.question):not(.stack) { color: var(--color-secondary); line-height: var(--leading-body); max-width: 48rem; }
-  .stack { margin: 1rem 0; font-size: .8rem; color: var(--color-muted); }
+  .summary { color: var(--color-secondary); line-height: var(--leading-body); max-width: 44rem; }
+  .stack { margin: 1rem 0; font-size: .8rem; line-height: 1.6; color: var(--color-muted); }
   .read { color: var(--color-text); font-size: var(--fs-small); font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
-  .read:hover { color: var(--bronze); }
-  @media (max-width: 560px) { .work-card { grid-template-columns: 1fr; } .number { font-size: 1.35rem; } }
+  .read:hover, .read:focus-visible { color: var(--bronze); }
+  @media (max-width: 560px) { .work-card { grid-template-columns: 1fr; gap: .7rem; } .number { font-size: 1.35rem; } }
 </style>
