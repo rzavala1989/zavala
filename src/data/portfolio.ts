@@ -22,7 +22,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Enroll',
     plate: 'Plate I',
     description:
-      'Course registration system engineered for registration-day concurrency and data integrity. Built as a pnpm monorepo with a NestJS API and Next.js web application. PostgreSQL row-level locks serialize capacity checks and prevent over-enrollment. Redis-backed BullMQ workers handle waitlist promotion, while an audit outbox delivers committed events to MongoDB. Grafana k6 and Testcontainers cover load and concurrency behavior.',
+      'Course registration system focused on keeping seat counts correct under concurrent enrollment. It combines a Next.js UI, NestJS API, PostgreSQL locking, background waitlist jobs, and an audit trail.',
     stack: 'Next.js 16 · NestJS 11 · Prisma · PostgreSQL · Redis · MongoDB · BullMQ · Turborepo',
     sourceUrl: 'https://github.com/rzavala1989/enroll',
     image: '/images/enroll-preview.png',
@@ -34,7 +34,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Nomadhood',
     plate: 'Plate II',
     description:
-      'Neighborhood intelligence platform for digital nomads. Seven external APIs feed a unified neighborhood profile covering walkability, rent, crime, economics, events, news, and imagery. A cosine-similarity recommendation engine learns from review history across six lifestyle dimensions. Community ratings and objective data feed composite scoring, while a news pipeline classifies signals and surfaces sentiment-based risk alerts. The application includes 19 Prisma models, 54 tRPC procedures, and three access tiers.',
+      'Neighborhood discovery app for remote workers. It brings location signals into one comparison view and uses preference matching to surface places with a similar feel.',
     stack: 'Next.js 15 · React 19 · tRPC v11 · Prisma 6 · PostgreSQL · MapLibre GL · Zod · Bun',
     liveLabel: 'Live app',
     liveUrl: 'https://nomadhood.vercel.app',
@@ -48,9 +48,9 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Blaqjaq',
     plate: 'Plate III',
     description:
-      '3D blackjack with a 1951 Flamingo-era film noir aesthetic. The game engine is a pure reducer with zero React dependencies: 782 lines, 14 action types, and complete insurance, surrender, and split mechanics. A basic-strategy evaluator and session analytics track decisions across hard, soft, and pair hands. The React Three Fiber scene uses five GLTF models, ACES filmic tone mapping, and procedural Web Audio API effects. Its deployed production delivery path is measured with k6, Grafana, and InfluxDB.',
+      '3D blackjack with a film-noir presentation and a game engine isolated in a pure TypeScript reducer. A browser audit and 159 automated tests cover the playable experience; the production delivery path was also measured at 500 VUs with 0% request failures.',
     metrics: '500 VUs · 59,635 requests · 320 req/s · 100% HTTP 200 · 0% failures · p95 62 ms · p99 101 ms',
-    stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Vitest · Vite 6 · k6 · Grafana · InfluxDB',
+    stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Vitest · Vite 8 · k6 · Grafana · InfluxDB',
     liveLabel: 'Play live',
     liveUrl: 'https://blaqjaq.vercel.app',
     sourceUrl: 'https://github.com/rzavala1989/blaqjaq',
@@ -63,7 +63,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Emergency Lifeline Auditor',
     question: 'When the next disaster hits, can this county hear the warning and move?',
     description:
-      'Five federal datasets joined on county FIPS feed derived metrics for digital alert risk, daytime population surge, expected impact, and power-dependent residents. A zoomable choropleth, severity-banded table, map legend, and per-county dossier share one color scale. Every filter and selection serializes to the URL so an analyst can send a colleague the exact view.',
+      'A county-level disaster-readiness explorer built from public federal data. It brings risk indicators, a map, a table, and shareable filters into one operational view.',
     meta: '3,144 counties · 5 federal datasets · 6 derived metrics',
     stack: 'Next.js 16 · React 19 · TypeScript · TanStack Table · react-simple-maps · Vitest',
     liveLabel: 'Live app',
