@@ -21,7 +21,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Enroll',
     plate: 'Plate I',
     description:
-      'Course registration system engineered for registration-day concurrency and data integrity. Built as a pnpm monorepo with a NestJS API and Next.js web application. PostgreSQL row-level locks serialize capacity checks and prevent over-enrollment. Redis-backed BullMQ workers handle waitlist promotion, while an audit outbox delivers committed events to MongoDB. Grafana k6 and Testcontainers cover load and concurrency behavior.',
+      'Registration system built around one hard invariant: limited-capacity sections cannot overfill under concurrent writes. PostgreSQL row locks own the capacity check; a transactional outbox keeps waitlist and audit work outside the request path.',
     stack: 'Next.js 16 · NestJS 11 · Prisma · PostgreSQL · Redis · MongoDB · BullMQ · Turborepo',
     sourceUrl: 'https://github.com/rzavala1989/enroll',
     image: '/images/enroll-preview.png',
@@ -33,7 +33,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Nomadhood',
     plate: 'Plate II',
     description:
-      'Neighborhood intelligence platform for digital nomads. Seven external APIs feed a unified neighborhood profile covering walkability, rent, crime, economics, events, news, and imagery. A cosine-similarity recommendation engine learns from review history across six lifestyle dimensions. Community ratings and objective data feed composite scoring, while a news pipeline classifies signals and surfaces sentiment-based risk alerts. The application includes 19 Prisma models, 54 tRPC procedures, and three access tiers.',
+      'Neighborhood intelligence platform that normalizes external location data into comparable profiles, then matches user preferences with multidimensional similarity instead of collapsing everything into a single weighted score.',
     stack: 'Next.js 15 · React 19 · tRPC v11 · Prisma 6 · PostgreSQL · MapLibre GL · Zod · Bun',
     liveLabel: 'Live app',
     liveUrl: 'https://nomadhood.vercel.app',
@@ -47,7 +47,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Blaqjaq',
     plate: 'Plate III',
     description:
-      '3D blackjack with a 1951 Flamingo-era film noir aesthetic. The game engine is a pure reducer with zero React dependencies: 782 lines, 14 action types, and full insurance, surrender, and split mechanics. A basic-strategy engine evaluates decisions against optimal play. Session analytics track tendencies across hard, soft, and pair hands with profit-and-loss charting. The 3D scene uses React Three Fiber with five GLTF models, ACES filmic tone mapping, and procedural Web Audio API effects.',
+      '3D blackjack with the game rules extracted into a pure TypeScript state machine. React and Three.js render state; the engine stays independently testable and free of UI timing.',
     stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Vitest · Vite 6',
     liveLabel: 'Play live',
     liveUrl: 'https://blaqjaq.vercel.app',
@@ -61,7 +61,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Emergency Lifeline Auditor',
     question: 'When the next disaster hits, can this county hear the warning and move?',
     description:
-      'Five federal datasets joined on county FIPS feed derived metrics for digital alert risk, daytime population surge, expected impact, and power-dependent residents. A zoomable choropleth, severity-banded table, map legend, and per-county dossier share one color scale. Every filter and selection serializes to the URL so an analyst can send a colleague the exact view.',
+      'County-level emergency-readiness analysis built by reconciling federal datasets on FIPS, centralizing derived risk signals, and keeping map, table, filters, and shareable URL state synchronized.',
     meta: '3,144 counties · 5 federal datasets · 6 derived metrics',
     stack: 'Next.js 16 · React 19 · TypeScript · TanStack Table · react-simple-maps · Vitest',
     liveLabel: 'Live app',
