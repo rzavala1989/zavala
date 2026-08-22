@@ -20,16 +20,16 @@ const { num, title, class: className = '' } = Astro.props;
   .section-divider {
     position: relative;
     width: 100%;
-    min-height: clamp(10rem, 15vh, 14rem);
+    min-height: clamp(6.5rem, 10vh, 9rem);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     border-top: 1px solid var(--ink);
     border-bottom: 1px solid var(--ink);
-    margin: 4rem 0;
+    margin: 2.25rem 0 3rem;
   }
-  
+
   .section-divider.no-margin-bottom {
     margin-bottom: 0;
     border-bottom: none;
@@ -44,14 +44,14 @@ const { num, title, class: className = '' } = Astro.props;
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 0;
-    filter: contrast(1.1) brightness(0.9);
+    filter: contrast(1.1) brightness(0.86);
   }
 
   .parallax-bg::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(26, 26, 26, 0.4), rgba(26, 26, 26, 0.8));
+    background: linear-gradient(to bottom, rgba(26, 26, 26, 0.42), rgba(26, 26, 26, 0.76));
     mix-blend-mode: multiply;
   }
 
@@ -62,25 +62,23 @@ const { num, title, class: className = '' } = Astro.props;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    color: var(--paper); /* Inverted text for dark parallax */
-    padding: 0 2rem;
+    color: var(--paper);
+    padding: 1.5rem 2rem;
   }
-
-
 
   .divider-title {
     font-family: var(--font-heading);
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2.7rem, 6vw, 4.7rem);
     font-weight: 400;
-    line-height: 1;
+    line-height: 0.95;
     letter-spacing: var(--tracking-tight);
     font-style: italic;
     text-shadow: 0 4px 24px rgba(0,0,0,0.4);
   }
 
   @media (max-width: 768px) {
-    .section-divider {
-      background-attachment: scroll; /* Disable parallax on mobile for performance/ux */
+    .parallax-bg {
+      background-attachment: scroll;
     }
   }
 </style>
