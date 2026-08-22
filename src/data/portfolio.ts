@@ -6,6 +6,7 @@ export interface PortfolioItem {
   question?: string;
   description: string;
   meta?: string;
+  metrics?: string;
   stack: string;
   sourceUrl: string;
   liveLabel?: string;
@@ -47,8 +48,9 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Blaqjaq',
     plate: 'Plate III',
     description:
-      '3D blackjack with a 1951 Flamingo-era film noir aesthetic. The game engine is a pure reducer with zero React dependencies: 782 lines, 14 action types, and full insurance, surrender, and split mechanics. A basic-strategy engine evaluates decisions against optimal play. Session analytics track tendencies across hard, soft, and pair hands with profit-and-loss charting. The 3D scene uses React Three Fiber with five GLTF models, ACES filmic tone mapping, and procedural Web Audio API effects.',
-    stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Vitest · Vite 6',
+      '3D blackjack with a 1951 Flamingo-era film noir aesthetic. The game engine is a pure reducer with zero React dependencies: 782 lines, 14 action types, and complete insurance, surrender, and split mechanics. A basic-strategy evaluator and session analytics track decisions across hard, soft, and pair hands. The React Three Fiber scene uses five GLTF models, ACES filmic tone mapping, and procedural Web Audio API effects. Its deployed production delivery path is measured with k6, Grafana, and InfluxDB.',
+    metrics: '500 VUs · 59,635 requests · 320 req/s · 100% HTTP 200 · 0% failures · p95 62 ms · p99 101 ms',
+    stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Vitest · Vite 6 · k6 · Grafana · InfluxDB',
     liveLabel: 'Play live',
     liveUrl: 'https://blaqjaq.vercel.app',
     sourceUrl: 'https://github.com/rzavala1989/blaqjaq',

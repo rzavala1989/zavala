@@ -47,7 +47,7 @@ const techArticleSchemas: Record<string, any> = {
     author: { '@type': 'Person', name: 'Ricardo Zavala', url: 'https://zavala.pro' },
     datePublished: '2025-01-15',
     articleSection: 'Game Engine',
-    keywords: 'React, game engine, reducer, React Three Fiber, 3D'
+    keywords: 'React, game engine, reducer, React Three Fiber, 3D, k6, Grafana, production load testing'
   },
   'emergency-lifeline-auditor': {
     '@context': 'https://schema.org',
@@ -130,6 +130,12 @@ const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
             <span class="spec-value">{item.meta}</span>
           </div>
         )}
+        {item.metrics && (
+          <div class="spec-item">
+            <span class="spec-label">Measured</span>
+            <span class="spec-value">{item.metrics}</span>
+          </div>
+        )}
       </div>
     </header>
 
@@ -202,8 +208,12 @@ const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
           <h3>A zero-dependency pure reducer</h3>
           <p>I extracted the entire game engine out of React into a pure TypeScript state machine spanning 782 lines and 14 action types. The reducer receives an immutable state snapshot and an action payload, computing the subsequent table state with zero browser or UI dependencies. Card distribution uses a Fisher-Yates shuffle seeded with cryptographic randomness. React Three Fiber acts as a passive presentation layer that renders card meshes, chip stacks, table felt textures, and ACES filmic tone mapping based purely on state snapshots.</p>
 
-          <h3>Automated basic strategy analysis</h3>
-          <p>Because the engine is fully decoupled from the DOM, Vitest executes 50,000 automated hand simulations across the complete Basic Strategy decision table in 40 milliseconds. An integrated strategy evaluator analyzes player decisions against mathematically optimal play at runtime, tracking accuracy across hard totals, soft totals, pair splits, and surrender scenarios.</p>
+          <h3>Deterministic game logic and strategy analysis</h3>
+          <p>The reducer is independent of the DOM, which keeps rule evaluation deterministic and testable. An integrated strategy evaluator compares player decisions with mathematically optimal play at runtime, tracking accuracy across hard totals, soft totals, pair splits, and surrender scenarios. I do not use the production-delivery test as a proxy for engine throughput.</p>
+
+          <h3>Measured production delivery—not a proxy for frame rate</h3>
+          <p>I added a k6 production-load harness with Grafana and InfluxDB to measure the deployed web-delivery path. In a 3 minute 5 second ramp to 500 concurrent virtual users, the live application completed 59,635 requests at 320.41 requests per second. Every response was HTTP 200; request failures were 0.00%; p95 latency was 62.18 ms and p99 latency was 100.63 ms.</p>
+          <p>The harness records exact response-status counts alongside latency, throughput, virtual users, and failure rate. Those measurements demonstrate the delivery path under concurrency. They do not measure WebGL frame time, canvas stability, input latency, or the reducer's simulation throughput; those are separate benchmarks.</p>
 
           <h3>Architecture discipline: logic before mood</h3>
           <p>I spent two weeks tuning film-noir scene lighting and 3D chip physics before the underlying rules engine was stable. That was an operational mistake. In systems engineering, verify state transitions and core invariants first; presentation polish should always build on a proven engine.</p>
