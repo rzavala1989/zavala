@@ -1,21 +1,9 @@
----
-const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL;
-if (!calendlyUrl) {
-  throw new Error('PUBLIC_CALENDLY_URL is not set. Add it to .env.local locally or to Vercel env vars before deploying.');
-}
----
-
 <div class="masthead">
   <span class="masthead-mark">RZ</span>
   <span class="masthead-rule" aria-hidden="true"></span>
   <span class="masthead-meta">VOL. IX · HENDERSON, NV · MMXXVI</span>
   <span class="masthead-rule" aria-hidden="true"></span>
   <span class="masthead-meta">PORTFOLIO, No. 01</span>
-</div>
-
-<div class="availability-banner">
-  <span class="availability-dot" aria-hidden="true"></span>
-  <span class="availability-text">Available for Staff & Senior Engineering roles · Remote US · Full-time or contract</span>
 </div>
 
 <section class="hero" id="hero">
@@ -26,39 +14,38 @@ if (!calendlyUrl) {
         <span class="hero-tagline-rule" aria-hidden="true"></span>
         The Engineer
       </p>
+
       <h1 class="hero-name">Ricardo<br/>Zavala</h1>
       <p class="hero-title">Staff Software Engineer</p>
-      <p class="hero-location">Henderson, NV</p>
-      <p class="hero-bio">
-        I build the systems behind the <em>systems.</em> Over ten years I've worked
-        across the full stack for Fortune 500 companies, federal agencies, and startups,
-        shipping everything from real-time GIS platforms and PCI-compliant payment
-        gateways to AI-driven underwriting pipelines. I'm currently exploring my next full-time
-        or contract role, but particularly drawn to small teams working on hard, real problems.
+
+      <p class="hero-statement">
+        I build systems that stay correct when traffic spikes, data gets messy,
+        and the architecture starts fighting back.
       </p>
-      <div class="hero-links">
-        <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
-          GitHub
-        </a>
-        <a class="link" href="/resume/">Resume</a>
-        <a class="link" href="/writing/">Writing</a>
-        <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
-          </svg>
-          Book a Chat
-        </a>
-        <a class="link" href="mailto:zavala.ricardo.m@gmail.com">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-          </svg>
-          Email
-        </a>
+
+      <p class="hero-bio">
+        Ten years across distributed systems, data-intensive products, and complex
+        frontend architecture, from federal and healthcare platforms to fintech,
+        payments, and early-stage products.
+      </p>
+
+      <p class="hero-focus" aria-label="Primary engineering focus">
+        Distributed systems <span aria-hidden="true">·</span>
+        Data-intensive products <span aria-hidden="true">·</span>
+        Complex frontend architecture
+      </p>
+
+      <div class="hero-actions">
+        <a class="hero-primary" href="#projects">Selected Work <span aria-hidden="true">→</span></a>
+        <a class="hero-secondary" href="/resume/">Resume</a>
+      </div>
+
+      <div class="hero-meta-links" aria-label="Additional links">
+        <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="link" href="/writing/">Engineering Notes</a>
       </div>
     </div>
+
     <div class="hero-image">
       <figure class="hero-figure">
         <img
@@ -77,7 +64,6 @@ if (!calendlyUrl) {
   </div>
 </section>
 
-
 <style>
   .masthead {
     display: flex;
@@ -93,6 +79,7 @@ if (!calendlyUrl) {
     text-transform: uppercase;
     color: var(--color-muted);
   }
+
   .masthead-mark {
     font-family: var(--font-heading);
     font-style: italic;
@@ -101,86 +88,22 @@ if (!calendlyUrl) {
     text-transform: none;
     color: var(--color-text);
   }
+
   .masthead-rule {
     flex: 1;
     height: 1px;
     background: var(--color-divider);
   }
+
   .masthead-meta {
     white-space: nowrap;
   }
 
-  .availability-banner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    padding: 0.7rem 1.5rem;
-    margin: 1rem auto 0;
-    max-width: var(--content-max-width);
-    font-family: var(--font-body);
-    font-size: var(--fs-eyebrow);
-    font-weight: 500;
-    letter-spacing: var(--tracking-widest);
-    text-transform: uppercase;
-    color: var(--bronze);
-    border-top: 1px solid var(--bronze);
-    border-bottom: 1px solid var(--bronze);
-  }
-
-  .availability-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #5a8a5a;
-    flex-shrink: 0;
-    animation: pulse 2.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  .availability-text {
-    white-space: nowrap;
-  }
-
-  .hero-figure {
-    display: inline-flex;
-    flex-direction: column;
-  }
-
-  .hero-plate {
-    font-family: var(--font-body);
-    font-size: var(--fs-eyebrow);
-    font-weight: 500;
-    letter-spacing: var(--tracking-widest);
-    color: var(--color-muted);
-    margin-top: 0.5rem;
-  }
-
-  .hero-tagline-num {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 1em;
-    color: var(--bronze);
-    margin-right: 0.6rem;
-  }
-  .hero-tagline-rule {
-    display: inline-block;
-    width: 2.5rem;
-    height: 1px;
-    background: var(--color-divider);
-    vertical-align: middle;
-    margin-right: 0.8rem;
-  }
-
   .hero {
-    min-height: calc(100vh - 4rem);
+    min-height: calc(100vh - 3rem);
     display: flex;
     align-items: center;
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 1.5rem 3.5rem;
   }
 
   .hero-content {
@@ -201,7 +124,7 @@ if (!calendlyUrl) {
   }
 
   .hero-text {
-    max-width: 520px;
+    max-width: 560px;
   }
 
   .hero-tagline {
@@ -214,6 +137,23 @@ if (!calendlyUrl) {
     text-transform: uppercase;
     color: var(--color-muted);
     margin-bottom: 1.2rem;
+  }
+
+  .hero-tagline-num {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1em;
+    color: var(--bronze);
+    margin-right: 0.6rem;
+  }
+
+  .hero-tagline-rule {
+    display: inline-block;
+    width: 2.5rem;
+    height: 1px;
+    background: var(--color-divider);
+    vertical-align: middle;
+    margin-right: 0.8rem;
   }
 
   .hero-name {
@@ -234,26 +174,100 @@ if (!calendlyUrl) {
     margin-top: 1.2rem;
   }
 
-  .hero-location {
-    font-size: var(--fs-small);
-    color: var(--color-muted);
-    margin-top: 1.6rem;
-    letter-spacing: var(--tracking-wide);
+  .hero-statement {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-text);
+    margin-top: 1.8rem;
+    max-width: 34rem;
   }
 
   .hero-bio {
-    font-size: var(--fs-lead);
+    font-size: var(--fs-body);
     line-height: var(--leading-body);
     color: var(--color-secondary);
-    margin-top: 1.5rem;
-    max-width: 28rem;
+    margin-top: 1.2rem;
+    max-width: 32rem;
   }
 
-  .hero-links {
+  .hero-focus {
+    margin-top: 1.4rem;
+    font-size: var(--fs-meta);
+    line-height: 1.6;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-secondary);
+  }
+
+  .hero-focus span {
+    color: var(--bronze);
+    padding: 0 0.35rem;
+  }
+
+  .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-top: 2.4rem;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .hero-primary,
+  .hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.72rem 1rem;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    transition: background-color var(--dur-med) ease, color var(--dur-med) ease, border-color var(--dur-med) ease;
+  }
+
+  .hero-primary {
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    color: var(--paper);
+  }
+
+  .hero-primary:hover,
+  .hero-primary:focus-visible {
+    background: var(--bronze);
+    border-color: var(--bronze);
+  }
+
+  .hero-secondary {
+    border: var(--border-hair);
+    color: var(--ink);
+  }
+
+  .hero-secondary:hover,
+  .hero-secondary:focus-visible {
+    border-color: var(--ink);
+  }
+
+  .hero-meta-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    margin-top: 1.15rem;
+  }
+
+  .hero-figure {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  .hero-plate {
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    color: var(--color-muted);
+    margin-top: 0.5rem;
   }
 
   .hero-image {
@@ -261,11 +275,6 @@ if (!calendlyUrl) {
     justify-content: center;
     align-items: center;
     position: relative;
-  }
-
-  .hero-bio em {
-    font-style: italic;
-    color: var(--color-text);
   }
 
   .hero-image img {
@@ -297,27 +306,22 @@ if (!calendlyUrl) {
       max-height: 320px;
     }
 
-    .hero-bio {
-      max-width: 100%;
-    }
-
-    .hero-links {
+    .hero-tagline,
+    .hero-actions,
+    .hero-meta-links {
       justify-content: center;
     }
 
-    .availability-banner {
-      padding: 0.6rem 1rem;
-    }
-
-    .availability-text {
-      white-space: normal;
-      text-align: center;
+    .hero-statement,
+    .hero-bio {
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
   @media (max-width: 480px) {
     .hero {
-      padding: 1.5rem 1rem;
+      padding: 1.5rem 1rem 3rem;
     }
 
     .hero-image img {
@@ -329,10 +333,13 @@ if (!calendlyUrl) {
       letter-spacing: 0.08em;
     }
 
-    .availability-banner {
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      gap: 0.4rem;
+    .hero-actions {
+      align-items: stretch;
+    }
+
+    .hero-primary,
+    .hero-secondary {
+      flex: 1 1 9rem;
     }
   }
 </style>
