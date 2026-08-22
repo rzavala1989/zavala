@@ -79,9 +79,7 @@ const schemas = structuredData
     <meta name="description" content={description} />
     <meta name="author" content="Ricardo Zavala" />
     <meta name="robots" content="index, follow" />
-    <meta name="keywords" content="Staff Software Engineer, Senior Software Engineer, Full Stack Engineer, Backend Engineer, React, TypeScript, Node.js, Python, Go, PostgreSQL, AWS, Distributed Systems, API Design, Fintech, Healthcare Technology, Remote Engineer, Henderson NV, Available for Hire" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="preconnect" href="https://calendly.com" />
     <link rel="dns-prefetch" href="https://github.com" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -98,15 +96,16 @@ const schemas = structuredData
 
     <link rel="preload" href="/fonts/satoshi/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/satoshi/satoshi-500.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/satoshi/satoshi-700.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/instrument-serif/instrument-serif-regular-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/fonts/fonts.css" />
     <script type="application/ld+json" set:html={JSON.stringify(schemas)}></script>
     <title>{title}</title>
   </head>
   <body>
-    <a href="#hero" class="skip-link">Skip to content</a>
-    <slot />
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <div id="main-content">
+      <slot />
+    </div>
   </body>
 </html>
 
@@ -137,20 +136,21 @@ const schemas = structuredData
     }
   }
 
-  .skip-link { 
-    position: absolute; 
-    top: -40px; 
-    left: 0; 
-    background: var(--ink); 
-    color: var(--paper); 
-    padding: 8px; 
-    z-index: 100; 
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px;
+    z-index: 100;
     transition: top 0.2s;
   }
-  .skip-link:focus { 
-    top: 0; 
+
+  .skip-link:focus {
+    top: 0;
   }
-  
+
   .visually-hidden {
     position: absolute;
     width: 1px;
