@@ -1,28 +1,24 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Footer from '../../components/Footer.astro';
 import { portfolioItems } from '../../data/portfolio';
 
-// Mapping of tags for the writing page
-const noteMetadata: Record<string, { tags: string[], headline: string, date: string }> = {
+const noteMetadata: Record<string, { tags: string[], headline: string }> = {
   enroll: {
-    headline: 'Enroll: How I Stopped a Registration-Day Meltdown with PostgreSQL Row Locks',
-    tags: ['Distributed Systems', 'PostgreSQL', 'Concurrency'],
-    date: 'Jan 15, 2025'
+    headline: 'Why registration capacity belongs inside the database transaction',
+    tags: ['Distributed Systems', 'PostgreSQL', 'Concurrency']
   },
   nomadhood: {
-    headline: 'Nomadhood: Fixing Neighborhood Recommendations with pgvector',
-    tags: ['Full-stack', 'pgvector', 'Recommendation Engine'],
-    date: 'Jan 15, 2025'
+    headline: 'Why weighted scoring was the wrong abstraction for neighborhood matching',
+    tags: ['Data Modeling', 'Similarity Search', 'Recommendation Systems']
   },
   blaqjaq: {
-    headline: 'Blaqjaq: Decoupling Game State from React with a Pure Reducer',
-    tags: ['React', 'Game Engine', '3D rendering'],
-    date: 'Jan 15, 2025'
+    headline: 'Why I pulled the game engine completely out of React',
+    tags: ['React', 'State Machines', 'Testing']
   },
   'emergency-lifeline-auditor': {
-    headline: 'Emergency Lifeline Auditor: Unifying Federal Datasets for Disaster Response',
-    tags: ['Civic Data', 'Data Pipelines', 'Data Visualization'],
-    date: 'Jan 15, 2025'
+    headline: 'What breaks when five federal datasets disagree about geography',
+    tags: ['Civic Data', 'Data Pipelines', 'Visualization']
   }
 };
 
@@ -30,60 +26,58 @@ const notes = portfolioItems
   .filter(item => noteMetadata[item.slug])
   .map(item => ({
     slug: item.slug,
-    title: item.title,
     description: item.description,
     meta: noteMetadata[item.slug]
   }));
 
-const description = "Technical writing and engineering notes by Ricardo Zavala on distributed systems, data pipelines, and UI architecture.";
+const description = 'Engineering notes by Ricardo Zavala on distributed systems, data pipelines, product architecture, and frontend systems.';
 ---
 
-<Base title="Writing & Engineering Notes | Ricardo Zavala" description={description}>
+<Base title="Engineering Notes | Ricardo Zavala" description={description} ogType="website">
   <main class="writing-page">
-    <nav class="back-nav" aria-label="Breadcrumb"><a href="/">Ricardo Zavala</a> / Writing</nav>
+    <nav class="back-nav" aria-label="Breadcrumb"><a href="/">Ricardo Zavala</a> / Engineering Notes</nav>
 
     <header class="page-header">
-      <h1>Writing</h1>
-      <p class="lede">Engineering stories, post-mortems, and architecture notes from building complex systems.</p>
+      <p class="eyebrow">Engineering notes</p>
+      <h1>Decisions worth explaining.</h1>
+      <p class="lede">
+        Short technical deep dives into constraints, failed approaches, tradeoffs, and the architecture that came out the other side.
+      </p>
     </header>
 
     <section class="notes-list">
       {notes.map(note => (
         <article class="note-card">
-          <time datetime="2025-01-15">{note.meta.date}</time>
-          <h2><a href={`/work/${note.slug}#engineering-notes`}>{note.meta.headline}</a></h2>
-          <div class="tags">
-            {note.meta.tags.map(tag => (
-              <span class="tag">{tag}</span>
-            ))}
+          <h2><a href={`/work/${note.slug}/#engineering-notes`}>{note.meta.headline}</a></h2>
+          <p class="note-summary">{note.description}</p>
+          <div class="tags" aria-label="Topics">
+            {note.meta.tags.map(tag => <span class="tag">{tag}</span>)}
           </div>
+          <a class="read" href={`/work/${note.slug}/#engineering-notes`}>Read engineering notes <span aria-hidden="true">→</span></a>
         </article>
       ))}
     </section>
-
-    <footer class="page-footer"><a href="/">← Back Home</a></footer>
   </main>
+  <Footer />
 </Base>
 
 <style>
-  .writing-page { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
-  .back-nav { font-size: var(--fs-meta); color: var(--color-muted); margin-bottom: 5rem; }
+  .writing-page { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+  .back-nav { font-size: var(--fs-meta); color: var(--color-muted); margin-bottom: clamp(3rem, 8vw, 5rem); }
   .back-nav a { color: inherit; }
-  .page-header { max-width: 800px; margin-bottom: 4rem; }
-  h1 { font-family: var(--font-heading); font-weight: 400; font-size: clamp(4rem, 10vw, 8rem); line-height: .9; letter-spacing: var(--tracking-display); margin: .8rem 0 1.5rem; }
-  .lede { color: var(--color-secondary); font-size: var(--fs-lead); line-height: var(--leading-body); max-width: 48rem; }
-  
-  .notes-list { display: flex; flex-direction: column; gap: 3.5rem; }
-  .note-card { display: flex; flex-direction: column; gap: 0.6rem; }
-  .note-card time { font-size: var(--fs-meta); color: var(--color-muted); letter-spacing: var(--tracking-wider); text-transform: uppercase; font-weight: 500; }
-  .note-card h2 { font-family: var(--font-heading); font-size: var(--fs-h2); font-weight: 400; line-height: 1.15; letter-spacing: var(--tracking-display); }
+  .page-header { max-width: 780px; margin-bottom: 4rem; }
+  .eyebrow { font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-muted); }
+  h1 { font-family: var(--font-heading); font-weight: 400; font-size: clamp(3rem, 8vw, 6rem); line-height: .95; letter-spacing: var(--tracking-display); margin: .8rem 0 1.5rem; }
+  .lede { color: var(--color-secondary); font-size: var(--fs-lead); line-height: var(--leading-body); max-width: 44rem; }
+  .notes-list { display: flex; flex-direction: column; }
+  .note-card { padding: 2.2rem 0 2.5rem; border-top: var(--border-hair); }
+  .note-card:last-child { border-bottom: var(--border-hair); }
+  .note-card h2 { max-width: 46rem; font-family: var(--font-heading); font-size: var(--fs-h2); font-weight: 400; line-height: 1.15; letter-spacing: var(--tracking-display); }
   .note-card h2 a { color: var(--color-text); text-decoration: none; transition: color var(--dur-fast) ease; }
-  .note-card h2 a:hover { color: var(--bronze); }
-  
-  .tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
-  .tag { font-size: var(--fs-meta); color: var(--color-secondary); background: var(--paper-alt); padding: 0.3rem 0.8rem; border-radius: var(--radius-sm); }
-  
-  .page-footer { margin-top: 5rem; padding-top: 2rem; }
-  .page-footer a { color: var(--color-text); font-weight: 500; text-decoration: none; }
-  .page-footer a:hover { color: var(--bronze); }
+  .note-card h2 a:hover, .note-card h2 a:focus-visible { color: var(--bronze); }
+  .note-summary { max-width: 44rem; margin-top: .85rem; color: var(--color-secondary); font-size: var(--fs-body); line-height: var(--leading-body); }
+  .tags { display: flex; gap: .55rem; flex-wrap: wrap; margin-top: 1rem; }
+  .tag { font-size: var(--fs-meta); color: var(--color-secondary); background: var(--paper-alt); padding: .28rem .65rem; border-radius: var(--radius-sm); }
+  .read { display: inline-flex; align-items: center; gap: .35rem; margin-top: 1.2rem; color: var(--color-text); font-size: var(--fs-small); font-weight: 500; text-decoration: none; }
+  .read:hover, .read:focus-visible { color: var(--bronze); }
 </style>
