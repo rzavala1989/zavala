@@ -7,34 +7,40 @@ if (!calendlyUrl) {
 }
 ---
 
-<SectionDivider title="Let's connect." class="no-margin-bottom">
-  <div class="footer-cta">
-    <div class="footer-links">
-      <a class="link" href="/work/">Work</a>
-      <a class="link" href="/writing/">Writing</a>
-      <a class="link" href="/resume/">Resume</a>
-      <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">Book a Chat</a>
-      <a class="link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
+<div class="closing-section" id="contact">
+  <SectionDivider title="Let's connect." class="no-margin-bottom">
+    <div class="footer-cta">
+      <div class="footer-links">
+        <a class="link" href="/work/">Work</a>
+        <a class="link" href="/writing/">Writing</a>
+        <a class="link" href="/resume/">Resume</a>
+        <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">Book a Chat</a>
+        <a class="link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
+      </div>
     </div>
-  </div>
-</SectionDivider>
+  </SectionDivider>
 
-<footer class="footer" id="contact">
-  <div class="footer-mark" aria-hidden="true"><span>Ricardo Zavala</span></div>
-  <div class="footer-bottom">
-    <p class="colophon">Set in <em>Instrument Serif</em> Built with Astro 5 · Henderson, NV</p>
-    <p class="copy">&copy; MMXXVI Ricardo Zavala · zavala.pro</p>
-  </div>
-</footer>
+  <footer class="footer">
+    <div class="footer-mark" aria-hidden="true">
+      <span>Ricardo Zavala</span>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="colophon">Set in <em>Instrument Serif</em> · Built with Astro 5 · Henderson, NV</p>
+      <p class="copy">&copy; MMXXVI Ricardo Zavala · zavala.pro</p>
+    </div>
+  </footer>
+</div>
 
 <style>
-  .footer {
-    padding: 2rem 1.5rem 2rem;
+  .closing-section {
+    background: #11100f;
+    color: var(--paper);
   }
 
   .footer-cta {
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     text-align: center;
     color: var(--paper);
   }
@@ -48,7 +54,7 @@ if (!calendlyUrl) {
 
   .footer-links .link {
     color: var(--paper);
-    text-decoration-color: rgba(246, 244, 240, 0.4);
+    text-decoration-color: rgba(246, 244, 240, 0.35);
   }
 
   .footer-links .link:hover,
@@ -57,47 +63,56 @@ if (!calendlyUrl) {
     text-decoration-color: var(--paper);
   }
 
+  .footer {
+    padding: 1rem 1.5rem 2rem;
+    border-top: 1px solid rgba(246, 244, 240, 0.08);
+  }
+
   .footer-mark {
     max-width: var(--content-max-width);
-    margin: 5rem auto 0;
+    margin: 2.5rem auto 0;
     overflow: hidden;
     user-select: none;
   }
+
   .footer-mark span {
     display: block;
     font-family: var(--font-heading);
     font-style: italic;
-    font-size: clamp(4rem, 16vw, 12rem);
+    font-size: clamp(4rem, 13vw, 10rem);
     line-height: 0.9;
     letter-spacing: -0.04em;
     color: transparent;
-    -webkit-text-stroke: 1px var(--color-divider);
+    -webkit-text-stroke: 1px rgba(246, 244, 240, 0.2);
     text-align: center;
     white-space: nowrap;
   }
 
   .footer-bottom {
     max-width: var(--content-max-width);
-    margin: 2rem auto 0;
+    margin: 1.5rem auto 0;
     text-align: center;
-    padding-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(246, 244, 240, 0.08);
   }
 
   .colophon {
     font-size: var(--fs-meta);
-    color: var(--color-muted);
+    color: rgba(246, 244, 240, 0.52);
     letter-spacing: var(--tracking-wide);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.35rem;
   }
+
   .colophon em {
     font-family: var(--font-heading);
     font-style: italic;
+    color: rgba(246, 244, 240, 0.72);
   }
 
   .copy {
     font-family: var(--font-mono);
     font-size: var(--fs-meta);
-    color: var(--color-muted);
+    color: rgba(246, 244, 240, 0.38);
     letter-spacing: var(--tracking-wide);
   }
 
@@ -108,7 +123,11 @@ if (!calendlyUrl) {
     }
 
     .footer-links {
-      gap: 1.5rem;
+      gap: 1.4rem;
+    }
+
+    .footer-mark {
+      margin-top: 2rem;
     }
   }
 </style>
