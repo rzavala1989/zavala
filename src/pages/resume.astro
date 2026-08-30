@@ -5,27 +5,25 @@ const experience = [
   {
     role: 'Co-Founding Backend Engineer',
     company: 'Arkra',
-    dates: 'May 2025 - Present',
+    dates: 'May 2025 — Present',
     bullets: [
-      'Architecting full-stack services for an AI-powered fintech marketplace using TypeScript, Node.js, Python, PostgreSQL, and React.',
+      'Architecting full-stack services for an AI-powered equipment finance platform across TypeScript, Node.js, Python, PostgreSQL, and React.',
       'Designing event-driven transaction flows with partitioned messaging and idempotency for retries and reordering.',
       'Building AI-assisted matching and underwriting pipelines with RAG, vector search, human review, guardrails, and evaluation harnesses.',
     ],
   },
   {
-    role: 'Senior Full Stack Engineer',
-    company: 'Avenue Code',
-    dates: 'April 2025 - December 2025',
+    role: 'Software Engineer (Contract)',
+    company: 'Idaho National Laboratory',
+    dates: 'Jun 2025 — Oct 2025',
     bullets: [
-      'Led a secure multi-tenant data platform across React, TypeScript, FastAPI, and PostgreSQL.',
-      'Built RBAC, immutable audit trails, FIPS-validated cryptography, and tenant isolation for regulated workflows.',
-      'Increased ingestion throughput by 40% with async services, distributed task queues, and partitioned streaming.',
+      'Delivered full-stack .NET systems for internal research and infrastructure workflows at a U.S. Department of Energy national laboratory.',
     ],
   },
   {
     role: 'Senior Full Stack Engineer',
     company: 'Accenture Federal Services',
-    dates: 'April 2022 - April 2025',
+    dates: 'Apr 2022 — Apr 2025',
     bullets: [
       'Architected AWS services supporting 3M+ daily transactions at sub-50ms p99 latency across peak traffic.',
       'Owned GraphQL and REST API design across 14 services and standardized React and TypeScript UI patterns across 22 teams.',
@@ -35,217 +33,296 @@ const experience = [
   {
     role: 'Full Stack Engineer',
     company: 'Cigna',
-    dates: 'February 2022 - April 2022',
+    dates: 'Feb 2022 — Apr 2022',
     bullets: [
       'Built shared React and Material UI systems inside a HIPAA-regulated healthcare environment.',
-      'Improved provider search performance with React Query and Elasticsearch and added New Relic observability for React and Django services.',
+      'Improved provider search with React Query and Elasticsearch and added New Relic observability across React and Django services.',
     ],
   },
   {
-    role: 'Web and Native Mobile Developer',
-    company: 'Zappos Family of Companies',
-    dates: 'October 2018 - August 2021',
+    role: 'Frontend Engineer',
+    company: 'Touch To',
+    dates: '2021 — 2022',
     bullets: [
-      'Worked on consumer payment surfaces serving 18.5M+ monthly transactions with 99.99% uptime through peak events.',
+      'Architected micro-frontend systems and real-time dashboards for digital ordering across hospitality and defense environments.',
+    ],
+  },
+  {
+    role: 'Web & Native Mobile Developer',
+    company: 'Zappos Family of Companies',
+    dates: 'Oct 2018 — Aug 2021',
+    bullets: [
+      'Built customer-facing commerce and payment surfaces serving 18.5M+ monthly transactions with 99.99% uptime through peak events.',
       'Designed a GraphQL federation layer that consolidated 12 legacy REST APIs and reduced frontend over-fetching by 76%.',
     ],
   },
+  {
+    role: 'Web Development Intern',
+    company: 'Vegas.com',
+    dates: '2016 — 2017',
+    bullets: [
+      'Shipped production web features for a major online travel platform and built internal tooling that streamlined content operations.',
+    ],
+  },
 ];
+
+const compactExperience = 'Axon / Avenue Code — Senior Full Stack Engineer · 2025';
 ---
 
 <Base
   title="Ricardo Zavala Resume | Staff Software Engineer"
   description="Resume for Ricardo Zavala, a Staff Software Engineer in Henderson, Nevada with 10 years across React, TypeScript, Node.js, Python, Go, PostgreSQL, AWS, distributed systems, fintech, healthcare, and regulated platforms."
 >
-  <main class="resume-shell">
-    <header class="resume-header">
-      <p class="eyebrow">Resume</p>
-      <h1>Ricardo Zavala</h1>
-      <p class="role">Staff Software Engineer</p>
-      <p class="meta">Henderson, NV · Remote US</p>
-      <p class="lede">
-        Staff-level full-stack engineer with 10 years owning systems end to end across React, TypeScript, Node.js,
-        Python, Go, PostgreSQL, AWS, and distributed architectures. I work best where product decisions, backend
-        correctness, and production reliability all meet.
-      </p>
-      <nav class="resume-links" aria-label="Resume links">
-        <a href="/">Portfolio</a>
-        <a href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="mailto:zavala.ricardo.m@gmail.com">Email</a>
-      </nav>
-    </header>
+  <main id="hero" class="resume-stage">
+    <div class="resume-frame">
+      <div class="resume-toolbar">
+        <a class="back-link" href="/">← Back to portfolio</a>
+        <span class="toolbar-label">Curriculum vitae · 2026</span>
+      </div>
 
-    <section>
-      <h2>Experience</h2>
-      {experience.map((item) => (
-        <article class="job">
-          <div class="job-heading">
-            <div>
-              <h3>{item.role}</h3>
-              <p class="company">{item.company}</p>
+      <header class="resume-header">
+        <div>
+          <p class="eyebrow">Staff software engineer</p>
+          <h1>Ricardo Zavala</h1>
+          <p class="summary">
+            Full-stack engineer who builds dependable products at the intersection of backend systems, product
+            decisions, and production reliability.
+          </p>
+        </div>
+        <address class="contact-block">
+          <span>Henderson, NV · Remote US</span>
+          <a href="mailto:zavala.ricardo.m@gmail.com">zavala.ricardo.m@gmail.com</a>
+          <a href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">github.com/rzavala1989</a>
+          <a href="/">zavala.pro</a>
+        </address>
+      </header>
+
+      <div class="resume-grid">
+        <div class="resume-main">
+          <section aria-labelledby="experience-heading">
+            <div class="section-heading">
+              <p class="section-kicker">01</p>
+              <h2 id="experience-heading">Experience</h2>
             </div>
-            <p class="dates">{item.dates}</p>
-          </div>
-          <ul>
-            {item.bullets.map((bullet) => <li>{bullet}</li>)}
-          </ul>
-        </article>
-      ))}
-    </section>
 
-    <section>
-      <h2>Core stack</h2>
-      <p class="stack">
-        React, Next.js, TypeScript, Node.js, Python, FastAPI, Django, Go, REST, GraphQL, gRPC, PostgreSQL,
-        MongoDB, Redis, Elasticsearch, pgvector, Kafka, AWS, Azure, Terraform, Docker, Kubernetes, GitHub Actions,
-        CI/CD, New Relic, Datadog, Jest, Cypress, Playwright, PyTest.
-      </p>
-    </section>
+            {experience.map((item) => (
+              <article class="job">
+                <div class="job-heading">
+                  <div>
+                    <h3>{item.role}</h3>
+                    <p class="company">{item.company}</p>
+                  </div>
+                  <p class="dates">{item.dates}</p>
+                </div>
+                <ul>
+                  {item.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
 
-    <section>
-      <h2>Focus areas</h2>
-      <p class="stack">
-        Distributed systems, event-driven architecture, payments, regulated data platforms, multi-tenant systems,
-        AI-assisted workflows, RAG, human-in-the-loop systems, observability, API design, frontend platforms, and developer tooling.
-      </p>
-    </section>
+            <p class="compact-history"><span>Additional experience</span>{compactExperience}</p>
+          </section>
+        </div>
 
-    <section>
-      <h2>Education</h2>
-      <p>Bachelor of Science, Computer Science · University of Nevada, Las Vegas · 2018 · cum laude</p>
-    </section>
+        <aside class="resume-aside">
+          <section aria-labelledby="profile-heading">
+            <div class="section-heading">
+              <p class="section-kicker">02</p>
+              <h2 id="profile-heading">Profile</h2>
+            </div>
+            <p class="aside-copy">
+              10 years building systems across fintech, federal, healthcare, commerce, and AI-assisted products.
+              Comfortable moving from an ambiguous product question to a measured, observable production system.
+            </p>
+          </section>
+
+          <section aria-labelledby="stack-heading">
+            <div class="section-heading">
+              <p class="section-kicker">03</p>
+              <h2 id="stack-heading">Core stack</h2>
+            </div>
+            <p class="aside-copy">
+              React · Next.js · TypeScript · Node.js · Python · FastAPI · Django · Go · REST · GraphQL · gRPC ·
+              PostgreSQL · MongoDB · Redis · Elasticsearch · pgvector · Kafka · AWS · Azure · Terraform · Docker ·
+              Kubernetes · GitHub Actions · New Relic · Datadog · Jest · Playwright · PyTest
+            </p>
+          </section>
+
+          <section aria-labelledby="focus-heading">
+            <div class="section-heading">
+              <p class="section-kicker">04</p>
+              <h2 id="focus-heading">Focus</h2>
+            </div>
+            <ul class="focus-list">
+              <li>Distributed systems</li>
+              <li>Event-driven architecture</li>
+              <li>Payments & regulated data</li>
+              <li>AI-assisted workflows</li>
+              <li>API and frontend platforms</li>
+              <li>Observability & developer tooling</li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="education-heading">
+            <div class="section-heading">
+              <p class="section-kicker">05</p>
+              <h2 id="education-heading">Education</h2>
+            </div>
+            <p class="aside-copy"><strong>B.S. Computer Science</strong><br />University of Nevada, Las Vegas<br />2018 · cum laude</p>
+          </section>
+        </aside>
+      </div>
+
+      <footer class="resume-footer">
+        <span>Ricardo Zavala</span>
+        <span>Available for senior backend / full-stack roles</span>
+      </footer>
+    </div>
   </main>
 </Base>
 
 <style>
-  .resume-shell {
-    width: min(900px, calc(100% - 2rem));
-    margin: 0 auto;
-    padding: 5rem 0 6rem;
+  .resume-stage {
+    min-height: 100vh;
+    padding: clamp(1.25rem, 4vw, 4rem) 1rem 5rem;
+    background: var(--paper-alt);
   }
 
+  .resume-frame {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 3.5rem) clamp(1.25rem, 5vw, 5rem) 2rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 0 18px 50px -35px rgba(26, 26, 26, 0.45);
+  }
+
+  .resume-toolbar,
+  .resume-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--color-muted);
+    font-size: var(--fs-eyebrow);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .back-link {
+    color: var(--color-text);
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: var(--tracking-normal);
+  }
+
+  .back-link:hover { color: var(--color-accent); }
+
   .resume-header {
-    padding-bottom: 3rem;
-    border-bottom: var(--border-hair);
-    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(190px, 0.42fr);
+    gap: 3rem;
+    align-items: end;
+    padding: clamp(3.5rem, 9vw, 7rem) 0 2.5rem;
+    border-bottom: 2px solid var(--ink);
   }
 
   .eyebrow,
-  .meta,
-  .dates {
-    font-size: var(--fs-meta);
-    letter-spacing: var(--tracking-wide);
-    color: var(--color-muted);
-  }
-
-  .eyebrow {
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-heading);
-    font-weight: 400;
-  }
-
-  h1 {
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.95;
-  }
-
-  .role {
-    margin-top: 1rem;
-    font-size: 1.1rem;
+  .section-kicker {
+    color: var(--color-accent);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
     letter-spacing: var(--tracking-widest);
     text-transform: uppercase;
   }
 
-  .meta {
+  h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; }
+
+  h1 {
     margin-top: 0.75rem;
+    font-size: clamp(3.4rem, 8vw, 7.5rem);
+    letter-spacing: var(--tracking-display);
+    line-height: 0.88;
   }
 
-  .lede {
-    max-width: 720px;
-    margin-top: 1.5rem;
+  .summary {
+    max-width: 560px;
+    margin-top: 1.75rem;
+    color: var(--color-secondary);
     font-size: var(--fs-lead);
     line-height: var(--leading-body);
+  }
+
+  .contact-block {
+    display: grid;
+    gap: 0.4rem;
+    align-content: end;
     color: var(--color-secondary);
+    font-size: var(--fs-meta);
+    font-style: normal;
+    line-height: 1.45;
   }
 
-  .resume-links {
+  .contact-block a { color: var(--color-text); text-underline-offset: 0.25em; }
+
+  .resume-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.75fr) minmax(220px, 0.85fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    padding: 2.75rem 0 3rem;
+  }
+
+  .resume-main { min-width: 0; }
+  .resume-aside { padding-left: clamp(0rem, 3vw, 2.5rem); border-left: var(--border-hair); }
+  .resume-aside section + section { margin-top: 2.75rem; }
+
+  .section-heading {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    margin-top: 2rem;
-  }
-
-  .resume-links a {
-    color: var(--color-text);
-    text-underline-offset: 0.25em;
-  }
-
-  section + section {
-    margin-top: 3.5rem;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 1.5rem;
-  }
-
-  .job {
-    padding: 1.5rem 0;
-    border-top: var(--border-hair);
-  }
-
-  .job-heading {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
     align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
   }
 
-  h3 {
-    font-size: 1.4rem;
+  .section-heading h2 { font-size: clamp(1.9rem, 3.5vw, 2.8rem); line-height: 1; }
+  .section-kicker { color: var(--color-muted); }
+
+  .job { padding: 1.25rem 0 1.5rem; border-top: var(--border-hair); }
+  .job-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  h3 { font-size: clamp(1.3rem, 2.5vw, 1.65rem); line-height: 1.05; }
+  .company { margin-top: 0.3rem; color: var(--color-accent); font-size: var(--fs-small); font-weight: 500; }
+  .dates { flex: 0 0 auto; color: var(--color-muted); font-size: var(--fs-meta); letter-spacing: var(--tracking-wide); text-align: right; }
+  .job ul { margin: 0.8rem 0 0 1.1rem; color: var(--color-secondary); font-size: var(--fs-body); line-height: 1.55; }
+  .job li + li { margin-top: 0.35rem; }
+
+  .compact-history { margin-top: 0.35rem; padding-top: 1rem; border-top: var(--border-hair); color: var(--color-secondary); font-size: var(--fs-meta); }
+  .compact-history span { display: block; margin-bottom: 0.35rem; color: var(--color-muted); font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-widest); text-transform: uppercase; }
+  .aside-copy { color: var(--color-secondary); font-size: var(--fs-body); line-height: 1.65; }
+  .aside-copy strong { color: var(--color-text); font-weight: 500; }
+  .focus-list { display: grid; gap: 0.55rem; color: var(--color-secondary); font-size: var(--fs-body); list-style: none; }
+  .focus-list li::before { content: '↗'; margin-right: 0.55rem; color: var(--color-accent); }
+
+  .resume-footer { padding-top: 1.25rem; border-top: var(--border-hair); }
+
+  @media (max-width: 720px) {
+    .resume-header, .resume-grid { grid-template-columns: 1fr; }
+    .resume-header { gap: 2rem; }
+    .resume-aside { padding: 2rem 0 0; border-top: var(--border-hair); border-left: 0; }
   }
 
-  .company {
-    margin-top: 0.25rem;
-    color: var(--color-secondary);
+  @media (max-width: 520px) {
+    .resume-stage { padding: 0; }
+    .resume-frame { border-width: 0 0 1px; }
+    .resume-toolbar, .resume-footer { display: block; }
+    .toolbar-label, .resume-footer span + span { display: block; margin-top: 0.75rem; }
+    .job-heading { display: block; }
+    .dates { margin-top: 0.45rem; text-align: left; }
   }
 
-  ul {
-    margin: 1rem 0 0 1.25rem;
-    color: var(--color-secondary);
-  }
-
-  li + li {
-    margin-top: 0.5rem;
-  }
-
-  li,
-  .stack,
-  section > p {
-    line-height: 1.7;
-  }
-
-  .stack {
-    color: var(--color-secondary);
-  }
-
-  @media (max-width: 640px) {
-    .resume-shell {
-      padding-top: 3rem;
-    }
-
-    .job-heading {
-      display: block;
-    }
-
-    .dates {
-      margin-top: 0.5rem;
-    }
+  @media print {
+    .resume-stage { padding: 0; background: white; }
+    .resume-frame { width: 100%; padding: 0; border: 0; box-shadow: none; }
+    .resume-toolbar { display: none; }
+    .resume-header { padding-top: 0; }
+    .job, section { break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
   }
 </style>

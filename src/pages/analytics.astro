@@ -1,0 +1,176 @@
+---
+import Base from '../layouts/Base.astro';
+
+const events = [
+  { name: 'project_open', purpose: 'Selected Work → case study', status: 'Planned' },
+  { name: 'source_open', purpose: 'GitHub / source engagement', status: 'Planned' },
+  { name: 'resume_open', purpose: 'Resume intent', status: 'Planned' },
+  { name: 'writing_open', purpose: 'Technical writing engagement', status: 'Planned' },
+  { name: 'email_click', purpose: 'Direct contact intent', status: 'Planned' },
+  { name: 'outbound_live_project', purpose: 'Live project visit', status: 'Planned' },
+];
+
+const funnel = [
+  { step: '01', label: 'Landing page', detail: 'First visit and traffic source' },
+  { step: '02', label: 'Selected Work', detail: 'Project interest' },
+  { step: '03', label: 'Case study', detail: 'Depth of engagement' },
+  { step: '04', label: 'Resume / GitHub', detail: 'Hiring intent' },
+  { step: '05', label: 'Contact', detail: 'Conversion' },
+];
+---
+
+<Base
+  title="Analytics | Ricardo Zavala"
+  description="Analytics and conversion measurement plan for Ricardo Zavala's engineering portfolio."
+  ogType="website"
+>
+  <main id="hero" class="analytics-stage">
+    <div class="analytics-shell">
+      <header class="analytics-topbar">
+        <a class="back-link" href="/">← Back to portfolio</a>
+        <span class="eyebrow">Private working page · 2026</span>
+      </header>
+
+      <header class="analytics-intro">
+        <p class="eyebrow">Measurement system</p>
+        <h1>Analytics, traced.</h1>
+        <p class="intro-copy">
+          A small, useful measurement layer for the portfolio: understand where people arrive from, what work earns
+          attention, and whether the site creates a next conversation.
+        </p>
+        <div class="status-banner" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <div>
+            <strong>Instrumentation not connected</strong>
+            <p>This page is the measurement plan. Live traffic will appear after an analytics provider is configured.</p>
+          </div>
+        </div>
+      </header>
+
+      <section class="overview-grid" aria-label="Analytics overview">
+        <article class="overview-card">
+          <p class="card-label">Provider</p>
+          <p class="card-value">Not configured</p>
+          <p class="card-note">Plausible or Vercel Analytics recommended for a lightweight setup.</p>
+        </article>
+        <article class="overview-card">
+          <p class="card-label">Primary outcome</p>
+          <p class="card-value">Qualified lead</p>
+          <p class="card-note">Resume, GitHub, email, or a live-project visit from a relevant visitor.</p>
+        </article>
+        <article class="overview-card">
+          <p class="card-label">Tracked events</p>
+          <p class="card-value">{events.length} planned</p>
+          <p class="card-note">Enough signal to understand the portfolio funnel without over-collecting.</p>
+        </article>
+      </section>
+
+      <div class="analytics-grid">
+        <section class="panel funnel-panel" aria-labelledby="funnel-heading">
+          <div class="section-heading">
+            <p class="section-kicker">01</p>
+            <h2 id="funnel-heading">Lead funnel</h2>
+          </div>
+          <p class="panel-intro">The path worth measuring is short: attention → proof → intent → contact.</p>
+          <ol class="funnel-list">
+            {funnel.map((item, index) => (
+              <li class="funnel-step">
+                <span class="step-number">{item.step}</span>
+                <div class="step-copy">
+                  <strong>{item.label}</strong>
+                  <span>{item.detail}</span>
+                </div>
+                {index < funnel.length - 1 && <span class="step-arrow" aria-hidden="true">↓</span>}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section class="panel setup-panel" aria-labelledby="setup-heading">
+          <div class="section-heading">
+            <p class="section-kicker">02</p>
+            <h2 id="setup-heading">Setup checklist</h2>
+          </div>
+          <ul class="checklist">
+            <li><span class="check" aria-hidden="true">○</span><span>Choose a privacy-friendly provider</span><small>Pending</small></li>
+            <li><span class="check" aria-hidden="true">○</span><span>Install the provider script</span><small>Pending</small></li>
+            <li><span class="check" aria-hidden="true">○</span><span>Wire the six core events</span><small>Pending</small></li>
+            <li><span class="check" aria-hidden="true">○</span><span>Verify production events</span><small>Pending</small></li>
+          </ul>
+          <a class="provider-link" href="mailto:zavala.ricardo.m@gmail.com?subject=Analytics%20setup">Request setup help ↗</a>
+        </section>
+      </div>
+
+      <section class="panel events-panel" aria-labelledby="events-heading">
+        <div class="section-heading">
+          <p class="section-kicker">03</p>
+          <h2 id="events-heading">Event map</h2>
+        </div>
+        <div class="event-table" role="table" aria-label="Planned analytics events">
+          <div class="event-row event-header" role="row">
+            <span role="columnheader">Event</span><span role="columnheader">Measures</span><span role="columnheader">State</span>
+          </div>
+          {events.map((event) => (
+            <div class="event-row" role="row">
+              <code role="cell">{event.name}</code><span role="cell">{event.purpose}</span><span class="planned" role="cell">{event.status}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer class="analytics-footer">
+        <span>Ricardo Zavala · zavala.pro</span>
+        <a href="/resume/">View resume →</a>
+      </footer>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .analytics-stage { min-height: 100vh; padding: clamp(1.25rem, 4vw, 4rem) 1rem 5rem; background: var(--paper-alt); }
+  .analytics-shell { width: min(1120px, 100%); margin: 0 auto; }
+  .analytics-topbar, .analytics-footer { display: flex; justify-content: space-between; gap: 1rem; align-items: center; color: var(--color-muted); font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+  .back-link, .analytics-footer a { color: var(--color-text); text-decoration: none; text-transform: none; letter-spacing: var(--tracking-normal); }
+  .back-link:hover, .analytics-footer a:hover, .provider-link:hover { color: var(--color-accent); }
+  .analytics-intro { max-width: 720px; padding: clamp(4rem, 10vw, 8rem) 0 3rem; }
+  .eyebrow, .section-kicker, .card-label { color: var(--color-accent); font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: var(--tracking-widest); text-transform: uppercase; }
+  h1, h2 { font-family: var(--font-heading); font-weight: 400; }
+  h1 { margin-top: .8rem; font-size: clamp(4rem, 10vw, 8rem); line-height: .86; letter-spacing: var(--tracking-display); }
+  .intro-copy { max-width: 600px; margin-top: 1.75rem; color: var(--color-secondary); font-size: var(--fs-lead); line-height: var(--leading-body); }
+  .status-banner { display: flex; gap: .9rem; align-items: flex-start; margin-top: 2rem; padding: 1rem 1.1rem; border: var(--border-hair); background: var(--paper); }
+  .status-dot { width: .55rem; height: .55rem; margin-top: .35rem; border-radius: 50%; background: var(--bronze-3); box-shadow: 0 0 0 4px rgba(160, 132, 92, .12); flex: 0 0 auto; }
+  .status-banner strong { font-size: var(--fs-small); font-weight: 500; }
+  .status-banner p { margin-top: .25rem; color: var(--color-secondary); font-size: var(--fs-meta); line-height: 1.5; }
+  .overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: var(--border-hair); background: var(--rule); }
+  .overview-card { min-height: 150px; padding: 1.5rem; background: var(--paper); }
+  .card-label { color: var(--color-muted); }
+  .card-value { margin-top: 1.5rem; font-family: var(--font-heading); font-size: clamp(1.65rem, 3vw, 2.5rem); line-height: 1; }
+  .card-note { margin-top: .75rem; color: var(--color-secondary); font-size: var(--fs-meta); line-height: 1.5; }
+  .analytics-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 1.5rem; margin-top: 1.5rem; }
+  .panel { padding: clamp(1.25rem, 3vw, 2rem); border: var(--border-hair); background: var(--paper); }
+  .section-heading { display: flex; align-items: baseline; gap: .75rem; margin-bottom: 1rem; }
+  .section-kicker { color: var(--color-muted); }
+  h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1; }
+  .panel-intro { max-width: 450px; color: var(--color-secondary); font-size: var(--fs-body); line-height: 1.6; }
+  .funnel-list { margin-top: 1.5rem; list-style: none; }
+  .funnel-step { position: relative; display: flex; align-items: center; gap: 1rem; min-height: 55px; }
+  .step-number { display: grid; place-items: center; width: 2rem; height: 2rem; border: 1px solid var(--bronze-2); border-radius: 50%; color: var(--color-accent); font-size: var(--fs-eyebrow); }
+  .step-copy { display: grid; gap: .15rem; }
+  .step-copy strong { font-weight: 500; }
+  .step-copy span { color: var(--color-secondary); font-size: var(--fs-meta); }
+  .step-arrow { position: absolute; top: 2.25rem; left: .85rem; color: var(--color-muted); font-size: .85rem; }
+  .checklist { display: grid; gap: 1rem; list-style: none; }
+  .checklist li { display: grid; grid-template-columns: 1rem 1fr auto; gap: .6rem; align-items: baseline; color: var(--color-secondary); font-size: var(--fs-body); }
+  .check { color: var(--color-accent); }
+  .checklist small { color: var(--color-muted); font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+  .provider-link { display: inline-block; margin-top: 2rem; color: var(--color-text); font-size: var(--fs-small); text-underline-offset: .3em; }
+  .events-panel { margin-top: 1.5rem; }
+  .event-table { border-top: var(--border-hair); }
+  .event-row { display: grid; grid-template-columns: 1fr 1.2fr .55fr; gap: 1rem; align-items: center; padding: .85rem 0; border-bottom: var(--border-hair); color: var(--color-secondary); font-size: var(--fs-meta); }
+  .event-header { color: var(--color-muted); font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+  code { color: var(--color-text); font-size: .9em; }
+  .planned { color: var(--color-muted); }
+  .analytics-footer { margin-top: 2rem; padding-top: 1.25rem; border-top: var(--border-hair); }
+  @media (max-width: 720px) { .analytics-grid, .overview-grid { grid-template-columns: 1fr; } .overview-card { min-height: auto; } .analytics-intro { padding-top: 4rem; } }
+  @media (max-width: 520px) { .analytics-stage { padding: 0 1rem 3rem; } .analytics-topbar, .analytics-footer { display: block; } .analytics-topbar .eyebrow, .analytics-footer a { display: block; margin-top: .75rem; } .event-row { grid-template-columns: 1fr .7fr; } .event-row span:nth-child(2) { grid-column: 1 / -1; grid-row: 2; } }
+</style>
