@@ -1,3 +1,54 @@
+export interface TechLogo {
+  name: string;
+  src: string;
+}
+
+export const techLogoMap: Record<string, TechLogo> = {
+  'next.js': { name: 'Next.js', src: '/logos/nextdotjs.svg' },
+  'nextjs': { name: 'Next.js', src: '/logos/nextdotjs.svg' },
+  'next.js 15': { name: 'Next.js', src: '/logos/nextdotjs.svg' },
+  'next.js 16': { name: 'Next.js', src: '/logos/nextdotjs.svg' },
+  'react': { name: 'React', src: '/logos/react.svg' },
+  'react 19': { name: 'React', src: '/logos/react.svg' },
+  'typescript': { name: 'TypeScript', src: '/logos/typescript.svg' },
+  'postgresql': { name: 'PostgreSQL', src: '/logos/postgresql.svg' },
+  'postgres': { name: 'PostgreSQL', src: '/logos/postgresql.svg' },
+  'prisma': { name: 'Prisma', src: '/logos/prisma.svg' },
+  'prisma 6': { name: 'Prisma', src: '/logos/prisma.svg' },
+  'redis': { name: 'Redis', src: '/logos/redis.svg' },
+  'mongodb': { name: 'MongoDB', src: '/logos/mongodb.svg' },
+  'turborepo': { name: 'Turborepo', src: '/logos/turborepo.svg' },
+  'trpc': { name: 'tRPC', src: '/logos/trpc.svg' },
+  'trpc v11': { name: 'tRPC', src: '/logos/trpc.svg' },
+  'maplibre': { name: 'MapLibre', src: '/logos/maplibre.svg' },
+  'maplibre gl': { name: 'MapLibre', src: '/logos/maplibre.svg' },
+  'zod': { name: 'Zod', src: '/logos/zod.svg' },
+  'bun': { name: 'Bun', src: '/logos/bun.svg' },
+  'three.js': { name: 'Three.js', src: '/logos/threedotjs.svg' },
+  'react three fiber': { name: 'Three.js', src: '/logos/threedotjs.svg' },
+  'vitest': { name: 'Vitest', src: '/logos/vitest.svg' },
+  'k6': { name: 'k6', src: '/logos/k6.svg' },
+  'tanstack': { name: 'TanStack', src: '/logos/tanstack.svg' },
+  'tanstack table': { name: 'TanStack', src: '/logos/tanstack.svg' },
+};
+
+export function getTechLogos(stackString: string): TechLogo[] {
+  if (!stackString) return [];
+  const parts = stackString.split('·').map((p) => p.trim());
+  const seen = new Set<string>();
+  const results: TechLogo[] = [];
+
+  for (const part of parts) {
+    const key = part.toLowerCase();
+    const match = techLogoMap[key];
+    if (match && !seen.has(match.src)) {
+      seen.add(match.src);
+      results.push(match);
+    }
+  }
+  return results;
+}
+
 export interface PortfolioItem {
   slug: string;
   label: string;

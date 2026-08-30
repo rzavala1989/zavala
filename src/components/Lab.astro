@@ -1,6 +1,6 @@
 ---
 import SectionDivider from './SectionDivider.astro';
-import { experiments } from '../data/portfolio';
+import { experiments, getTechLogos } from '../data/portfolio';
 ---
 
 <SectionDivider num="03" title="The Lab." />
@@ -9,29 +9,41 @@ import { experiments } from '../data/portfolio';
   <div class="lab-inner">
     <p class="lab-intro">Weekend-scope builds on public data. Smaller than the plates, held to the same bar.</p>
     <div class="lab-list">
-      {experiments.map((exp) => (
-        <article class="lab-card">
-          <div class="lab-head">
-            <span class="lab-label">{exp.label}</span>
-            <h3 class="lab-title"><a href={`/work/${exp.slug}/`}>{exp.title}</a></h3>
-            {exp.question && <p class="lab-question">{exp.question}</p>}
-          </div>
-          <p class="lab-description">{exp.description}</p>
-          {exp.meta && <p class="lab-meta">{exp.meta}</p>}
-          <p class="lab-stack">{exp.stack}</p>
-          <div class="lab-links">
-            <a class="link" href={`/work/${exp.slug}/`}>Project notes <span aria-hidden="true">&rarr;</span></a>
-            {exp.liveUrl && (
-              <a class="link" href={exp.liveUrl} target="_blank" rel="noopener noreferrer">
-                {exp.liveLabel} <span aria-hidden="true">&rarr;</span>
-              </a>
+      {experiments.map((exp) => {
+        const logos = getTechLogos(exp.stack);
+        return (
+          <article class="lab-card">
+            <div class="lab-head">
+              <span class="lab-label">{exp.label}</span>
+              <h3 class="lab-title"><a href={`/work/${exp.slug}/`}>{exp.title}</a></h3>
+              {exp.question && <p class="lab-question">{exp.question}</p>}
+            </div>
+            <p class="lab-description">{exp.description}</p>
+            {exp.meta && <p class="lab-meta">{exp.meta}</p>}
+            {logos.length > 0 && (
+              <div class="lab-logos" aria-label={`Technologies: ${logos.map(l => l.name).join(', ')}`}>
+                {logos.map((logo) => (
+                  <span class="tech-badge" title={logo.name}>
+                    <img src={logo.src} alt={logo.name} width="16" height="16" loading="lazy" decoding="async" class="tech-icon" />
+                    <span class="tech-name">{logo.name}</span>
+                  </span>
+                ))}
+              </div>
             )}
-            <a class="link" href={exp.sourceUrl} target="_blank" rel="noopener noreferrer">
-              Source <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </article>
-      ))}
+            <div class="lab-links">
+              <a class="link" href={`/work/${exp.slug}/`}>Project notes <span aria-hidden="true">&rarr;</span></a>
+              {exp.liveUrl && (
+                <a class="link" href={exp.liveUrl} target="_blank" rel="noopener noreferrer">
+                  {exp.liveLabel} <span aria-hidden="true">&rarr;</span>
+                </a>
+              )}
+              <a class="link" href={exp.sourceUrl} target="_blank" rel="noopener noreferrer">
+                Source <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </article>
+        );
+      })}
     </div>
   </div>
 </section>
@@ -125,12 +137,48 @@ import { experiments } from '../data/portfolio';
     margin-bottom: 1.5rem;
   }
 
-  .lab-stack {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--color-secondary);
+  .lab-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.6rem;
     margin-bottom: 1.5rem;
+  }
+
+  .tech-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--paper-alt);
+    border: var(--border-hair);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease;
+  }
+
+  .tech-badge:hover {
+    border-color: var(--bronze);
+    background: var(--paper-deep);
+  }
+
+  .tech-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(0.2) contrast(0.9);
+  }
+
+  .tech-name {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-secondary);
+    line-height: 1;
+  }
+
+  .tech-badge:hover .tech-name {
+    color: var(--color-text);
   }
 
   .lab-links {

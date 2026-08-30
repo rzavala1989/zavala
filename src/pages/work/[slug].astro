@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { portfolioItems, type PortfolioItem } from '../../data/portfolio';
+import { portfolioItems, getTechLogos, type PortfolioItem } from '../../data/portfolio';
 
 export function getStaticPaths() {
   return portfolioItems.map((item) => ({ params: { slug: item.slug }, props: { item } }));
@@ -83,6 +83,7 @@ const diagram = diagrams[item.slug];
 const blaqjaqFigJamUrl = 'https://www.figma.com/board/MYWmccvDWCJzk9dw8VTOpT';
 const blaqjaqFigJamEmbedUrl = `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(blaqjaqFigJamUrl)}`;
 const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
+const logos = getTechLogos(item.stack);
 ---
 
 <Base
@@ -122,10 +123,19 @@ const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
       </div>
 
       <div class="spec-panel">
-        <div class="spec-item">
-          <span class="spec-label">Stack</span>
-          <span class="spec-value">{item.stack}</span>
-        </div>
+        {logos.length > 0 && (
+          <div class="spec-item spec-item--stack">
+            <span class="spec-label">Stack</span>
+            <div class="spec-logos" aria-label={`Technologies: ${logos.map(l => l.name).join(', ')}`}>
+              {logos.map((logo) => (
+                <span class="tech-badge" title={logo.name}>
+                  <img src={logo.src} alt={logo.name} width="14" height="14" loading="lazy" decoding="async" class="tech-icon" />
+                  <span class="tech-name">{logo.name}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
         {item.meta && (
           <div class="spec-item">
             <span class="spec-label">Scope</span>
@@ -409,6 +419,10 @@ const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
     font-size: var(--fs-small);
   }
 
+  .spec-item--stack {
+    align-items: center;
+  }
+
   .spec-label {
     font-size: var(--fs-eyebrow);
     font-weight: 600;
@@ -421,6 +435,49 @@ const schemas = [projectSchema, techArticleSchemas[item.slug]].filter(Boolean);
   .spec-value {
     color: var(--color-secondary);
     line-height: 1.4;
+  }
+
+  .spec-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+  }
+
+  .tech-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.45rem;
+    background: var(--paper);
+    border: var(--border-hair);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease;
+  }
+
+  .tech-badge:hover {
+    border-color: var(--bronze);
+    background: var(--paper-deep);
+  }
+
+  .tech-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(0.2) contrast(0.9);
+  }
+
+  .tech-name {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-secondary);
+    line-height: 1;
+  }
+
+  .tech-badge:hover .tech-name {
+    color: var(--color-text);
   }
 
   .hero-preview {

@@ -1,43 +1,55 @@
 ---
 import SectionDivider from './SectionDivider.astro';
-import { projects } from '../data/portfolio';
+import { projects, getTechLogos } from '../data/portfolio';
 ---
 
 <SectionDivider num="02" title="Selected Work." />
 
 <section class="projects-section" id="projects">
   <div class="projects-list">
-    {projects.map((project, i) => (
-      <article class={`project-card ${i % 2 === 1 ? 'project-card--reversed' : ''}`}>
-        <div class="project-preview-wrap">
-          <a class="project-preview" href={`/work/${project.slug}/`} aria-label={`Read about ${project.title}`}>
-            {project.image && <img src={project.image} alt={`${project.title} preview`} width="560" height="350" loading="lazy" />}
-          </a>
-          <div class="project-plate" aria-hidden="true">
-            <span class="project-plate-label">{project.plate}</span>
-            <span class="project-plate-title">{project.title}, live capture</span>
-          </div>
-        </div>
-        <div class="project-info">
-          <span class="project-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          <span class="project-label">{project.label}</span>
-          <h3 class="project-title"><a href={`/work/${project.slug}/`}>{project.title}</a></h3>
-          <p class="project-description">{project.description}</p>
-          <p class="project-stack">{project.stack}</p>
-          <div class="project-links">
-            <a class="link" href={`/work/${project.slug}/`}>Project notes <span aria-hidden="true">&rarr;</span></a>
-            {project.liveUrl && (
-              <a class="link" href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} live`}>
-                {project.liveLabel} <span aria-hidden="true">&rarr;</span>
-              </a>
-            )}
-            <a class="link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code`}>
-              Source <span aria-hidden="true">&rarr;</span>
+    {projects.map((project, i) => {
+      const logos = getTechLogos(project.stack);
+      return (
+        <article class={`project-card ${i % 2 === 1 ? 'project-card--reversed' : ''}`}>
+          <div class="project-preview-wrap">
+            <a class="project-preview" href={`/work/${project.slug}/`} aria-label={`Read about ${project.title}`}>
+              {project.image && <img src={project.image} alt={`${project.title} preview`} width="560" height="350" loading="lazy" />}
             </a>
+            <div class="project-plate" aria-hidden="true">
+              <span class="project-plate-label">{project.plate}</span>
+              <span class="project-plate-title">{project.title}, live capture</span>
+            </div>
           </div>
-        </div>
-      </article>
-    ))}
+          <div class="project-info">
+            <span class="project-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="project-label">{project.label}</span>
+            <h3 class="project-title"><a href={`/work/${project.slug}/`}>{project.title}</a></h3>
+            <p class="project-description">{project.description}</p>
+            {logos.length > 0 && (
+              <div class="project-logos" aria-label={`Technologies: ${logos.map(l => l.name).join(', ')}`}>
+                {logos.map((logo) => (
+                  <span class="tech-badge" title={logo.name}>
+                    <img src={logo.src} alt={logo.name} width="16" height="16" loading="lazy" decoding="async" class="tech-icon" />
+                    <span class="tech-name">{logo.name}</span>
+                  </span>
+                ))}
+              </div>
+            )}
+            <div class="project-links">
+              <a class="link" href={`/work/${project.slug}/`}>Project notes <span aria-hidden="true">&rarr;</span></a>
+              {project.liveUrl && (
+                <a class="link" href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} live`}>
+                  {project.liveLabel} <span aria-hidden="true">&rarr;</span>
+                </a>
+              )}
+              <a class="link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code`}>
+                Source <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      );
+    })}
   </div>
 </section>
 
@@ -177,12 +189,48 @@ import { projects } from '../data/portfolio';
     margin-bottom: 1.2rem;
   }
 
-  .project-stack {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--color-secondary);
+  .project-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.6rem;
     margin-bottom: 1.5rem;
+  }
+
+  .tech-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--paper-alt);
+    border: var(--border-hair);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease;
+  }
+
+  .tech-badge:hover {
+    border-color: var(--bronze);
+    background: var(--paper-deep);
+  }
+
+  .tech-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(0.2) contrast(0.9);
+  }
+
+  .tech-name {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-secondary);
+    line-height: 1;
+  }
+
+  .tech-badge:hover .tech-name {
+    color: var(--color-text);
   }
 
   .project-links {

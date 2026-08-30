@@ -353,7 +353,11 @@ import SectionDivider from './SectionDivider.astro';
     });
   }
 
-  renderSankey();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderSankey);
+  } else {
+    renderSankey();
+  }
 
   let resizeTimer: number;
   window.addEventListener('resize', () => {

@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { portfolioItems } from '../../data/portfolio';
+import { portfolioItems, getTechLogos } from '../../data/portfolio';
 
 const description = 'Selected engineering work by Ricardo Zavala across distributed systems, full-stack product engineering, data platforms, and frontend architecture.';
 ---
@@ -15,19 +15,31 @@ const description = 'Selected engineering work by Ricardo Zavala across distribu
     </header>
 
     <div class="work-list">
-      {portfolioItems.map((item, index) => (
-        <article class="work-card">
-          <span class="number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-          <div>
-            <p class="label">{item.label}</p>
-            <h2><a href={`/work/${item.slug}/`}>{item.title}</a></h2>
-            {item.question && <p class="question">{item.question}</p>}
-            <p>{item.description}</p>
-            <p class="stack">{item.stack}</p>
-            <a class="read" href={`/work/${item.slug}/`}>Read project notes <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
-      ))}
+      {portfolioItems.map((item, index) => {
+        const logos = getTechLogos(item.stack);
+        return (
+          <article class="work-card">
+            <span class="number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <p class="label">{item.label}</p>
+              <h2><a href={`/work/${item.slug}/`}>{item.title}</a></h2>
+              {item.question && <p class="question">{item.question}</p>}
+              <p>{item.description}</p>
+              {logos.length > 0 && (
+                <div class="work-logos" aria-label={`Technologies: ${logos.map(l => l.name).join(', ')}`}>
+                  {logos.map((logo) => (
+                    <span class="tech-badge" title={logo.name}>
+                      <img src={logo.src} alt={logo.name} width="14" height="14" loading="lazy" decoding="async" class="tech-icon" />
+                      <span class="tech-name">{logo.name}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
+              <a class="read" href={`/work/${item.slug}/`}>Read project notes <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        );
+      })}
     </div>
   </main>
 </Base>
@@ -47,8 +59,13 @@ const description = 'Selected engineering work by Ricardo Zavala across distribu
   h2 a { color: inherit; text-decoration: none; transition: color var(--dur-fast) ease; }
   h2 a:hover, h2 a:focus-visible { color: var(--bronze); }
   .question { font-family: var(--font-heading); font-style: italic; color: var(--bronze-4); margin-bottom: 1rem; }
-  .work-card p:not(.label):not(.question):not(.stack) { color: var(--color-secondary); line-height: var(--leading-body); max-width: 48rem; }
-  .stack { margin: 1rem 0; font-size: .8rem; color: var(--color-muted); }
+  .work-card p:not(.label):not(.question) { color: var(--color-secondary); line-height: var(--leading-body); max-width: 48rem; }
+  .work-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; margin: 1rem 0 1.2rem; }
+  .tech-badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.45rem; background: var(--paper-alt); border: var(--border-hair); border-radius: var(--radius-sm); transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease; }
+  .tech-badge:hover { border-color: var(--bronze); background: var(--paper-deep); }
+  .tech-icon { width: 14px; height: 14px; object-fit: contain; display: block; filter: grayscale(0.2) contrast(0.9); }
+  .tech-name { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.02em; color: var(--color-secondary); line-height: 1; }
+  .tech-badge:hover .tech-name { color: var(--color-text); }
   .read { color: var(--color-text); font-size: var(--fs-small); font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
   .read:hover { color: var(--bronze); }
   @media (max-width: 560px) { .work-card { grid-template-columns: 1fr; } .number { font-size: 1.35rem; } }
