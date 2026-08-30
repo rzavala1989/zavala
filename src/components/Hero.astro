@@ -13,11 +13,6 @@ if (!calendlyUrl) {
   <span class="masthead-meta">PORTFOLIO, No. 01</span>
 </div>
 
-<div class="availability-banner">
-  <span class="availability-dot" aria-hidden="true"></span>
-  <span class="availability-text">Available for Staff & Senior Engineering roles · Remote US · Full-time or contract</span>
-</div>
-
 <section class="hero" id="hero">
   <div class="hero-content">
     <div class="hero-text">
@@ -30,9 +25,12 @@ if (!calendlyUrl) {
       <p class="hero-title">Staff Software Engineer</p>
       <p class="hero-location">Henderson, NV</p>
       <p class="hero-bio">
-        Staff software engineer focused on full-stack systems, APIs, and data-heavy products.
-        I’ve worked across federal, healthcare, fintech, and startup teams, and I’m looking for
-        a remote role where I can own difficult product and platform work end to end.
+        I build the systems behind the <em>systems.</em> Over ten years I've worked
+        across the full stack for Fortune 500 companies, federal agencies, and startups,
+        shipping everything from real-time GIS platforms and PCI-compliant payment
+        gateways to AI-driven underwriting pipelines. Right now I'm deep in early-stage
+        fintech, architecting backend infrastructure from first commit. I like small
+        teams working on hard problems.
       </p>
       <div class="hero-links">
         <a class="link" href="https://github.com/rzavala1989" target="_blank" rel="noopener noreferrer">
@@ -42,7 +40,6 @@ if (!calendlyUrl) {
           GitHub
         </a>
         <a class="link" href="/resume/">Resume</a>
-        <a class="link" href="/writing/">Writing</a>
         <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
@@ -59,11 +56,11 @@ if (!calendlyUrl) {
     </div>
     <div class="hero-image">
       <figure class="hero-figure">
-        <img
-          src="/images/headshot-hero.png"
-          alt="Portrait of Ricardo Zavala, Staff Software Engineer"
-          width="600"
-          height="750"
+        <img 
+          src="/images/headshot-hero.png" 
+          alt="Portrait of Ricardo Zavala, Staff Software Engineer" 
+          width="600" 
+          height="750" 
           fetchpriority="high"
           decoding="async"
         />
@@ -105,42 +102,6 @@ if (!calendlyUrl) {
     background: var(--color-divider);
   }
   .masthead-meta {
-    white-space: nowrap;
-  }
-
-  .availability-banner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    padding: 0.7rem 1.5rem;
-    margin: 1rem auto 0;
-    max-width: var(--content-max-width);
-    font-family: var(--font-body);
-    font-size: var(--fs-eyebrow);
-    font-weight: 500;
-    letter-spacing: var(--tracking-widest);
-    text-transform: uppercase;
-    color: var(--bronze);
-    border-top: 1px solid var(--bronze);
-    border-bottom: 1px solid var(--bronze);
-  }
-
-  .availability-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #5a8a5a;
-    flex-shrink: 0;
-    animation: pulse 2.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  .availability-text {
     white-space: nowrap;
   }
 
@@ -302,15 +263,6 @@ if (!calendlyUrl) {
     .hero-links {
       justify-content: center;
     }
-
-    .availability-banner {
-      padding: 0.6rem 1rem;
-    }
-
-    .availability-text {
-      white-space: normal;
-      text-align: center;
-    }
   }
 
   @media (max-width: 480px) {
@@ -321,16 +273,10 @@ if (!calendlyUrl) {
     .hero-image img {
       max-height: 260px;
     }
-
-    .masthead-meta {
-      font-size: 0.55rem;
-      letter-spacing: 0.08em;
-    }
-
-    .availability-banner {
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      gap: 0.4rem;
+    
+    .masthead-meta { 
+      font-size: 0.55rem; 
+      letter-spacing: 0.08em; 
     }
   }
 </style>
