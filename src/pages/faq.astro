@@ -1,0 +1,192 @@
+---
+import Base from '../layouts/Base.astro';
+
+const faqs = [
+  {
+    question: 'What kind of engineering work does Ricardo Zavala do?',
+    answer: 'Ricardo is a Staff Software Engineer who builds dependable full-stack products, with particular depth in backend systems, distributed architecture, data-intensive applications, and complex frontend platforms.',
+  },
+  {
+    question: 'What technologies does Ricardo work with?',
+    answer: 'His core stack includes TypeScript, React, Node.js, Python, Go, PostgreSQL, AWS, REST, GraphQL, event-driven systems, and observability tooling. He also works with AI-assisted workflows, vector search, and evaluation systems when they solve a real product need.',
+  },
+  {
+    question: 'What industries has Ricardo worked in?',
+    answer: 'Ricardo has experience in fintech, payments, federal platforms, healthcare technology, commerce, hospitality, and early-stage AI-assisted products. He is comfortable working in regulated and high-reliability environments.',
+  },
+  {
+    question: 'Does Ricardo work on frontend as well as backend systems?',
+    answer: 'Yes. His work spans system design and backend services through to React and TypeScript interfaces. He is especially effective on products where the reliability of the service and the quality of the user experience need to be designed together.',
+  },
+  {
+    question: 'What are you looking for next?',
+    answer: 'A senior backend, full-stack, or staff-level role with real technical problems, room to shape the architecture, and a team that wants to build software it can stand behind. The title matters less than the work, the people, and whether the product has stakes.',
+  },
+  {
+    question: 'Is Ricardo available for remote work?',
+    answer: 'Yes. Ricardo is based in Henderson, Nevada and is available for remote US opportunities.',
+  },
+  {
+    question: 'Why is there no LinkedIn link?',
+    answer: 'Deliberately. This site is the useful version: the work, the technical context, and a way to reach me. I would rather spend time building and explaining real systems than maintaining a feed-shaped professional persona for a platform. If you want to know whether we should talk, the portfolio and a conversation will tell you more than a row of endorsements.',
+  },
+  {
+    question: 'What changed after LLMs?',
+    answer: 'The first draft got cheaper. Work that once meant keeping Stack Overflow open in one tab and documentation parked on another monitor can now start with a useful assistant. But the job is still to decide what should be built, check the result, and own it in production. LLMs also make input validation more important: users paste generated text, submit malformed data, and use forms while rushed, frustrated, or not fully focused. Software still has to handle all of that gracefully.',
+  },
+  {
+    question: 'How do you use LLMs in production systems?',
+    answer: 'As probabilistic components with explicit boundaries—not as an excuse to skip engineering. Useful systems constrain inputs and outputs, validate tool calls and user-submitted data, provide human review where the stakes warrant it, and measure quality after launch.',
+  },
+  {
+    question: 'How can I get in touch with Ricardo?',
+    answer: 'You can email Ricardo at zavala.ricardo.m@gmail.com or use the booking link on the portfolio to schedule a conversation.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
+    },
+  })),
+};
+---
+
+<Base
+  title="Frequently Asked Questions | Ricardo Zavala"
+  description="Frequently asked questions about Ricardo Zavala, a Staff Software Engineer specializing in distributed systems, full-stack products, fintech, healthcare, and AI-assisted workflows."
+  structuredData={faqSchema}
+>
+  <main id="hero" class="faq-page">
+    <header class="faq-header">
+      <a class="back-link" href="/">← Back to portfolio</a>
+      <p class="eyebrow">Portfolio guide</p>
+      <h1>Frequently asked <em>questions.</em></h1>
+      <p class="intro">A quick overview of Ricardo’s engineering focus, experience, and availability.</p>
+    </header>
+
+    <section class="faq-list" aria-label="Frequently asked questions">
+      {faqs.map((faq, index) => (
+        <details class="faq-item" open={index === 0}>
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      ))}
+    </section>
+
+    <aside class="contact-card" aria-label="Contact Ricardo">
+      <p class="eyebrow">Start a conversation</p>
+      <p>Have a role or technical problem in mind?</p>
+      <a href="mailto:zavala.ricardo.m@gmail.com">zavala.ricardo.m@gmail.com <span aria-hidden="true">→</span></a>
+    </aside>
+  </main>
+</Base>
+
+<style>
+  .faq-page {
+    width: min(800px, calc(100% - 3rem));
+    margin: 0 auto;
+    padding: clamp(2rem, 7vw, 5rem) 0 clamp(4rem, 10vw, 8rem);
+  }
+
+  .faq-header { max-width: 620px; }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: clamp(3rem, 8vw, 6rem);
+    color: var(--color-text);
+    font-size: var(--fs-small);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--color-accent); }
+
+  .eyebrow { margin-bottom: 1rem; }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-display);
+    font-weight: 400;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+  }
+  h1 em { font-style: italic; }
+
+  .intro {
+    max-width: 34rem;
+    margin-top: 1.5rem;
+    color: var(--color-secondary);
+    font-size: var(--fs-lead);
+    line-height: var(--leading-body);
+  }
+
+  .faq-list {
+    margin-top: clamp(3rem, 8vw, 6rem);
+    border-top: var(--border-hair);
+  }
+
+  .faq-item {
+    border-bottom: var(--border-hair);
+    padding: 1.25rem 0;
+  }
+
+  summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--leading-tight);
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '+';
+    flex: none;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--color-accent);
+  }
+  details[open] summary::after { content: '−'; }
+
+  .faq-item p {
+    max-width: 42rem;
+    margin: 1rem 3rem 0 0;
+    color: var(--color-secondary);
+    font-size: var(--fs-body);
+    line-height: var(--leading-body);
+  }
+
+  .contact-card {
+    margin-top: clamp(3rem, 8vw, 6rem);
+    padding: 1.5rem;
+    border: var(--border-hair);
+    background: var(--paper-alt);
+  }
+  .contact-card p:not(.eyebrow) {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--leading-tight);
+  }
+  .contact-card a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-text);
+    font-size: var(--fs-small);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+  .contact-card a:hover { color: var(--color-accent); }
+
+  @media (max-width: 480px) {
+    .faq-page { width: min(100% - 2rem, 800px); }
+    .faq-item p { margin-right: 0; }
+  }
+</style>
