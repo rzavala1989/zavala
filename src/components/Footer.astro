@@ -8,7 +8,7 @@ if (!calendlyUrl) {
 ---
 
 <SectionDivider title="Let's connect." class="no-margin-bottom">
-  <div class="footer-cta">
+  <footer class="footer-cta" id="contact">
     <div class="footer-links">
       <a class="link" href="/work/">Work</a>
       <a class="link" href="/faq/">FAQ</a>
@@ -17,22 +17,11 @@ if (!calendlyUrl) {
       <a class="link" href={calendlyUrl} target="_blank" rel="noopener noreferrer">Book a Chat</a>
       <a class="link" href="mailto:zavala.ricardo.m@gmail.com">Email</a>
     </div>
-  </div>
+    <p class="footer-meta">Ricardo Zavala · zavala.pro · Henderson, NV</p>
+  </footer>
 </SectionDivider>
 
-<footer class="footer" id="contact">
-  <div class="footer-mark" aria-hidden="true"><span>Ricardo Zavala</span></div>
-  <div class="footer-bottom">
-    <p class="colophon">Set in <em>Instrument Serif</em> &amp; Satoshi · Astro 5 + D3 · No JS frameworks · Henderson, NV</p>
-    <p class="copy">&copy; MMXXVI Ricardo Zavala · zavala.pro</p>
-  </div>
-</footer>
-
 <style>
-  .footer {
-    padding: 2rem 1.5rem 2rem;
-  }
-
   .footer-cta {
     margin-top: 1.5rem;
     text-align: center;
@@ -65,56 +54,15 @@ if (!calendlyUrl) {
     text-decoration-color: var(--paper);
   }
 
-  .footer-mark {
-    max-width: var(--content-max-width);
-    margin: 5rem auto 0;
-    overflow: hidden;
-    user-select: none;
-  }
-  .footer-mark span {
-    display: block;
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: clamp(4rem, 16vw, 12rem);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--color-divider);
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .footer-bottom {
-    max-width: var(--content-max-width);
-    margin: 2rem auto 0;
-    text-align: center;
-    padding-top: 2rem;
-  }
-
-  .colophon {
-    font-size: var(--fs-meta);
-    color: var(--color-muted);
+  .footer-meta {
+    margin-top: 1.5rem;
+    font-size: var(--fs-eyebrow);
+    color: rgba(250, 249, 247, 0.72);
     letter-spacing: var(--tracking-wide);
-    margin-bottom: 0.4rem;
-  }
-  .colophon em {
-    font-family: var(--font-heading);
-    font-style: italic;
-  }
-
-  .copy {
-    font-family: var(--font-mono);
-    font-size: var(--fs-meta);
-    color: var(--color-muted);
-    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
   }
 
   @media (max-width: 480px) {
-    .footer {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-
     .footer-links {
       gap: 1.5rem;
     }
