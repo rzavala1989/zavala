@@ -1,7 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const faqs = [
+interface FAQ {
+  question: string;
+  answer: string;
+  closing?: string;
+}
+
+const faqs: FAQ[] = [
   {
     question: 'What kind of engineering work does Ricardo Zavala do?',
     answer: 'Ricardo is a Staff Software Engineer who builds dependable full-stack products, with particular depth in backend systems, distributed architecture, data-intensive applications, and complex frontend platforms.',
@@ -27,8 +33,9 @@ const faqs = [
     answer: 'Yes. Ricardo is based in Henderson, Nevada and is available for remote US opportunities.',
   },
   {
-    question: 'Why is there no LinkedIn link?',
-    answer: 'Deliberately. This site is the useful version: the work, the technical context, and a way to reach me. I would rather spend time building and explaining real systems than maintaining a feed-shaped professional persona for a platform. If you want to know whether we should talk, the portfolio and a conversation will tell you more than a row of endorsements.',
+    question: "Why don't you have LinkedIn?",
+    answer: "LinkedIn deactivated my account without explaining why. I tried to verify my identity and get it restored, but ten months later I am still trapped in the same feedback loop: verify myself, get nowhere, repeat. There does not seem to be a human being anywhere near the process. At some point I stopped fighting to regain access to a platform I already disliked. I do not hate networking or meeting people. I hate the fake humility, manufactured vulnerability, engagement bait, recycled career commandments, and the expectation that everyone maintain a cheerful corporate mascot version of themselves. So I built this site instead—a place where the work can speak in complete sentences. If you want to know how I think, read the work. If you want to know whether we would work well together, talk to me.",
+    closing: 'I f*** hate LinkedIn.',
   },
   {
     question: 'What changed after LLMs?',
@@ -47,12 +54,12 @@ const faqs = [
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqs.map(({ question, answer }) => ({
+  mainEntity: faqs.map(({ question, answer, closing }) => ({
     '@type': 'Question',
     name: question,
     acceptedAnswer: {
       '@type': 'Answer',
-      text: answer,
+      text: closing ? `${answer} ${closing}` : answer,
     },
   })),
 };
@@ -75,7 +82,10 @@ const faqSchema = {
       {faqs.map((faq, index) => (
         <details class="faq-item" open={index === 0}>
           <summary>{faq.question}</summary>
-          <p>{faq.answer}</p>
+          <p>
+            {faq.answer}
+            {faq.closing && <strong class="faq-closing">{faq.closing}</strong>}
+          </p>
         </details>
       ))}
     </section>
@@ -162,6 +172,13 @@ const faqSchema = {
     color: var(--color-secondary);
     font-size: var(--fs-body);
     line-height: var(--leading-body);
+  }
+
+  .faq-closing {
+    display: block;
+    margin-top: 1rem;
+    color: var(--color-text);
+    font-weight: 700;
   }
 
   .contact-card {
