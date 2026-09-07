@@ -37,9 +37,11 @@ import { experiments, getTechLogos } from '../data/portfolio';
                   {exp.liveLabel} <span aria-hidden="true">&rarr;</span>
                 </a>
               )}
-              <a class="link" href={exp.sourceUrl} target="_blank" rel="noopener noreferrer">
-                Source <span aria-hidden="true">&rarr;</span>
-              </a>
+              {exp.sourceUrl && (
+                <a class="link" href={exp.sourceUrl} target="_blank" rel="noopener noreferrer">
+                  Source <span aria-hidden="true">&rarr;</span>
+                </a>
+              )}
             </div>
           </article>
         );
