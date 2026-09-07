@@ -14,13 +14,6 @@ const description = 'Selected engineering work by Ricardo Zavala across distribu
       <p class="intro">Each page covers the problem, the engineering choices, and the parts worth discussing in an interview. Source and live links are included where available.</p>
     </header>
 
-    <aside class="featured-note" aria-labelledby="acquisition-note-title">
-      <p class="label">Private system · Public architecture</p>
-      <h2 id="acquisition-note-title"><a href="https://dealer-acquisition-system.zavala-ricardo-m.chatgpt.site" target="_blank" rel="noopener noreferrer">Dealer Acquisition System <span aria-hidden="true">↗</span></a></h2>
-      <p>A TypeScript and PostgreSQL pipeline for dealer discovery, qualification, inventory extraction, and listing liveness across 12 industry groups and 75 NAICS subindustries.</p>
-      <a class="read" href="https://dealer-acquisition-system.zavala-ricardo-m.chatgpt.site" target="_blank" rel="noopener noreferrer">Read the architecture and project notes <span aria-hidden="true">→</span></a>
-    </aside>
-
     <div class="work-list">
       {portfolioItems.map((item, index) => {
         const logos = getTechLogos(item.stack);
@@ -56,9 +49,6 @@ const description = 'Selected engineering work by Ricardo Zavala across distribu
   .back-nav { font-size: var(--fs-meta); color: var(--color-muted); margin-bottom: 5rem; }
   .back-nav a { color: inherit; }
   .work-header { max-width: 760px; margin-bottom: 5rem; }
-  .featured-note { margin: -1.5rem 0 5rem; padding: 2rem; background: var(--paper-alt); border-left: 3px solid var(--bronze); }
-  .featured-note h2 { margin-top: .45rem; }
-  .featured-note p:not(.label) { color: var(--color-secondary); line-height: var(--leading-body); max-width: 48rem; margin-bottom: 1.2rem; }
   .eyebrow, .label { font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-muted); }
   h1 { font-family: var(--font-heading); font-size: clamp(3rem, 8vw, 6rem); font-weight: 400; line-height: .95; letter-spacing: var(--tracking-display); margin: .9rem 0 1.5rem; }
   .intro { max-width: 42rem; font-size: var(--fs-lead); line-height: var(--leading-body); color: var(--color-secondary); }
