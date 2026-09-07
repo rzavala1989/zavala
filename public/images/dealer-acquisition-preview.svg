@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="700" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+  <title id="title">Dealer acquisition system</title>
+  <desc id="desc">A four-stage flow from dealer discovery through qualification and inventory extraction to marketplace ingest and listing rechecks.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10Z" fill="#6b5a40"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="700" fill="#faf9f7"/>
+  <text x="56" y="62" fill="#6b6560" font-family="Satoshi, sans-serif" font-size="13" letter-spacing="2.5">ACQUISITION SYSTEMS / PLATE I</text>
+  <text x="56" y="137" fill="#1a1a1a" font-family="Satoshi, sans-serif" font-size="48">Dealer acquisition system</text>
+  <text x="56" y="178" fill="#6b6560" font-family="Satoshi, sans-serif" font-size="20">Discovery, qualification, extraction, ingest, and listing liveness.</text>
+
+  <g font-family="Satoshi, sans-serif">
+    <rect x="56" y="252" width="226" height="224" fill="#f7f5f2" stroke="#c8c2bc"/>
+    <text x="78" y="286" fill="#6b5a40" font-size="14" letter-spacing="2">01</text>
+    <text x="78" y="334" fill="#1a1a1a" font-size="28">Discover</text>
+    <text x="78" y="374" fill="#6b6560" font-size="16">Search plans</text>
+    <text x="78" y="402" fill="#6b6560" font-size="16">Identity normalization</text>
+    <text x="78" y="430" fill="#6b6560" font-size="16">Durable dedupe</text>
+
+    <rect x="316" y="252" width="226" height="224" fill="#f7f5f2" stroke="#c8c2bc"/>
+    <text x="338" y="286" fill="#6b5a40" font-size="14" letter-spacing="2">02</text>
+    <text x="338" y="334" fill="#1a1a1a" font-size="28">Qualify</text>
+    <text x="338" y="374" fill="#6b6560" font-size="16">Inventory fit</text>
+    <text x="338" y="402" fill="#6b6560" font-size="16">Extraction viability</text>
+    <text x="338" y="430" fill="#6b6560" font-size="16">Call / review / drop</text>
+
+    <rect x="576" y="252" width="226" height="224" fill="#f7f5f2" stroke="#c8c2bc"/>
+    <text x="598" y="286" fill="#6b5a40" font-size="14" letter-spacing="2">03</text>
+    <text x="598" y="334" fill="#1a1a1a" font-size="28">Extract</text>
+    <text x="598" y="374" fill="#6b6560" font-size="16">Dealer scrapers</text>
+    <text x="598" y="402" fill="#6b6560" font-size="16">Marketplace adapters</text>
+    <text x="598" y="430" fill="#6b6560" font-size="16">Normalized listings</text>
+
+    <rect x="836" y="252" width="226" height="224" fill="#f7f5f2" stroke="#c8c2bc"/>
+    <text x="858" y="286" fill="#6b5a40" font-size="14" letter-spacing="2">04</text>
+    <text x="858" y="334" fill="#1a1a1a" font-size="28">Publish</text>
+    <text x="858" y="374" fill="#6b6560" font-size="16">Exact-run ingest</text>
+    <text x="858" y="402" fill="#6b6560" font-size="16">Public catalog</text>
+    <text x="858" y="430" fill="#6b6560" font-size="16">Availability history</text>
+
+    <path d="M282 364H310" fill="none" stroke="#6b5a40" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M542 364H570" fill="none" stroke="#6b5a40" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M802 364H830" fill="none" stroke="#6b5a40" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <line x1="56" y1="546" x2="1062" y2="546" stroke="#c8c2bc"/>
+    <text x="56" y="588" fill="#6b5a40" font-size="30" font-family="Georgia, serif">12</text>
+    <text x="100" y="588" fill="#6b6560" font-size="15">industry groups</text>
+    <text x="305" y="588" fill="#6b5a40" font-size="30" font-family="Georgia, serif">75</text>
+    <text x="353" y="588" fill="#6b6560" font-size="15">NAICS subindustries</text>
+    <text x="614" y="588" fill="#6b5a40" font-size="30" font-family="Georgia, serif">5</text>
+    <text x="642" y="588" fill="#6b6560" font-size="15">dealer scrapers</text>
+    <text x="854" y="588" fill="#6b5a40" font-size="30" font-family="Georgia, serif">4</text>
+    <text x="882" y="588" fill="#6b6560" font-size="15">marketplace adapters</text>
+  </g>
+  <text x="56" y="650" fill="#b0aaa4" font-family="Satoshi, sans-serif" font-size="13" letter-spacing="1.5">RICARDO ZAVALA / ZAVALA.PRO</text>
+</svg>
