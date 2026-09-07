@@ -17,7 +17,7 @@ import { projects, getTechLogos } from '../data/portfolio';
             </a>
             <div class="project-plate" aria-hidden="true">
               <span class="project-plate-label">{project.plate}</span>
-              <span class="project-plate-title">{project.title}, live capture</span>
+              <span class="project-plate-title">{project.imageCaption ?? `${project.title}, live capture`}</span>
             </div>
           </div>
           <div class="project-info">
@@ -42,9 +42,11 @@ import { projects, getTechLogos } from '../data/portfolio';
                   {project.liveLabel} <span aria-hidden="true">&rarr;</span>
                 </a>
               )}
-              <a class="link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code`}>
-                Source <span aria-hidden="true">&rarr;</span>
-              </a>
+              {project.sourceUrl && (
+                <a class="link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code`}>
+                  Source <span aria-hidden="true">&rarr;</span>
+                </a>
+              )}
             </div>
           </div>
         </article>

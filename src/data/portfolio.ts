@@ -59,19 +59,34 @@ export interface PortfolioItem {
   meta?: string;
   metrics?: string;
   stack: string;
-  sourceUrl: string;
+  sourceUrl?: string;
   liveLabel?: string;
   liveUrl?: string;
   image?: string;
+  imageCaption?: string;
   kind: 'project' | 'lab';
 }
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    slug: 'dealer-acquisition-system',
+    label: 'Acquisition systems',
+    title: 'Dealer Acquisition System',
+    plate: 'Plate I',
+    description:
+      'Dealer acquisition pipeline for a commercial equipment marketplace. It qualifies dealers, normalizes listings, preserves each run, and rechecks availability.',
+    meta: '12 industry groups · 75 NAICS subindustries · 5 dealer scrapers · 4 marketplace adapters',
+    metrics: '3 increasing-scale scraper runs',
+    stack: 'TypeScript · PostgreSQL · .NET Core',
+    image: '/images/dealer-acquisition-preview.svg',
+    imageCaption: 'Acquisition pipeline, system map',
+    kind: 'project',
+  },
+  {
     slug: 'enroll',
     label: 'Distributed system',
     title: 'Enroll',
-    plate: 'Plate I',
+    plate: 'Plate II',
     description:
       'Course registration system focused on keeping seat counts correct under concurrent enrollment. It combines a Next.js UI, NestJS API, PostgreSQL locking, background waitlist jobs, and an audit trail.',
     stack: 'Next.js 16 · NestJS 11 · Prisma · PostgreSQL · Redis · MongoDB · BullMQ · Turborepo',
@@ -83,7 +98,7 @@ export const portfolioItems: PortfolioItem[] = [
     slug: 'nomadhood',
     label: 'Full-stack platform',
     title: 'Nomadhood',
-    plate: 'Plate II',
+    plate: 'Plate III',
     description:
       'Neighborhood discovery app for remote workers. It brings location signals into one comparison view and uses preference matching to surface places with a similar feel.',
     stack: 'Next.js 15 · React 19 · tRPC v11 · Prisma 6 · PostgreSQL · MapLibre GL · Zod · Bun',
@@ -97,7 +112,7 @@ export const portfolioItems: PortfolioItem[] = [
     slug: 'blaqjaq',
     label: 'Game engine and 3D',
     title: 'Blaqjaq',
-    plate: 'Plate III',
+    plate: 'Plate IV',
     description:
       '3D blackjack with a film-noir presentation and a game engine isolated in a pure TypeScript reducer. A browser audit and 159 automated tests cover the playable experience; the production delivery path was also measured at 500 VUs with 0% request failures.',
     metrics: '500 VUs · 59,635 requests · 320 req/s · 100% HTTP 200 · 0% failures · p95 62 ms · p99 101 ms',
