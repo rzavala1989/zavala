@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1160" viewBox="0 0 1200 1160" role="img" aria-labelledby="title desc"><title id="title">Dealer acquisition system architecture</title><desc id="desc">Paid discovery, currently paused, writes durable dealer leads. Saved seeds enter qualification. Qualified feeds drive scraping. Run-scoped output feeds are ingested into the marketplace. A separate listing URL recheck loop applies availability changes.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b5a40"/></marker></defs><style>text{font-family:'Trebuchet MS','Lucida Sans Unicode',sans-serif}.label{font-size:14px;letter-spacing:1.2px;fill:#6b5a40}.title{font-family:Georgia,'Times New Roman',serif;font-size:22px;fill:#1a1a1a}.body{font-size:17px;fill:#6b6560}.edge{fill:none;stroke:#6b5a40;stroke-width:2;marker-end:url(#arrow)}.edge.dashed{stroke-dasharray:7 6}</style><rect width="1200" height="1160" fill="#faf9f7"/>
+<text x="40" y="35" class="label">INPUTS &amp; EXECUTION</text>
+<rect x="40" y="62" width="340" height="127" rx="4" fill="#f7f5f2" stroke="#c8c2bc" stroke-dasharray="7 6"/>
+<text x="60" y="91" class="title">Discovery sources</text>
+<text x="60" y="121" class="body">Search catalog · geographic plan</text>
+<text x="60" y="146" class="body">Paid Places API, paused</text>
+<rect x="430" y="62" width="340" height="127" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="450" y="91" class="title">Dealer websites</text>
+<text x="450" y="121" class="body">Access &amp; inventory evidence</text>
+<text x="450" y="146" class="body">Feeds qualification and extraction</text>
+<rect x="820" y="62" width="340" height="127" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="840" y="91" class="title">Marketplace sources</text>
+<text x="840" y="121" class="body">Third-party inventory</text>
+<text x="840" y="146" class="body">Separate source crawlers</text>
+<path d="M 210 189 V 280" class="edge dashed"/>
+<text x="225" y="238" class="body">cached / bounded</text>
+<path d="M 600 189 V 280" class="edge"/>
+<text x="615" y="238" class="body">site evidence</text>
+<path d="M 990 189 V 280" class="edge"/>
+<text x="1005" y="238" class="body">inventory</text>
+<rect x="40" y="280" width="340" height="180" rx="4" fill="#f7f5f2" stroke="#c8c2bc" stroke-dasharray="7 6"/>
+<text x="60" y="309" class="label">01 / DISCOVERY</text>
+<text x="60" y="342" class="title">Harvester</text>
+<text x="60" y="372" class="body">Normalize dealer identity</text>
+<text x="60" y="397" class="body">Deduplicate within a run</text>
+<text x="60" y="422" class="body">Preserve first / last seen</text>
+<rect x="430" y="280" width="340" height="180" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="450" y="309" class="label">02 / EVALUATION</text>
+<text x="450" y="342" class="title">Qualifier</text>
+<text x="450" y="372" class="body">Access, fit &amp; platform gates</text>
+<text x="450" y="397" class="body">Call / review / drop + reasons</text>
+<text x="450" y="422" class="body">Apply human corrections</text>
+<rect x="820" y="280" width="340" height="180" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="840" y="309" class="label">03 / EXTRACTION</text>
+<text x="840" y="342" class="title">Scraper</text>
+<text x="840" y="372" class="body">Eligible dealer inventory</text>
+<text x="840" y="397" class="body">Extract &amp; normalize listings</text>
+<text x="840" y="422" class="body">Retain source provenance</text>
+<path d="M 380 360 H 430" class="edge dashed"/>
+<path d="M 770 360 H 820" class="edge"/>
+<text x="438" y="488" class="body">Qualified feed → eligible scrape set</text>
+<path d="M 210 460 V 565" class="edge dashed"/>
+<text x="55" y="528" class="body">durable lead upsert</text>
+<path d="M 600 460 V 565" class="edge"/>
+<path d="M 990 460 V 510 H 735 V 565" class="edge"/>
+<rect x="40" y="565" width="340" height="155" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="60" y="594" class="label">PERSISTENCE</text>
+<text x="60" y="627" class="title">Acquisition · PostgreSQL</text>
+<text x="60" y="657" class="body">Durable dealer store</text>
+<text x="60" y="682" class="body">Saved lead export → qualifier</text>
+<rect x="430" y="565" width="340" height="155" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="450" y="594" class="label">HANDOFF / OBJECT STORAGE</text>
+<text x="450" y="627" class="title">Run-scoped stage feeds</text>
+<text x="450" y="657" class="body">Evaluations → consolidated feed</text>
+<text x="450" y="682" class="body">Listings + run statistics</text>
+<rect x="820" y="565" width="340" height="155" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="840" y="594" class="label">PRODUCT / POSTGRESQL</text>
+<text x="840" y="627" class="title">Marketplace service</text>
+<text x="840" y="657" class="body">Exact-run ingest → public catalog</text>
+<text x="840" y="682" class="body">Owns dealer &amp; listing records</text>
+<path d="M 380 630 H 405 V 250 H 445 V 280" class="edge"/>
+<text x="48" y="751" class="body">Solid bypass: saved seeds feed qualification</text>
+<path d="M 770 630 H 820" class="edge"/>
+<text x="40" y="813" class="label">SEPARATE LIVENESS CADENCE</text>
+<rect x="40" y="842" width="340" height="126" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="60" y="871" class="title">Known listing URLs</text>
+<text x="60" y="901" class="body">Latest listing feed</text>
+<text x="60" y="926" class="body">Revisit existing inventory</text>
+<rect x="430" y="842" width="340" height="126" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="450" y="871" class="title">Liveness recheck</text>
+<text x="450" y="901" class="body">Fetch listing URLs</text>
+<text x="450" y="926" class="body">Classify availability signals</text>
+<rect x="820" y="842" width="340" height="126" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
+<text x="840" y="871" class="title">Availability delta</text>
+<text x="840" y="901" class="body">Available · sold · removed</text>
+<text x="840" y="926" class="body">Unknown retained as uncertainty</text>
+<path d="M 380 905 H 430" class="edge"/>
+<path d="M 770 905 H 820" class="edge"/>
+<path d="M 990 842 V 720" class="edge"/>
+<text x="1006" y="784" class="body">apply status</text>
+<path d="M 600 720 V 775 H 210 V 842" class="edge"/>
+<line x1="40" y1="1010" x2="1160" y2="1010" stroke="#c8c2bc"/>
+<text x="40" y="1046" class="label">CONTROL PLANE</text>
+<text x="270" y="1046" class="body">Local conductor / cloud workflow · run identity · bounded concurrency · stats</text>
+<text x="40" y="1082" class="label">DASHED = PAUSED PATH</text>
+<text x="340" y="1082" class="body">Discovery code exists; the reviewed deployment uses saved seeds.</text>
+<text x="40" y="1118" class="label">TARGET INTEGRATIONS</text>
+<text x="340" y="1118" class="body">Evaluation and human-correction database persistence remain targets.</text>
+</svg>
