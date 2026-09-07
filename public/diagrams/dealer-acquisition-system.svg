@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1160" viewBox="0 0 1200 1160" role="img" aria-labelledby="title desc"><title id="title">Dealer acquisition system architecture</title><desc id="desc">Paid discovery, currently paused, writes durable dealer leads. Saved seeds enter qualification. Qualified feeds drive scraping. Run-scoped output feeds are ingested into the marketplace. A separate listing URL recheck loop applies availability changes.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b5a40"/></marker></defs><style>text{font-family:'Trebuchet MS','Lucida Sans Unicode',sans-serif}.label{font-size:14px;letter-spacing:1.2px;fill:#6b5a40}.title{font-family:Georgia,'Times New Roman',serif;font-size:22px;fill:#1a1a1a}.body{font-size:17px;fill:#6b6560}.edge{fill:none;stroke:#6b5a40;stroke-width:2;marker-end:url(#arrow)}.edge.dashed{stroke-dasharray:7 6}</style><rect width="1200" height="1160" fill="#faf9f7"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1160" viewBox="0 0 1200 1160" role="img" aria-labelledby="title desc"><title id="title">Dealer acquisition system architecture</title><desc id="desc">Paid discovery, currently paused, writes durable dealer leads. Saved seeds enter qualification. Qualified feeds drive scraping. Run-scoped output feeds are ingested into the marketplace. A separate listing URL recheck loop applies availability changes.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b5a40"/></marker></defs><style>@font-face{font-family:Satoshi;src:url('../fonts/satoshi/satoshi-400.woff2') format('woff2')}@font-face{font-family:'Instrument Serif';src:url('../fonts/instrument-serif/instrument-serif-regular-latin.woff2') format('woff2')}text{font-family:Satoshi,sans-serif}.label{font-size:14px;letter-spacing:1.2px;fill:#6b5a40}.title{font-family:'Instrument Serif',Georgia,serif;font-size:22px;fill:#1a1a1a}.body{font-size:17px;fill:#6b6560}.edge{fill:none;stroke:#6b5a40;stroke-width:2;marker-end:url(#arrow)}.edge.dashed{stroke-dasharray:7 6}.edge-label-bg{fill:#faf9f7}</style><rect width="1200" height="1160" fill="#faf9f7"/>
 <text x="40" y="35" class="label">INPUTS &amp; EXECUTION</text>
 <rect x="40" y="62" width="340" height="127" rx="4" fill="#f7f5f2" stroke="#c8c2bc" stroke-dasharray="7 6"/>
 <text x="60" y="91" class="title">Discovery sources</text>
@@ -38,11 +38,13 @@
 <text x="840" y="422" class="body">Retain source provenance</text>
 <path d="M 380 360 H 430" class="edge dashed"/>
 <path d="M 770 360 H 820" class="edge"/>
-<text x="438" y="488" class="body">Qualified feed → eligible scrape set</text>
 <path d="M 210 460 V 565" class="edge dashed"/>
-<text x="55" y="528" class="body">durable lead upsert</text>
 <path d="M 600 460 V 565" class="edge"/>
 <path d="M 990 460 V 510 H 735 V 565" class="edge"/>
+<rect x="423" y="466" width="316" height="32" class="edge-label-bg"/>
+<text x="438" y="488" class="body">Qualified feed → eligible scrape set</text>
+<rect x="44" y="505" width="188" height="34" class="edge-label-bg"/>
+<text x="55" y="528" class="body">durable lead upsert</text>
 <rect x="40" y="565" width="340" height="155" rx="4" fill="#f7f5f2" stroke="#c8c2bc"/>
 <text x="60" y="594" class="label">PERSISTENCE</text>
 <text x="60" y="627" class="title">Acquisition · PostgreSQL</text>
