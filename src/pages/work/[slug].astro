@@ -8,13 +8,15 @@ export function getStaticPaths() {
 
 interface Props { item: PortfolioItem; }
 const { item } = Astro.props;
-const description = `${item.title} by Ricardo Zavala. ${item.description}`;
+const description = item.slug === 'dealer-acquisition-system'
+  ? "Ricardo Zavala's engineering notes on a TypeScript and PostgreSQL dealer acquisition pipeline covering discovery, qualification, inventory extraction, and listing liveness."
+  : `${item.title} by Ricardo Zavala. ${item.description}`;
 const projectSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareSourceCode',
   name: item.title,
   description: item.description,
-  codeRepository: item.sourceUrl,
+  ...(item.sourceUrl ? { codeRepository: item.sourceUrl } : {}),
   url: new URL(`/work/${item.slug}/`, Astro.site ?? 'https://zavala.pro').toString(),
   author: { '@type': 'Person', name: 'Ricardo Zavala', url: 'https://zavala.pro/' },
   programmingLanguage: item.stack,
@@ -22,6 +24,16 @@ const projectSchema = {
 };
 
 const techArticleSchemas: Record<string, any> = {
+  'dealer-acquisition-system': {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: 'Dealer Acquisition System: Discovery, Qualification, Extraction, and Listing Liveness',
+    author: { '@type': 'Person', name: 'Ricardo Zavala', url: 'https://zavala.pro' },
+    datePublished: '2026-09-07',
+    dateModified: '2026-09-07',
+    articleSection: 'Acquisition Systems',
+    keywords: 'TypeScript, PostgreSQL, dealer discovery, web extraction, data pipelines, listing liveness'
+  },
   enroll: {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
@@ -61,6 +73,10 @@ const techArticleSchemas: Record<string, any> = {
 };
 
 const diagrams: Record<string, { src: string; caption: string }> = {
+  'dealer-acquisition-system': {
+    src: '/diagrams/dealer-acquisition-system.svg',
+    caption: 'Discovery, qualification, extraction, ingest, and the separate listing-liveness cadence.'
+  },
   enroll: {
     src: '/diagrams/enroll-concurrency-outbox.svg',
     caption: 'Architecture Flow: PostgreSQL row-level locks serialize capacity checks while the transactional outbox worker dispatches background events.'
@@ -111,16 +127,20 @@ const logos = getTechLogos(item.stack);
       {item.question && <p class="question">{item.question}</p>}
       <p class="lede">{item.description}</p>
       
-      <div class="action-links">
-        {item.liveUrl && (
-          <a class="btn-primary" href={item.liveUrl} target="_blank" rel="noopener noreferrer">
-            {item.liveLabel} <span aria-hidden="true">↗</span>
-          </a>
-        )}
-        <a class="btn-secondary" href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
-          Source Repository <span aria-hidden="true">↗</span>
-        </a>
-      </div>
+      {(item.liveUrl || item.sourceUrl) && (
+        <div class="action-links">
+          {item.liveUrl && (
+            <a class="btn-primary" href={item.liveUrl} target="_blank" rel="noopener noreferrer">
+              {item.liveLabel} <span aria-hidden="true">↗</span>
+            </a>
+          )}
+          {item.sourceUrl && (
+            <a class="btn-secondary" href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
+              Source Repository <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
+      )}
 
       <div class="spec-panel">
         {logos.length > 0 && (
@@ -153,8 +173,8 @@ const logos = getTechLogos(item.stack);
 
     {item.image && (
       <figure class="hero-preview">
-        <img src={item.image} alt={`${item.title} application preview`} width="1120" height="700" />
-        <figcaption>{item.plate ?? item.title} · Application capture</figcaption>
+        <img src={item.image} alt={item.imageCaption ?? `${item.title} application preview`} width="1120" height="700" />
+        <figcaption>{item.imageCaption ?? `${item.plate ?? item.title} · Application capture`}</figcaption>
       </figure>
     )}
 
@@ -186,9 +206,52 @@ const logos = getTechLogos(item.stack);
 
     <article class="article-content" id="engineering-notes">
       <div class="section-title-wrap">
-        <span class="eyebrow">Technical deep dive</span>
-        <h2>Architecture and engineering notes</h2>
+        <span class="eyebrow">Engineering notes</span>
+        <h2>Architecture and decisions</h2>
       </div>
+
+      {item.slug === 'dealer-acquisition-system' && (
+        <>
+          <h3>The acquisition problem</h3>
+          <p>Dealer inventory was spread across inconsistent websites and third-party marketplaces. Search results repeated the same businesses. Storefronts changed without notice, and published listings disappeared. The marketplace needed a repeatable path from discovery to a dealer call and from inventory extraction to a current catalog.</p>
+
+          <div class="acquisition-stages" aria-label="Acquisition pipeline stages">
+            <section>
+              <span>01</span>
+              <h3>Discover</h3>
+              <p>Expand industry and geography plans into dealer candidates. Normalize identity by source key and website origin, then preserve first-seen history.</p>
+            </section>
+            <section>
+              <span>02</span>
+              <h3>Qualify</h3>
+              <p>Check site access, inventory fit, storefront signals, financing context, and extraction viability in a fixed order.</p>
+            </section>
+            <section>
+              <span>03</span>
+              <h3>Extract</h3>
+              <p>Run dealer-site scrapers and marketplace adapters. Convert each source into one listing contract with source provenance intact.</p>
+            </section>
+            <section>
+              <span>04</span>
+              <h3>Publish and recheck</h3>
+              <p>Ingest an exact run into the marketplace. Revisit known listing URLs on a separate cadence and record availability changes.</p>
+            </section>
+          </div>
+
+          <h3>Qualification ends in a business action</h3>
+          <p>The qualifier returns call partner, call low priority, manual review, or drop. Reasons travel with the decision. Human corrections are stored as inputs, so the next run does not repeat a known mistake.</p>
+
+          <h3>Three runs at increasing scale</h3>
+          <p>I increased the scraper input across three runs and watched category distribution instead of treating a successful process exit as proof. A taxonomy correction held as volume increased: industrial categories gained share and the catch-all Other bucket declined.</p>
+
+          <h3>The contract failure</h3>
+          <p>Four applicant-risk fields disappeared at a repository boundary because three services carried separate copies of the same type. Every repository compiled. The payload was incomplete.</p>
+          <p>I replaced the duplicated boundary types with an explicit wire DTO and added contract assertions at the handoff. Local type safety stops at the repository edge. The shared payload now has an owner and an executable contract.</p>
+
+          <h3>What is public</h3>
+          <p>The system map and counts reflect the implementation. Dealer records, credentials, endpoints, and qualification thresholds stay private. The example records are fictional.</p>
+        </>
+      )}
 
       {item.slug === 'enroll' && (
         <>
@@ -242,7 +305,7 @@ const logos = getTechLogos(item.stack);
           <h3>Deterministic game logic and strategy analysis</h3>
           <p>The reducer is independent of the DOM, which keeps rule evaluation deterministic and testable. An integrated strategy evaluator compares player decisions with mathematically optimal play at runtime, tracking accuracy across hard totals, soft totals, pair splits, and surrender scenarios. I do not use the production-delivery test as a proxy for engine throughput.</p>
 
-          <h3>Measured production delivery—not a proxy for frame rate</h3>
+          <h3>Measured production delivery</h3>
           <p>I added a <a href="https://github.com/rzavala1989/blaqjaq/tree/master/performance" target="_blank" rel="noopener noreferrer">k6 production-load harness</a> with Grafana and InfluxDB to measure the deployed web-delivery path. In a 3 minute 5 second ramp to 500 concurrent virtual users, the live application completed 59,635 requests at 320.41 requests per second. Every response was HTTP 200; request failures were 0.00%; p95 latency was 62.18 ms and p99 latency was 100.63 ms.</p>
           <p>The harness records exact response-status counts alongside latency, throughput, virtual users, and failure rate. Those measurements demonstrate the delivery path under concurrency. They do not measure WebGL frame time, canvas stability, input latency, or the reducer's simulation throughput; those are separate benchmarks.</p>
 
@@ -611,6 +674,32 @@ const logos = getTechLogos(item.stack);
     border-radius: 4px;
   }
 
+  .acquisition-stages {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 3rem 0 4rem;
+    border-top: var(--border-hair);
+    border-left: var(--border-hair);
+  }
+  .acquisition-stages section {
+    padding: 1.5rem;
+    border-right: var(--border-hair);
+    border-bottom: var(--border-hair);
+  }
+  .acquisition-stages section > span {
+    color: var(--bronze);
+    font-family: var(--font-editorial);
+    font-size: 1.5rem;
+  }
+  .acquisition-stages h3 {
+    margin: 0.6rem 0 0.5rem;
+  }
+  .acquisition-stages p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
   .article-footer {
     display: flex;
     justify-content: space-between;
@@ -644,6 +733,9 @@ const logos = getTechLogos(item.stack);
     }
     .figjam-frame-wrap {
       aspect-ratio: 4 / 3;
+    }
+    .acquisition-stages {
+      grid-template-columns: 1fr;
     }
   }
 </style>
