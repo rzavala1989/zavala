@@ -289,7 +289,7 @@ import SectionDivider from './SectionDivider.astro';
         return 'middle';
       })
       .text((d: any) => d.id)
-      .attr('font-family', 'Satoshi, sans-serif')
+      .attr('font-family', 'var(--font-body)')
       .attr('font-size', (d: any) => {
         if (categories.has(d.id) || companies.has(d.id)) return '12px';
         return '9px';
