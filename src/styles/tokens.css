@@ -28,9 +28,9 @@
   --color-divider:   var(--rule);
   --color-muted:     var(--ink-3);
 
-  --font-heading: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-editorial: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --font-body:    "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "PP Mori", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-editorial: "PP Editorial New", Georgia, "Times New Roman", serif;
+  --font-body:    "PP Mori", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --fs-display:   clamp(2.8rem, 8vw, 5.5rem);
